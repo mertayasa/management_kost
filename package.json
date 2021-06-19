@@ -10,6 +10,7 @@
         "production": "mix --production"
     },
     "devDependencies": {
+        "@fortawesome/fontawesome-free": "^5.15.3",
         "axios": "^0.21",
         "bootstrap": "^4.6.0",
         "jquery": "^3.6",
@@ -19,6 +20,13 @@
         "postcss": "^8.1.14",
         "resolve-url-loader": "^4.0.0",
         "sass": "^1.32.11",
-        "sass-loader": "^11.0.1"
+        "sass-loader": "^11.0.1",
+        "select2": "^4.1.0-rc.0",
+        "sweetalert2": "^11.0.17"
+    },
+    "dependencies": {
+        "chart.js": "^3.3.2",
+        "jquery.nicescroll": "^3.7.6",
+        "toastr": "^2.1.4"
     }
 }

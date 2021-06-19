@@ -10,7 +10,12 @@ try {
     window.Popper = require('popper.js').default;
     window.$ = window.jQuery = require('jquery');
 
-    require('bootstrap');
+    require('bootstrap')
+    // require('datatables')
+    // require('datatables.net-bs4')
+    require('jquery.nicescroll')
+    require('select2')
+    // require('toastr')
 } catch (e) {}
 
 /**

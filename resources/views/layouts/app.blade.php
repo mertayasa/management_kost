@@ -39,14 +39,14 @@
     </div>
   </div>
 
-  <script src="{{asset('js/app.js')}}"></script>
+  <script src="{{asset('js/app.js')}}" ></script>
   <!-- General JS Scripts -->
-  <script src="{{asset('stisla-assets/js/stisla.js')}}"></script>
+  <script src="{{asset('stisla-assets/js/stisla.js')}}" async></script>
 
   <!-- Template JS File -->
-  <script src="{{asset('stisla-assets/js/scripts.js')}}"></script>
-  <script src="{{asset('stisla-assets/js/custom.js')}}"></script>
-  <script src="{{asset('stisla-assets/datatables/datatables.js')}}"></script>
+  <script src="{{asset('stisla-assets/js/scripts.js')}}" async></script>
+  <script src="{{asset('stisla-assets/js/custom.js')}}" async></script>
+  <script src="{{asset('stisla-assets/datatables/datatables.js')}}" ></script>
 
   <script>
     function deleteModel(deleteUrl, tableId){

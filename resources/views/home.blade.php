@@ -85,7 +85,7 @@
     </div>
 
     <div class="row">
-      <div class="col-8 col-md-12">
+      <div class="col-12 col-md-8">
         <div class="card">
           <div class="card-header">
             <h4>DataTables</h4>
@@ -94,7 +94,7 @@
             </div>
           </div>
           <div class="card-body p-4">
-            <div class="table-responsive table-invoice">
+            <div class=" ">
               <table class="table table-striped" id="productTable">
                 <thead>
                   <tr>
@@ -158,7 +158,7 @@
         </div>
       </div>
       
-      <div class="col-4 col-md-12">
+      <div class="col-12 col-md-4">
         <div class="card gradient-bottom">
           <div class="card-header">
             <h4>Top 5 Products</h4>

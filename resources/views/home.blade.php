@@ -53,31 +53,27 @@
       <div class="col-lg-12">
         <div class="card">
           <div class="card-header">
-            <div class="row col-12 align-items-center justify-content-between p-0">
-              <div class="col-6">
-                <h4>Grafik Order {{\Carbon\Carbon::now()->year}}</h4>
-              </div>
-              <div class="col-6 text-right">
-                  <div class="card-stats-title">
-                    <div class="dropdown d-inline">
-                      <a class="font-weight-600 btn btn-danger dropdown-toggle" data-toggle="dropdown" href="#" id="orders-month">Select Period</a>
-                      <ul class="dropdown-menu dropdown-menu-sm">
-                        <li class="dropdown-title">Select Month</li>
-                        <li><a href="#" class="dropdown-item">January</a></li>
-                        <li><a href="#" class="dropdown-item">February</a></li>
-                        <li><a href="#" class="dropdown-item">March</a></li>
-                        <li><a href="#" class="dropdown-item">April</a></li>
-                        <li><a href="#" class="dropdown-item">May</a></li>
-                        <li><a href="#" class="dropdown-item">June</a></li>
-                        <li><a href="#" class="dropdown-item">July</a></li>
-                        <li><a href="#" class="dropdown-item active">August</a></li>
-                        <li><a href="#" class="dropdown-item">September</a></li>
-                        <li><a href="#" class="dropdown-item">October</a></li>
-                        <li><a href="#" class="dropdown-item">November</a></li>
-                        <li><a href="#" class="dropdown-item">December</a></li>
-                      </ul>
-                    </div>
-                  </div>
+            <h4>Chart JS</h4>
+            <div class="card-header-action">
+              <div class="card-stats-title">
+                <div class="dropdown d-inline">
+                  <a class="font-weight-600 btn btn-danger dropdown-toggle" data-toggle="dropdown" href="#" id="orders-month">Select Period</a>
+                  <ul class="dropdown-menu dropdown-menu-sm">
+                    <li class="dropdown-title">Select Month</li>
+                    <li><a href="#" class="dropdown-item">January</a></li>
+                    <li><a href="#" class="dropdown-item">February</a></li>
+                    <li><a href="#" class="dropdown-item">March</a></li>
+                    <li><a href="#" class="dropdown-item">April</a></li>
+                    <li><a href="#" class="dropdown-item">May</a></li>
+                    <li><a href="#" class="dropdown-item">June</a></li>
+                    <li><a href="#" class="dropdown-item">July</a></li>
+                    <li><a href="#" class="dropdown-item active">August</a></li>
+                    <li><a href="#" class="dropdown-item">September</a></li>
+                    <li><a href="#" class="dropdown-item">October</a></li>
+                    <li><a href="#" class="dropdown-item">November</a></li>
+                    <li><a href="#" class="dropdown-item">December</a></li>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
@@ -89,7 +85,7 @@
     </div>
 
     <div class="row">
-      <div class="col-md-8">
+      <div class="col-12 col-md-8">
         <div class="card">
           <div class="card-header">
             <h4>DataTables</h4>
@@ -98,7 +94,7 @@
             </div>
           </div>
           <div class="card-body p-4">
-            <div class="table-responsive table-invoice">
+            <div class=" ">
               <table class="table table-striped" id="productTable">
                 <thead>
                   <tr>
@@ -162,7 +158,7 @@
         </div>
       </div>
       
-      <div class="col-lg-4">
+      <div class="col-12 col-md-4">
         <div class="card gradient-bottom">
           <div class="card-header">
             <h4>Top 5 Products</h4>

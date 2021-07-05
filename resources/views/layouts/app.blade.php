@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-  <title>Laundry</title>
+  <title>{{config('app.name')}}</title>
 
   <!-- Template CSS -->
   <link href="{{ asset('css/app.css') }}" rel="stylesheet">
   <link rel="stylesheet" href="{{asset('stisla-assets/css/components.css')}}">
   <link rel="stylesheet" href="{{asset('stisla-assets/css/style.css')}}">
-  <link rel="stylesheet" href="{{asset('stisla-assets/datatables/datatables.css')}}">
+  <link rel="stylesheet" href="{{asset('vendor/datatables/datatables.css')}}">
   @stack('styles')
 </head>
 
@@ -39,14 +39,8 @@
     </div>
   </div>
 
-  <script src="{{asset('js/app.js')}}"></script>
-  <!-- General JS Scripts -->
-  <script src="{{asset('stisla-assets/js/stisla.js')}}"></script>
-
-  <!-- Template JS File -->
-  <script src="{{asset('stisla-assets/js/scripts.js')}}"></script>
-  <script src="{{asset('stisla-assets/js/custom.js')}}"></script>
-  <script src="{{asset('stisla-assets/datatables/datatables.js')}}"></script>
+  <script src="{{asset('js/app.js')}}" ></script>
+  <script src="{{asset('vendor/datatables/datatables.js')}}" ></script>
 
   <script>
     function deleteModel(deleteUrl, tableId){

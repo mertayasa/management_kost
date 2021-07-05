@@ -214,7 +214,7 @@
                 </div>
               </li>
               <li class="media">
-                <img class="mr-3 rounded" width="55" src="{{asset('stisla-assets/img/products/product-1-50.png')}}" alt="product">
+                <img class="mr-3 rounded sample-lightbox" width="55" src="{{asset('stisla-assets/img/products/product-1-50.png')}}" alt="product">
                 <div class="media-body">
                   <div class="float-right"><div class="font-weight-600 text-muted text-small">63 Sales</div></div>
                   <div class="media-title">Headphone Blitz</div>
@@ -284,6 +284,7 @@
 
 @push('scripts')
     <script>
+
         $(function () {
             $('#productTable').DataTable({
                 processing: true,

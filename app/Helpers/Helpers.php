@@ -10,7 +10,7 @@ function formatPrice($value){
 
 function userRole(){
     // 3 User
-    $role_name = Auth::user()->level == 0 ? 'role1' : (Auth::user()->level == 1 ? 'role2' : 'role3');
+    // $role_name = Auth::user()->level == 0 ? 'role1' : (Auth::user()->level == 1 ? 'role2' : 'role3');
 
     // 2 user
     $role_name = Auth::user()->level == 0 ? 'role1' : 'role2';

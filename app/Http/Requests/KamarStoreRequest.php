@@ -24,11 +24,9 @@ class KamarStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'id_kost' => ['required', 'integer', 'gt:0'],
+            'id_kost' => ['required', 'integer'],
             'no_kamar' => ['required', 'string', 'max:10'],
             'harga' => ['required', 'integer'],
-            'harga' => ['required', 'integer'],
-            'no_kamar' => ['required', 'string', 'max:10'],
         ];
     }
 }

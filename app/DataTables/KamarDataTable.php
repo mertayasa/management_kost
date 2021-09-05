@@ -12,8 +12,11 @@ class KamarDataTable
     static public function set($kamar){
 
         return Datatables::of($kamar)
+            ->addColumn('nama_kost', function($kamar){
+                return $kamar->kost->nama;
+            })
             ->addColumn('action', function ($kamar) {
-                $deleteUrl = "'" . route('kamar.destroy', $kamar->id) . "', 'kamarDatatable'";
+                $deleteUrl = "'" . route('kamar.destroy', $kamar->id) . "', 'kamarDatatable', '".$kamar->no_kamar."'";
                 return
                     '<div class="btn-group">' .
                     '<a href="' . route('kamar.edit', $kamar->id) . '" class="btn btn-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit" style="margin-right: 5px" ><i class="menu-icon fa fa-pencil-alt"></i></a>' .

@@ -35,7 +35,7 @@ class Kamar extends Model
 
     public function kost()
     {
-        return $this->belongsTo(\App\Models\Kost::class);
+        return $this->belongsTo(\App\Models\Kost::class, 'id_kost');
     }
 
     public function sewa()

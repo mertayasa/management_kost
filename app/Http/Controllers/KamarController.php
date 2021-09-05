@@ -6,6 +6,7 @@ use App\DataTables\KamarDataTable;
 use App\Http\Requests\KamarStoreRequest;
 use App\Http\Requests\KamarUpdateRequest;
 use App\Models\Kamar;
+use App\Models\Kost;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -37,7 +38,8 @@ class KamarController extends Controller
      */
     public function create(Request $request)
     {
-        return view('kamar.create');
+        $kost = Kost::pluck('nama', 'id');
+        return view('kamar.create', compact('kost'));
     }
 
     /**
@@ -47,7 +49,8 @@ class KamarController extends Controller
      */
     public function edit(Request $request, Kamar $kamar)
     {
-        return view('kamar.edit', compact('kamar'));
+        $kost = Kost::pluck('nama', 'id');
+        return view('kamar.edit', compact('kamar', 'kost'));
     }
 
     /**
@@ -55,10 +58,15 @@ class KamarController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(KamarStoreRequest $request)
-    {
-        $kamar = Kamar::create($request->validated());
+    {   
+        try{
+            Kamar::create($request->validated());
+        }catch(Exception $e){
+            Log::info($e->getMessage());
+            return redirect()->back()->withInput()->with('success', 'Gagal menambahkan kamar baru');
+        }
 
-        return redirect()->route('kamar.index');
+        return redirect()->route('kamar.index')->with('success', 'Berhasil menambahkan kamar baru');
     }
 
     /**
@@ -67,10 +75,15 @@ class KamarController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(KamarUpdateRequest $request, Kamar $kamar)
-    {
-        $kamar->update($request->validated());
+    {   
+        try{
+            $kamar->update($request->validated());
+        }catch(Exception $e){
+            Log::info($e->getMessage());
+            return redirect()->back()->withInput()->with('success', 'Gagal menambahkan kamar baru');
+        }
 
-        return redirect()->route('kamar.index');
+        return redirect()->route('kamar.index')->with('success', 'Berhasil menambahkan kamar baru');
     }
 
     /**

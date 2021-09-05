@@ -39,7 +39,7 @@ Route::middleware(['auth'])->group(function () {
     });
 
     Route::group(['middleware' => 'role:first_role,second_role'], function () {
-
+        
     });
 
 });
@@ -89,3 +89,4 @@ Route::post('/reset-password', function (Request $request) {
                 ? redirect()->route('login')->with('status', __($status))
                 : back()->withErrors(['email' => [__($status)]]);
 })->middleware('guest')->name('password.update');
+

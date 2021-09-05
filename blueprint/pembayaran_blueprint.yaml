@@ -1,0 +1,38 @@
+models:
+  Pembayaran:
+    id_jenis_pembayaran: unsignedBigInteger foreign:jenis_pembayaran.id
+    id_penyewa: unsignedBigInteger foreign:penyewa.id
+    id_kamar: unsignedBigInteger foreign:kamar.id
+    jumlah: integer
+    tgl_pembayaran: date
+    status_validasi: tinyInteger default:0
+    relationships:
+      belongsTo: JenisPembayaran, Penyewa, Kamar
+      
+
+controllers:
+  Pembayaran:
+    index:
+      render: pembayaran.index
+    
+    datatable:
+      query: all
+
+    create:
+      render: pembayaran.create
+    
+    edit:
+      render: pembayaran.edit with:pembayaran
+
+    store:
+      validate: id_jenis_pembayaran, id_penyewa, id_kamar, jumlah, tgl_pembayaran
+      save: pembayaran
+      redirect: pembayaran.index
+    
+    update:
+      validate: id_jenis_pembayaran, id_penyewa, id_kamar, jumlah, tgl_pembayaran
+      update: pembayaran
+      redirect: pembayaran.index
+    
+    destroy:
+      delete: pembayaran

@@ -1,0 +1,38 @@
+models:
+  Penyewa:
+    nama: string:50
+    no_ktp: string:16
+    telpon: string:15
+    alamat: text
+    pekerjaan: text
+    status_validasi: tinyInteger default:0
+    relationships:
+      hasOne: Sewa
+      hasMany: Pembayaran
+      
+controllers:
+  Penyewa:
+    index:
+      render: penyewa.index with:penyewa
+    
+    datatable:
+      query: all
+
+    create:
+      render: penyewa.create
+    
+    edit:
+      render: penyewa.edit with:penyewa
+
+    store:
+      validate: nama, alamat, jumlah_kamar
+      save: penyewa
+      redirect: penyewa.index
+    
+    update:
+      validate: nama, alamat, jumlah_kamar
+      update: penyewa
+      redirect: penyewa.index
+    
+    destroy:
+      delete: penyewa

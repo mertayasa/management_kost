@@ -1,0 +1,37 @@
+models:
+  Pengeluaran:
+    id_jenis_pengeluaran: unsignedBigInteger foreign:jenis_pengeluaran.id
+    jumlah: integer
+    tgl_pengeluaran: date
+    keterangan: text
+    status_validasi: tinyInteger default:0
+    relationships:
+      belongsTo: JenisPengeluaran
+      
+
+controllers:
+  Pengeluaran:
+    index:
+      render: pengeluaran.index
+    
+    datatable:
+      query: all
+
+    create:
+      render: pengeluaran.create
+    
+    edit:
+      render: pengeluaran.edit with:pengeluaran
+
+    store:
+      validate: id_jenis_pengeluaran, tgl_pengeluaran, keterangan, jumlah
+      save: pengeluaran
+      redirect: pengeluaran.index
+    
+    update:
+      validate: id_jenis_pengeluaran, tgl_pengeluaran, keterangan, jumlah
+      update: pengeluaran
+      redirect: pengeluaran.index
+    
+    destroy:
+      delete: pengeluaran

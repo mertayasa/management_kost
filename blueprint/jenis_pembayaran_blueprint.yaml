@@ -1,0 +1,32 @@
+models:
+  JenisPembayaran:
+    jenis_pembayaran: string:50
+    relationships:
+      hasMany: Pembayaran
+
+controllers:
+  JenisPembayaran:
+    index:
+      render: jenis_pembayaran.index
+    
+    datatable:
+      query: all
+
+    create:
+      render: jenis_pembayaran.create
+    
+    edit:
+      render: jenis_pembayaran.edit with:jenis_pembayaran
+
+    store:
+      validate: jenis_pembayaran
+      save: jenis_pembayaran
+      redirect: jenis_pembayaran.index
+    
+    update:
+      validate: jenis_pembayaran
+      update: jenis_pembayaran
+      redirect: jenis_pembayaran.index
+    
+    destroy:
+      delete: jenis_pembayaran

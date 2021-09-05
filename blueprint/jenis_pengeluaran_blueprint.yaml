@@ -1,0 +1,32 @@
+models:
+  JenisPengeluaran:
+    jenis_pengeluaran: string:50
+    relationships:
+      hasMany: Pengeluaran
+
+controllers:
+  JenisPengeluaran:
+    index:
+      render: jenis_pengeluaran.index
+    
+    datatable:
+      query: all
+
+    create:
+      render: jenis_pengeluaran.create
+    
+    edit:
+      render: jenis_pengeluaran.edit with:jenis_pengeluaran
+
+    store:
+      validate: jenis_pengeluaran
+      save: jenis_pengeluaran
+      redirect: jenis_pengeluaran.index
+    
+    update:
+      validate: jenis_pengeluaran
+      update: jenis_pengeluaran
+      redirect: jenis_pengeluaran.index
+    
+    destroy:
+      delete: jenis_pengeluaran

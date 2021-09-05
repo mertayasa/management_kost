@@ -13,18 +13,20 @@ class UserSeeder extends Seeder{
     public function run(){
         $faker = Faker::create('id_ID');
         $admin = [
-            'name' => 'Admin',
+            'nama' => 'Admin',
             'email' => 'admin@demo.com',
-            // 'phone' => $faker->phoneNumber(),
-            // 'date_of_birth' => $faker->dateTimeBetween(Carbon::now()->subYear(30), Carbon::now()->subYear(18)),
-            // 'active_status' => 1,
-            // 'address' => $faker->address(),
+            'telpon' => $faker->e164PhoneNumber(),
+            'tanggal_lahir' => $faker->dateTimeBetween(Carbon::now()->subYear(30), Carbon::now()->subYear(18)),
+            'tempat_lahir' => $faker->city(),
+            'alamat' => $faker->address(),
             'level' => 0,
-            // 'gender' => rand(0,1),
-            // 'photo' => 'blank_user.png',
+            'kelamin' => rand(0,1),
+            'no_ktp' => '510501'.rand(01,30).'05'.rand(50,98).'0001',
             'email_verified_at' => now(),
             'password' => bcrypt('asdasdasd'), // password
             'remember_token' => Str::random(10),
+            // 'photo' => 'blank_user.png',
+            // 'active_status' => 1,
         ];
 
         User::updateOrCreate(['email' => $admin['email']], $admin);

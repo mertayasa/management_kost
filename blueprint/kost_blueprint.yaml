@@ -1,0 +1,35 @@
+models:
+  Kost:
+    nama: string:50
+    alamat: text
+    jumlah_kamar: integer
+    relationships:
+      hasMany: Kamar
+
+controllers:
+  Kost:
+    index:
+      query: all
+      render: kost.index with:kost
+    
+    datatable:
+      query: all
+
+    create:
+      render: kost.create
+    
+    edit:
+      render: kost.edit with:kost
+
+    store:
+      validate: nama, alamat, jumlah_kamar
+      save: kost
+      redirect: kost.index
+    
+    update:
+      validate: nama, alamat, jumlah_kamar
+      update: kost
+      redirect: kost.index
+    
+    destroy:
+      delete: kost

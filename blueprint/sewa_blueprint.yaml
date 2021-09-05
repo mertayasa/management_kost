@@ -1,0 +1,36 @@
+models:
+  Sewa:
+    id_kamar: unsignedBigInteger foreign:kamar.id
+    id_penyewa: unsignedBigInteger foreign:penyewa.id
+    tgl_masuk: date
+    tgl_keluar: date
+    relationships:
+      belongsTo: Kamar, Penyewa
+      
+
+controllers:
+  Sewa:
+    index:
+      render: sewa.index
+    
+    datatable:
+      query: all
+
+    create:
+      render: sewa.create
+    
+    edit:
+      render: sewa.edit with:sewa
+
+    store:
+      validate: id_kamar, id_penyewa, tgl_masuk, tgl_keluar
+      save: sewa
+      redirect: sewa.index
+    
+    update:
+      validate: id_kamar, id_penyewa, tgl_masuk, tgl_keluar
+      update: sewa
+      redirect: sewa.index
+    
+    destroy:
+      delete: sewa

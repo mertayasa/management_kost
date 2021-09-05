@@ -1,0 +1,35 @@
+models:
+  Kamar:
+    id_kost: unsignedBigInteger foreign:kost.id
+    no_kamar: string:10
+    harga: integer
+    relationships:
+      belongsTo: Kost
+      hasMany: Sewa, Pembayaran
+
+controllers:
+  Kamar:
+    index:
+      render: kamar.index
+    
+    datatable:
+      query: all
+
+    create:
+      render: kamar.create
+    
+    edit:
+      render: kamar.edit with:kamar
+
+    store:
+      validate: id_kamar, harga, no_kamar
+      save: kamar
+      redirect: kamar.index
+    
+    update:
+      validate: id_kamar, harga, no_kamar
+      update: kamar
+      redirect: kamar.index
+    
+    destroy:
+      delete: kamar

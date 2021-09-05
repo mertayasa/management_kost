@@ -1,0 +1,22 @@
+created:
+    - app/Http/Controllers/PengeluaranController.php
+    - database/factories/PengeluaranFactory.php
+    - database/migrations/2021_09_05_075929_create_pengeluarans_table.php
+    - app/Models/Pengeluaran.php
+    - tests/Feature/Http/Controllers/PengeluaranControllerTest.php
+    - app/Http/Requests/PengeluaranStoreRequest.php
+    - app/Http/Requests/PengeluaranUpdateRequest.php
+    - resources/views/pengeluaran/index.blade.php
+    - resources/views/pengeluaran/create.blade.php
+    - resources/views/pengeluaran/edit.blade.php
+updated:
+    - routes/web.php
+models:
+    Kost: { nama: 'string:50', alamat: text, jumlah_kamar: integer, relationships: { hasMany: Kamar } }
+    Kamar: { id_kost: 'unsignedBigInteger foreign:kost.id', no_kamar: 'string:10', harga: integer, relationships: { belongsTo: Kost, hasMany: 'Sewa, Pembayaran' } }
+    Penyewa: { nama: 'string:50', no_ktp: 'string:16', telpon: 'string:15', alamat: text, pekerjaan: text, status_validasi: 'tinyInteger default:0', relationships: { hasOne: Sewa, hasMany: Pembayaran } }
+    Sewa: { id_kamar: 'unsignedBigInteger foreign:kamar.id', id_penyewa: 'unsignedBigInteger foreign:penyewa.id', tgl_masuk: date, tgl_keluar: date, relationships: { belongsTo: 'Kamar, Penyewa' } }
+    Pembayaran: { id_jenis_pembayaran: 'unsignedBigInteger foreign:jenis_pembayaran.id', id_penyewa: 'unsignedBigInteger foreign:penyewa.id', id_kamar: 'unsignedBigInteger foreign:kamar.id', jumlah: integer, tgl_pembayaran: date, status_validasi: 'tinyInteger default:0', relationships: { belongsTo: 'JenisPembayaran, Penyewa, Kamar' } }
+    Pengeluaran: { id_jenis_pengeluaran: 'unsignedBigInteger foreign:jenis_pengeluaran.id', jumlah: integer, tgl_pengeluaran: date, keterangan: text, status_validasi: 'tinyInteger default:0', relationships: { belongsTo: JenisPengeluaran } }
+    JenisPengeluaran: { jenis_pengeluaran: 'string:50', relationships: { hasMany: Pengeluaran } }
+    JenisPembayaran: { jenis_pembayaran: 'string:50', relationships: { hasMany: Pembayaran } }

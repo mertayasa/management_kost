@@ -57,9 +57,14 @@ class KostController extends Controller
      */
     public function store(KostStoreRequest $request)
     {
-        $kost = Kost::create($request->validated());
+        try{
+            Kost::create($request->validated());
+        }catch(Exception $e){
+            Log::info($e->getMessage());
+            return redirect()->back()->withInput()->with('success', 'Gagal menambahkan kost baru');
+        }
 
-        return redirect()->route('kost.index');
+        return redirect()->route('kost.index')->with('success', 'Berhasil menambahkan kost baru');
     }
 
     /**
@@ -69,9 +74,15 @@ class KostController extends Controller
      */
     public function update(KostUpdateRequest $request, Kost $kost)
     {
-        $kost->update($request->validated());
+        
+        try{
+            $kost->update($request->validated());
+        }catch(Exception $e){
+            Log::info($e->getMessage());
+            return redirect()->back()->withInput()->with('success', 'Gagal mengubah kost '.$kost->name);
+        }
 
-        return redirect()->route('kost.index');
+        return redirect()->route('kost.index')->with('success', 'Berhasil mengubah kost '.$kost->name);
     }
 
     /**

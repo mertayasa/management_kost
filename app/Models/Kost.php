@@ -19,7 +19,7 @@ class Kost extends Model
     protected $fillable = [
         'nama',
         'alamat',
-        'jumlah_kamar',
+        // 'jumlah_kamar',
     ];
 
     /**
@@ -34,6 +34,10 @@ class Kost extends Model
 
     public function kamar()
     {
-        return $this->hasMany(\App\Models\Kamar::class);
+        return $this->hasMany(\App\Models\Kamar::class, 'id_kost');
+    }
+
+    public function getJumlahKamarAttribute(){
+        return $this->kamar->count();
     }
 }

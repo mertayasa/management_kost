@@ -52,10 +52,10 @@
     //     preloader.classList.add('d-none-custom')
     // }, 500);
 
-    function deleteModel(deleteUrl, tableId){
+    function deleteModel(deleteUrl, tableId, target = ''){
         Swal.fire({
             title: "Warning",
-            text: "Yakin menghapus data karyawan?",
+            text: `Yakin menghapus data ${target}? Proses ini tidak dapat diulang`,
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#169b6b',

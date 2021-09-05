@@ -25,8 +25,8 @@ class KostUpdateRequest extends FormRequest
     {
         return [
             'nama' => ['required', 'string', 'max:50'],
-            'alamat' => ['required', 'string'],
-            'jumlah_kamar' => ['required', 'integer'],
+            'alamat' => ['required', 'string', 'max:100'],
+            // 'jumlah_kamar' => ['required', 'integer', 'min:1'],
         ];
     }
 }

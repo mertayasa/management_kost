@@ -7,14 +7,14 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Request;
 use Yajra\DataTables\DataTables;
 
-class KostDataTable
-{
-    static public function set($kost)
-    {
-        // 
+class KostDataTable{
+    static public function set($kost){
         return Datatables::of($kost)
+            ->addColumn('jumlah_kamar', function($kost){
+                return $kost->jumlah_kamar;
+            })
             ->addColumn('action', function ($kost) {
-                $deleteUrl = "'" . route('kost.destroy', $kost->id) . "', 'kostDatatable'";
+                $deleteUrl = "'" . route('kost.destroy', $kost->id) . "', 'kostDatatable', '".$kost->nama."'";
                 return
                     '<div class="btn-group">' .
                     '<a href="' . route('kost.edit', $kost->id) . '" class="btn btn-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit" style="margin-right: 5px" ><i class="menu-icon fa fa-pencil-alt"></i></a>' .

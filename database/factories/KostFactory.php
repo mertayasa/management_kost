@@ -25,7 +25,7 @@ class KostFactory extends Factory
         return [
             'nama' => 'Kost '.$this->faker->firstName,
             'alamat' => $this->faker->address,
-            'jumlah_kamar' => $this->faker->numberBetween(4, 10),
+            // 'jumlah_kamar' => $this->faker->numberBetween(4, 10),
         ];
     }
 }

@@ -43,7 +43,7 @@ Route::middleware(['auth'])->group(function () {
     });
     
     Route::group(['prefix' => 'dashboard', 'as' => 'dashboard.'], function () {
-        Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+        Route::get('/', [DashboardController::class, 'index'])->name('index');
     });
 
     Route::group(['prefix' => 'kost', 'as' => 'kost.'], function () {
@@ -74,7 +74,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('datatable', [KamarController::class, 'datatable'])->name('datatable');
     });
 
-    Route::group(['prefix' => 'jenis_pembayaran', 'as' => 'jenis_pembayaran.'], function () {
+    Route::group(['prefix' => 'jenis-pembayaran', 'as' => 'jenis_pembayaran.'], function () {
         Route::get('/', [JenisPembayaranController::class, 'index'])->name('index');
 
         Route::group(['middleware' => 'role:admin'], function () {
@@ -88,7 +88,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('datatable', [JenisPembayaranController::class, 'datatable'])->name('datatable');
     });
 
-    Route::group(['prefix' => 'jenis_pengeluaran', 'as' => 'jenis_pengeluaran.'], function () {
+    Route::group(['prefix' => 'jenis-pengeluaran', 'as' => 'jenis_pengeluaran.'], function () {
         Route::get('/', [JenisPengeluaranController::class, 'index'])->name('index');
 
         Route::group(['middleware' => 'role:admin'], function () {

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 use App\Models\JenisPengeluaran;
 use App\Models\Pengeluaran;
+use Carbon\Carbon;
 
 class PengeluaranFactory extends Factory
 {
@@ -24,11 +25,11 @@ class PengeluaranFactory extends Factory
     public function definition()
     {
         return [
-            'id_jenis_pengeluaran' => JenisPengeluaran::factory(),
-            'jumlah' => $this->faker->numberBetween(-10000, 10000),
-            'tgl_pengeluaran' => $this->faker->date(),
+            'id_jenis_pengeluaran' => JenisPengeluaran::inRandomOrder()->first()->id,
+            'jumlah' => $this->faker->numberBetween(100000, 535000),
+            'tgl_pengeluaran' => $this->faker->dateTimeBetween(Carbon::now()->subMonth(2), Carbon::now()),
             'keterangan' => $this->faker->text,
-            'status_validasi' => $this->faker->numberBetween(-8, 8),
+            'status_validasi' => 1,
         ];
     }
 }

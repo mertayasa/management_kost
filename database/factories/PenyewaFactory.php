@@ -8,27 +8,16 @@ use App\Models\Penyewa;
 
 class PenyewaFactory extends Factory
 {
-    /**
-     * The name of the factory's corresponding model.
-     *
-     * @var string
-     */
     protected $model = Penyewa::class;
 
-    /**
-     * Define the model's default state.
-     *
-     * @return array
-     */
-    public function definition()
-    {
+    public function definition(){
         return [
-            'nama' => $this->faker->regexify('[A-Za-z0-9]{50}'),
-            'no_ktp' => $this->faker->regexify('[A-Za-z0-9]{16}'),
-            'telpon' => $this->faker->regexify('[A-Za-z0-9]{15}'),
-            'alamat' => $this->faker->text,
-            'pekerjaan' => $this->faker->text,
-            'status_validasi' => $this->faker->numberBetween(-8, 8),
+            'nama' => $this->faker->name(),
+            'no_ktp' => '510501'.rand(01,30).'05'.rand(50,98).'0001',
+            'telpon' => $this->faker->e164PhoneNumber(),
+            'alamat' => $this->faker->address,
+            'pekerjaan' => $this->faker->jobTitle,
+            'status_validasi' => 1,
         ];
     }
 }

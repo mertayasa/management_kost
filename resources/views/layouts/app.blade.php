@@ -39,10 +39,19 @@
     </div>
   </div>
 
+  {{-- <div id="preloader"></div> --}}
+
   <script src="{{asset('js/app.js')}}" ></script>
   <script src="{{asset('plugin/datatables/datatables.js')}}" ></script>
 
   <script>
+    // const preloader = document.getElementById('preloader')
+    // preloader.classList.remove('d-none-custom')
+
+    // setTimeout(function() {
+    //     preloader.classList.add('d-none-custom')
+    // }, 500);
+
     function deleteModel(deleteUrl, tableId){
         Swal.fire({
             title: "Warning",

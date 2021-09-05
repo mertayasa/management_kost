@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Request;
 
 function formatPrice($value){
     return 'Rp '. number_format($value,0,',','.');
@@ -54,4 +55,8 @@ function uploadFile($base_64_foto){
     }
 
     return $safeName;
+}
+
+function isActive($param){
+    return Request::is($param) ? 'active' : '';
 }

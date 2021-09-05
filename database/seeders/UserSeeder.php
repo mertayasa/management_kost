@@ -21,7 +21,7 @@ class UserSeeder extends Seeder{
             'alamat' => $faker->address(),
             'level' => 0,
             'kelamin' => rand(0,1),
-            'no_ktp' => '510501'.rand(01,30).'05'.rand(50,98).'0001',
+            'no_ktp' => '510501'.rand(01,30).'05'.rand(10,98).'0001',
             'email_verified_at' => now(),
             'password' => bcrypt('asdasdasd'), // password
             'remember_token' => Str::random(10),

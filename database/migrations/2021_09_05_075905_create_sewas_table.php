@@ -20,7 +20,7 @@ class CreateSewasTable extends Migration
             $table->unsignedBigInteger('id_kamar');
             $table->unsignedBigInteger('id_penyewa');
             $table->date('tgl_masuk');
-            $table->date('tgl_keluar');
+            $table->date('tgl_keluar')->nullable();
             $table->timestamps();
 
             

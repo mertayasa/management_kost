@@ -23,9 +23,9 @@ class KostFactory extends Factory
     public function definition()
     {
         return [
-            'nama' => $this->faker->regexify('[A-Za-z0-9]{50}'),
-            'alamat' => $this->faker->text,
-            'jumlah_kamar' => $this->faker->numberBetween(-10000, 10000),
+            'nama' => 'Kost '.$this->faker->firstName,
+            'alamat' => $this->faker->address,
+            'jumlah_kamar' => $this->faker->numberBetween(4, 10),
         ];
     }
 }

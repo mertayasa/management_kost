@@ -38,6 +38,7 @@
         "filepond-plugin-image-validate-size": "^1.2.6",
         "jquery.nicescroll": "^3.7.6",
         "lightbox2": "^2.11.3",
+        "tinymce": "^5.9.1",
         "toastr": "^2.1.4"
     }
 }

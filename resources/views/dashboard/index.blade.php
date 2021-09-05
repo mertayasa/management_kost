@@ -1,5 +1,25 @@
 @extends('layouts.app')
 
+@push('styles')
+  <style>
+    .filepond--root{
+        margin-bottom: 0px !important;
+    }
+
+    @media (min-width: 768px) and (max-width: 991.98px) {
+        .filepond--item {
+            width: calc(50% - 0.5em);
+        }
+    }
+
+    @media (min-width: 992px) {
+        .filepond--item {
+            width: calc(33.33% - 0.5em);
+        }
+    }
+  </style>
+@endpush
+
 @section('content')
 <section class="section">
     <div class="row">
@@ -275,6 +295,22 @@
         </div>
       </div>
     </div>
+
+    <div class="row mt-3">
+      <div class="col-12">
+          {!! Form::label('filePondMulti', 'Multiple Upload', ['class' => 'mb-1']) !!}
+          {!! Form::file('filepond[]', ['class' => 'd-block filepond', 'id' => 'filePondMulti', 'multiple', 'data-max-files' => '3', 'data-allow-reorder' => true]) !!}
+          <span class="text-danger d-none" id="filePondError"></span>
+      </div>
+    </div>
+
+    <div class="row mt-3">
+        <div class="col-12">
+            {!! Form::label('tinyMceContent', 'Tiny MCE', ['class' => 'mb-1']) !!}
+            {!! Form::textarea('tiny_mce', null, ['class' => 'form-control', 'id' => 'tinyMceContent']) !!}
+        </div>
+    </div>
+
 </section>
 @endsection
 
@@ -354,6 +390,183 @@
             data: data,
             options: options
         });
+
+        const tinyMce = tinymce.init({
+            selector: '#tinyMceContent',
+            height: "850",
+            images_upload_url: "{!! url('tiny-image-upload') !!}",
+            relative_urls: false,
+            remove_script_host: false,
+            convert_urls: true,
+            plugins: 'preview paste autolink fullscreen image link media table anchor insertdatetime advlist lists wordcount',
+            toolbar: 'undo redo | bold italic strikethrough underline numlist bullist removeformat | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | copy paste cut selectall | image | preview',
+            image_title: true,
+            automatic_uploads: true,
+            file_picker_types: 'image',
+            content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px; line-height: 0.5;}'
+        });
+
+        function storeTinyAndForm(submitBtn) {
+            let text = tinyMCE.get('articleContent').getContent();
+            window.localStorage.setItem('summaryTextArea', text);
+            submitBtn.setAttribute('type', 'submit')
+            submitBtn.click()
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            FilePond.registerPlugin(
+                FilePondPluginFileEncode,
+                FilePondPluginFileValidateSize,
+                FilePondPluginFileValidateType,
+                FilePondPluginImageExifOrientation,
+                FilePondPluginImagePreview
+            );
+
+            let options
+            let imageUrl
+            const url = window.location
+            const filePondError = document.getElementById('filePondError')
+
+            if (window.location.href.indexOf("dashboard") > -1) {
+                options = {
+                    labelIdle: 'Drag & drop gambar atau <span class="filepond--label-action">cari di file manager</span>',
+                    acceptedFileTypes: ['image/png', 'image/jng', 'image/jpeg'],
+                    maxFileSize: '500KB',
+                    server: {
+                        revert: (uniqueFileId, load, error) => {
+                            let removeDoubleQuote = uniqueFileId.replace(/\\"/g, "|");
+                            fetch("{{url('filepond-image-delete')}}" + '/' + removeDoubleQuote.split('/')[0], {
+                                method: 'DELETE',
+                            })
+                            .then(res => res.json()) // or res.json()
+                            .then(res => console.log(res))
+                            .catch(err => {
+                                error('oh my goodness');
+                            })
+
+                            load();
+                        },
+                        process: (fieldName, file, metadata, load, error, progress, abort, transfer, options) => {
+                            // fieldName is the name of the input field
+                            // file is the actual file object to send
+                            const formData = new FormData();
+                            formData.append(fieldName, file, file.name);
+                        
+                            const request = new XMLHttpRequest();
+                            request.open('POST', "{{ url('filepond-image-upload') }}");
+                        
+                            // Should call the progress method to update the progress to 100% before calling load
+                            // Setting computable to false switches the loading indicator to infinite mode
+                            request.upload.onprogress = (e) => {
+                                progress(e.lengthComputable, e.loaded, e.total);
+                            };
+                        
+                            // Should call the load method when done and pass the returned server file id
+                            // this server file id is then used later on when reverting or restoring a file
+                            // so your server knows which file to return without exposing that info to the client
+                            request.onload = function () {
+                                if (request.status >= 200 && request.status < 300) {
+                                    // the load method accepts either a string (id) or an object
+                                    load(request.responseText); 
+                                }else{ 
+                                    // Can call the error method if something is wrong, should exit after
+                                    filePondError.innerHTML = `Gagal mengupload gambar ${request.responseText}`
+                                }
+
+                            }; 
+                            
+                            request.send(formData); // Should expose an abort method so the request can be cancelled
+                            return { 
+                                abort: ()=> {
+                                    // This function is entered if the user has tapped the cancel button
+                                    request.abort();
+                                    // Let FilePond know the request has been cancelled
+                                    abort();
+                                },
+                            };
+                        },
+                    }
+                }   
+            }else{
+                imageUrl = <?= json_encode($article->all_image ?? '', true) ?>
+
+                let image_array = []
+
+                for (let i = 0; i < imageUrl.length; i++) { 
+                    image_array.push({
+                            source: imageUrl[i],
+                            options:{
+                                type: 'remote'
+                            }
+                        })
+                }
+                
+                options = {
+                    acceptedFileTypes: ['image/png', 'image/jng', 'image/jpeg'],
+                    maxFileSize: '500KB',
+                    labelIdle: 'Drag & drop gambar atau <span class="filepond--label-action">cari di file manager</span>',
+                    files: image_array,
+                    server: {
+                        revert: (uniqueFileId, load, error) => {
+                            let removeDoubleQuote = uniqueFileId.replace(/\\"/g, "|");
+                            fetch("{{url('filepond-image-delete')}}" + '/' + removeDoubleQuote.split('/')[0], {
+                                method: 'DELETE',
+                            })
+                            .then(res => res.json()) // or res.json()
+                            .then(res => console.log(res))
+                            .catch(err => {
+                                error('oh my goodness');
+                            })
+
+                            load();
+                        },
+                        process: (fieldName, file, metadata, load, error, progress, abort, transfer, options) => {
+                            const formData = new FormData();
+                            formData.append(fieldName, file, file.name);
+                        
+                            const request = new XMLHttpRequest();
+                            request.open('POST', "{{ url('filepond-image-upload') }}");
+                            
+                            request.upload.onprogress = (e) => {
+                                progress(e.lengthComputable, e.loaded, e.total);
+                            };
+
+                            request.onload = function () {
+                                if (request.status >= 200 && request.status < 300) {
+                                    // the load method accepts either a string (id) or an object
+                                    load(request.responseText); 
+                                }else{ 
+                                    // Can call the error method if something is wrong, should exit after
+                                    filePondError.innerHTML = `Gagal mengupload gambar ${request.responseText}`
+                                }
+
+                            }; 
+                            
+                            request.send(formData); // Should expose an abort method so the request can be cancelled
+                            return { 
+                                abort: ()=> {
+                                    // This function is entered if the user has tapped the cancel button
+                                    request.abort();
+                                    // Let FilePond know the request has been cancelled
+                                    abort();
+                                },
+                            };
+                        },
+                    }
+                }
+            }
+
+            const filePond = FilePond.create(
+                document.getElementById('filepondMulti'), options
+            );
+
+            filePond.on('warning', (error) => {
+                filePondError.classList.remove('d-none')
+                if (error.body == 'Max files') {
+                    filePondError.innerHTML = 'Maksimal 3 gambar'
+                }
+            });
+        })
 
     </script>
 @endpush

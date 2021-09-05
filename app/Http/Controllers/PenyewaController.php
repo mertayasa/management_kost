@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\PenyewaDataTable;
 use App\Http\Requests\PenyewaStoreRequest;
 use App\Http\Requests\PenyewaUpdateRequest;
 use App\Models\Penyewa;
@@ -25,6 +26,8 @@ class PenyewaController extends Controller
     public function datatable(Request $request)
     {
         $penyewas = Penyewa::all();
+
+        return PenyewaDataTable::set($penyewas);
     }
 
     /**

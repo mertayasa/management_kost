@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\KostDataTable;
 use App\Http\Requests\KostStoreRequest;
 use App\Http\Requests\KostUpdateRequest;
 use App\Models\Kost;
@@ -15,9 +16,7 @@ class KostController extends Controller
      */
     public function index(Request $request)
     {
-        $kosts = Kost::all();
-
-        return view('kost.index', compact('kost'));
+        return view('kost.index');
     }
 
     /**
@@ -27,6 +26,8 @@ class KostController extends Controller
     public function datatable(Request $request)
     {
         $kosts = Kost::all();
+
+        return KostDataTable::set($kosts);
     }
 
     /**

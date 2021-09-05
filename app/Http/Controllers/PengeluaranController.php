@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\PengeluaranDataTable;
 use App\Http\Requests\PengeluaranStoreRequest;
 use App\Http\Requests\PengeluaranUpdateRequest;
 use App\Models\Pengeluaran;
@@ -25,6 +26,8 @@ class PengeluaranController extends Controller
     public function datatable(Request $request)
     {
         $pengeluarans = Pengeluaran::all();
+
+        return PengeluaranDataTable::set($pengeluarans);
     }
 
     /**

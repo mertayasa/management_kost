@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\SewaDataTable;
 use App\Http\Requests\SewaStoreRequest;
 use App\Http\Requests\SewaUpdateRequest;
 use App\Models\Sewa;
@@ -25,6 +26,8 @@ class SewaController extends Controller
     public function datatable(Request $request)
     {
         $sewas = Sewa::all();
+
+        return SewaDataTable::set($sewas);
     }
 
     /**

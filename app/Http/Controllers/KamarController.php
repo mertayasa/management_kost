@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\KamarDataTable;
 use App\Http\Requests\KamarStoreRequest;
 use App\Http\Requests\KamarUpdateRequest;
 use App\Models\Kamar;
@@ -25,6 +26,7 @@ class KamarController extends Controller
     public function datatable(Request $request)
     {
         $kamars = Kamar::all();
+        return KamarDataTable::set($kamars);
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\JenisPembayaranDataTable;
 use App\Http\Requests\JenisPembayaranStoreRequest;
 use App\Http\Requests\JenisPembayaranUpdateRequest;
 use App\Models\JenisPembayaran;
@@ -25,6 +26,8 @@ class JenisPembayaranController extends Controller
     public function datatable(Request $request)
     {
         $jenisPembayarans = JenisPembayaran::all();
+
+        return JenisPembayaranDataTable::set($jenisPembayarans);
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\PembayaranDataTable;
 use App\Http\Requests\PembayaranStoreRequest;
 use App\Http\Requests\PembayaranUpdateRequest;
 use App\Models\Pembayaran;
@@ -25,6 +26,8 @@ class PembayaranController extends Controller
     public function datatable(Request $request)
     {
         $pembayarans = Pembayaran::all();
+
+        return PembayaranDataTable::set($pembayarans);
     }
 
     /**

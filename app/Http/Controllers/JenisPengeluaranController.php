@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\JenisPengeluaranDataTable;
 use App\Http\Requests\JenisPengeluaranStoreRequest;
 use App\Http\Requests\JenisPengeluaranUpdateRequest;
 use App\Models\JenisPengeluaran;
@@ -25,6 +26,7 @@ class JenisPengeluaranController extends Controller
     public function datatable(Request $request)
     {
         $jenisPengeluarans = JenisPengeluaran::all();
+        return JenisPengeluaranDataTable::set($jenisPengeluarans);
     }
 
     /**

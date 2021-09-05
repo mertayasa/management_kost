@@ -6,7 +6,9 @@ use App\DataTables\PengeluaranDataTable;
 use App\Http\Requests\PengeluaranStoreRequest;
 use App\Http\Requests\PengeluaranUpdateRequest;
 use App\Models\Pengeluaran;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class PengeluaranController extends Controller
 {
@@ -79,6 +81,13 @@ class PengeluaranController extends Controller
      */
     public function destroy(Request $request, Pengeluaran $pengeluaran)
     {
-        $pengeluaran->delete();
+        try {
+            $pengeluaran->delete();
+        } catch (Exception $e) {
+            Log::info($e->getMessage());
+            return response(['code' => 0, 'message' => 'Gagal menghapus data pengeluaran']);
+        }
+
+        return response(['code' => 1, 'message' => 'Berhasil menghapus data pengeluaran']);
     }
 }

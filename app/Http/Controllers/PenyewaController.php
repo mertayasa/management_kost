@@ -6,7 +6,9 @@ use App\DataTables\PenyewaDataTable;
 use App\Http\Requests\PenyewaStoreRequest;
 use App\Http\Requests\PenyewaUpdateRequest;
 use App\Models\Penyewa;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class PenyewaController extends Controller
 {
@@ -79,6 +81,13 @@ class PenyewaController extends Controller
      */
     public function destroy(Request $request, Penyewa $penyewa)
     {
-        $penyewa->delete();
+        try {
+            $penyewa->delete();
+        } catch (Exception $e) {
+            Log::info($e->getMessage());
+            return response(['code' => 0, 'message' => 'Gagal menghapus data penyewa']);
+        }
+
+        return response(['code' => 1, 'message' => 'Berhasil menghapus data penyewa']);
     }
 }

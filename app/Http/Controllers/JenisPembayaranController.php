@@ -6,7 +6,9 @@ use App\DataTables\JenisPembayaranDataTable;
 use App\Http\Requests\JenisPembayaranStoreRequest;
 use App\Http\Requests\JenisPembayaranUpdateRequest;
 use App\Models\JenisPembayaran;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class JenisPembayaranController extends Controller
 {
@@ -79,6 +81,14 @@ class JenisPembayaranController extends Controller
      */
     public function destroy(Request $request, JenisPembayaran $jenisPembayaran)
     {
-        $jenisPembayaran->delete();
+        
+        try {
+            $jenisPembayaran->delete();
+        } catch (Exception $e) {
+            Log::info($e->getMessage());
+            return response(['code' => 0, 'message' => 'Gagal menghapus data jenis pembayaran']);
+        }
+
+        return response(['code' => 1, 'message' => 'Berhasil menghapus data jenis pembayaran']);
     }
 }

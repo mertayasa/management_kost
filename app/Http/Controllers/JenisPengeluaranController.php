@@ -6,7 +6,9 @@ use App\DataTables\JenisPengeluaranDataTable;
 use App\Http\Requests\JenisPengeluaranStoreRequest;
 use App\Http\Requests\JenisPengeluaranUpdateRequest;
 use App\Models\JenisPengeluaran;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class JenisPengeluaranController extends Controller
 {
@@ -78,6 +80,13 @@ class JenisPengeluaranController extends Controller
      */
     public function destroy(Request $request, JenisPengeluaran $jenisPengeluaran)
     {
-        $jenisPengeluaran->delete();
+        try {
+            $jenisPengeluaran->delete();
+        } catch (Exception $e) {
+            Log::info($e->getMessage());
+            return response(['code' => 0, 'message' => 'Gagal menghapus data jenis pengeluaran']);
+        }
+
+        return response(['code' => 1, 'message' => 'Berhasil menghapus data jenis pengeluaran']);
     }
 }

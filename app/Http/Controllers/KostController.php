@@ -6,7 +6,9 @@ use App\DataTables\KostDataTable;
 use App\Http\Requests\KostStoreRequest;
 use App\Http\Requests\KostUpdateRequest;
 use App\Models\Kost;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class KostController extends Controller
 {
@@ -79,6 +81,13 @@ class KostController extends Controller
      */
     public function destroy(Request $request, Kost $kost)
     {
-        $kost->delete();
+        try {
+            $kost->delete();
+        } catch (Exception $e) {
+            Log::info($e->getMessage());
+            return response(['code' => 0, 'message' => 'Gagal menghapus data kost']);
+        }
+
+        return response(['code' => 1, 'message' => 'Berhasil menghapus data kost']);
     }
 }

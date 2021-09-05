@@ -6,7 +6,9 @@ use App\DataTables\KamarDataTable;
 use App\Http\Requests\KamarStoreRequest;
 use App\Http\Requests\KamarUpdateRequest;
 use App\Models\Kamar;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class KamarController extends Controller
 {
@@ -78,6 +80,13 @@ class KamarController extends Controller
      */
     public function destroy(Request $request, Kamar $kamar)
     {
-        $kamar->delete();
+        try {
+            $kamar->delete();
+        } catch (Exception $e) {
+            Log::info($e->getMessage());
+            return response(['code' => 0, 'message' => 'Gagal menghapus data kamar']);
+        }
+
+        return response(['code' => 1, 'message' => 'Berhasil menghapus data kamar']);
     }
 }

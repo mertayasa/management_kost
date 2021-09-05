@@ -6,7 +6,9 @@ use App\DataTables\SewaDataTable;
 use App\Http\Requests\SewaStoreRequest;
 use App\Http\Requests\SewaUpdateRequest;
 use App\Models\Sewa;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class SewaController extends Controller
 {
@@ -79,6 +81,13 @@ class SewaController extends Controller
      */
     public function destroy(Request $request, Sewa $sewa)
     {
-        $sewa->delete();
+        try {
+            $sewa->delete();
+        } catch (Exception $e) {
+            Log::info($e->getMessage());
+            return response(['code' => 0, 'message' => 'Gagal menghapus data sewa']);
+        }
+
+        return response(['code' => 1, 'message' => 'Berhasil menghapus data sewa']);
     }
 }

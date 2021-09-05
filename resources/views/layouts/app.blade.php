@@ -9,7 +9,7 @@
   <link href="{{ asset('css/app.css') }}" rel="stylesheet">
   <link rel="stylesheet" href="{{asset('stisla-assets/css/components.css')}}">
   <link rel="stylesheet" href="{{asset('stisla-assets/css/style.css')}}">
-  <link rel="stylesheet" href="{{asset('vendor/datatables/datatables.css')}}">
+  <link rel="stylesheet" href="{{asset('plugin/datatables/datatables.css')}}">
   @stack('styles')
 </head>
 
@@ -40,7 +40,7 @@
   </div>
 
   <script src="{{asset('js/app.js')}}" ></script>
-  <script src="{{asset('vendor/datatables/datatables.js')}}" ></script>
+  <script src="{{asset('plugin/datatables/datatables.js')}}" ></script>
 
   <script>
     function deleteModel(deleteUrl, tableId){

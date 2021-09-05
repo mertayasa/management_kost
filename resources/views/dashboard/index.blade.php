@@ -428,6 +428,7 @@
             const filePondError = document.getElementById('filePondError')
 
             if (window.location.href.indexOf("dashboard") > -1) {
+              console.log('asdas')
                 options = {
                     labelIdle: 'Drag & drop gambar atau <span class="filepond--label-action">cari di file manager</span>',
                     acceptedFileTypes: ['image/png', 'image/jng', 'image/jpeg'],
@@ -557,7 +558,7 @@
             }
 
             const filePond = FilePond.create(
-                document.getElementById('filepondMulti'), options
+                document.getElementById('filePondMulti'), options
             );
 
             filePond.on('warning', (error) => {

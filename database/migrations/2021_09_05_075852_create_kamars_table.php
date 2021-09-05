@@ -15,7 +15,7 @@ class CreateKamarsTable extends Migration
     {
         Schema::disableForeignKeyConstraints();
 
-        Schema::create('kamars', function (Blueprint $table) {
+        Schema::create('kamar', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_kost');
             $table->foreign('id_kost')->references('id')->on('kost')->onDelete('cascade')->onUpdate('cascade');

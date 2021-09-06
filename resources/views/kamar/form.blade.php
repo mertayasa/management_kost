@@ -1,7 +1,11 @@
 <div class="row">
     <div class="col-12 col-md-6 pb-3 pb-md-0">
         {!! Form::label('kostName', 'Nama Kost', ['class' => 'mb-1']) !!}
-        {!! Form::select('id_kost', $kost, isset($kamar) ? $kamar->id_kost : null, ['class' => 'form-control', 'id' => 'kostName', isset($kamar) ? 'disabled' : '']) !!}
+        @if (isset($kamar))
+            {!! Form::text('id_kost', $kamar->kost->nama, ['class' => 'form-control', 'id' => 'kamarNumber', 'readonly' => true]) !!}
+        @else
+            {!! Form::select('id_kost', $kost, null, ['class' => 'form-control', 'id' => 'kostName']) !!}
+        @endif
     </div>
 </div>
 

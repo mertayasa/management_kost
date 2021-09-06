@@ -39,12 +39,12 @@ class Sewa extends Model
 
     public function kamar()
     {
-        return $this->belongsTo(\App\Models\Kamar::class);
+        return $this->belongsTo(\App\Models\Kamar::class, 'id_kamar');
     }
 
     public function penyewa()
     {
-        return $this->belongsTo(\App\Models\Penyewa::class);
+        return $this->belongsTo(\App\Models\Penyewa::class, 'id_penyewa');
     }
 
 }

@@ -18,6 +18,8 @@ class SewaController extends Controller
      */
     public function index(Request $request)
     {
+        // $sewa = Sewa::all();
+        // dd($sewa);
         return view('sewa.index');
     }
 

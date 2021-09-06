@@ -23,8 +23,9 @@ class JenisPengeluaranUpdateRequest extends FormRequest
      */
     public function rules()
     {
+        $id_jenis = $this->route('jenis_pengeluaran')->id;
         return [
-            'jenis_pengeluaran' => ['required', 'string', 'max:50'],
+            'jenis_pengeluaran' => ['required', 'string', 'max:50', 'unique:jenis_pengeluaran,jenis_pengeluaran,'.$id_jenis],
         ];
     }
 }

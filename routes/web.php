@@ -127,7 +127,7 @@ Route::middleware(['auth'])->group(function () {
             Route::delete('destroy/{sewa}', [SewaController::class, 'destroy'])->name('destroy');
         });
 
-        Route::get('datatable', [PenyewaController::class, 'datatable'])->name('datatable');
+        Route::get('datatable', [SewaController::class, 'datatable'])->name('datatable');
     });
 
     Route::group(['prefix' => 'pembayaran', 'as' => 'pembayaran.'], function () {

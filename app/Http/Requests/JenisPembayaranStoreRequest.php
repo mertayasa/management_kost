@@ -24,7 +24,7 @@ class JenisPembayaranStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'jenis_pembayaran' => ['required', 'string', 'max:50'],
+            'jenis_pembayaran' => ['required', 'string', 'max:50', 'unique:jenis_pembayaran'],
         ];
     }
 }

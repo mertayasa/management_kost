@@ -13,7 +13,7 @@ class JenisPengeluaranDataTable
 
         return Datatables::of($jenis_pengeluaran)
             ->addColumn('action', function ($jenis_pengeluaran) {
-                $deleteUrl = "'" . route('jenis_pengeluaran.destroy', $jenis_pengeluaran->id) . "', 'jenis_pengeluaranDatatable'";
+                $deleteUrl = "'" . route('jenis_pengeluaran.destroy', $jenis_pengeluaran->id) . "', 'jenisPengeluaranDatatable'";
                 return
                     '<div class="btn-group">' .
                     '<a href="' . route('jenis_pengeluaran.edit', $jenis_pengeluaran->id) . '" class="btn btn-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit" style="margin-right: 5px" ><i class="menu-icon fa fa-pencil-alt"></i></a>' .

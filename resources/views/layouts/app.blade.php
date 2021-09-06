@@ -59,7 +59,6 @@
 
       if(code == 0){
         toastr.error(text)
-        window.location.reload()
       }
     }
 

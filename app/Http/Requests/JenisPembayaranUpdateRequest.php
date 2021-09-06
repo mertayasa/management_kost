@@ -23,8 +23,9 @@ class JenisPembayaranUpdateRequest extends FormRequest
      */
     public function rules()
     {
+        $id_jenis = $this->route('jenis_pembayaran')->id;
         return [
-            'jenis_pembayaran' => ['required', 'string', 'max:50'],
+            'jenis_pembayaran' => ['required', 'string', 'max:50', 'unique:jenis_pembayaran,jenis_pembayaran,'.$id_jenis],
         ];
     }
 }

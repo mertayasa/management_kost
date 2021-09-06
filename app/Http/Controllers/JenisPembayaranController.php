@@ -46,7 +46,7 @@ class JenisPembayaranController extends Controller
      * @param \App\Models\JenisPembayaran $jenisPembayaran
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request, JenisPembayaran $jenisPembayaran)
+    public function edit(Request $request, JenisPembayaran $jenis_pembayaran)
     {
         return view('jenis_pembayaran.edit', compact('jenis_pembayaran'));
     }
@@ -57,9 +57,14 @@ class JenisPembayaranController extends Controller
      */
     public function store(JenisPembayaranStoreRequest $request)
     {
-        $jenisPembayaran = JenisPembayaran::create($request->validated());
-
-        return redirect()->route('jenis_pembayaran.index');
+        try{
+            JenisPembayaran::create($request->validated());
+        }catch(Exception $e){
+            Log::info($e->getMessage());
+            return redirect()->back()->withInput()->with('success', 'Gagal menambahkan jenis pembayaran baru');
+        }
+        
+        return redirect()->route('jenis_pembayaran.index')->with('success', 'Berhasil menambahkan jenis pembayaran baru');
     }
 
     /**
@@ -67,11 +72,16 @@ class JenisPembayaranController extends Controller
      * @param \App\Models\JenisPembayaran $jenisPembayaran
      * @return \Illuminate\Http\Response
      */
-    public function update(JenisPembayaranUpdateRequest $request, JenisPembayaran $jenisPembayaran)
-    {
-        $jenisPembayaran->update($request->validated());
-
-        return redirect()->route('jenis_pembayaran.index');
+    public function update(JenisPembayaranUpdateRequest $request, JenisPembayaran $jenis_pembayaran)
+    {   
+        try{
+            $jenis_pembayaran->update($request->validated());
+        }catch(Exception $e){
+            Log::info($e->getMessage());
+            return redirect()->back()->withInput()->with('success', 'Gagal mengubah jenis pembayaran');
+        }
+        
+        return redirect()->route('jenis_pembayaran.index')->with('success', 'Berhasil mengubah jenis pembayaran');
     }
 
     /**
@@ -79,11 +89,15 @@ class JenisPembayaranController extends Controller
      * @param \App\Models\JenisPembayaran $jenisPembayaran
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, JenisPembayaran $jenisPembayaran)
+    public function destroy(Request $request, JenisPembayaran $jenis_pembayaran)
     {
         
         try {
-            $jenisPembayaran->delete();
+            if($jenis_pembayaran->jumlah_pembayaran > 0){
+                return response(['code' => 0, 'message' => 'Jenis pembayaran masih aktif digunakan']);
+            }
+
+            $jenis_pembayaran->delete();
         } catch (Exception $e) {
             Log::info($e->getMessage());
             return response(['code' => 0, 'message' => 'Gagal menghapus data jenis pembayaran']);

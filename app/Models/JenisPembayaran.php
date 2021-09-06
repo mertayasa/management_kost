@@ -32,6 +32,10 @@ class JenisPembayaran extends Model
 
     public function pembayaran()
     {
-        return $this->hasMany(\App\Models\Pembayaran::class);
+        return $this->hasMany(\App\Models\Pembayaran::class, 'id_jenis_pembayaran');
+    }
+
+    public function getJumlahPembayaranAttribute(){
+        return $this->pembayaran->count();
     }
 }

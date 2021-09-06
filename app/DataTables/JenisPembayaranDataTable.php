@@ -13,7 +13,7 @@ class JenisPembayaranDataTable
 
         return Datatables::of($jenis_pembayaran)
             ->addColumn('action', function ($jenis_pembayaran) {
-                $deleteUrl = "'" . route('jenis_pembayaran.destroy', $jenis_pembayaran->id) . "', 'jenis_pembayaranDatatable'";
+                $deleteUrl = "'" . route('jenis_pembayaran.destroy', $jenis_pembayaran->id) . "', 'jenisPembayaranDatatable'";
                 return
                     '<div class="btn-group">' .
                     '<a href="' . route('jenis_pembayaran.edit', $jenis_pembayaran->id) . '" class="btn btn-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit" style="margin-right: 5px" ><i class="menu-icon fa fa-pencil-alt"></i></a>' .

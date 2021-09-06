@@ -27,8 +27,8 @@ class JenisPengeluaranController extends Controller
      */
     public function datatable(Request $request)
     {
-        $jenisPengeluarans = JenisPengeluaran::all();
-        return JenisPengeluaranDataTable::set($jenisPengeluarans);
+        $jenis_pengeluarans = JenisPengeluaran::all();
+        return JenisPengeluaranDataTable::set($jenis_pengeluarans);
     }
 
     /**
@@ -42,10 +42,10 @@ class JenisPengeluaranController extends Controller
 
     /**
      * @param \Illuminate\Http\Request $request
-     * @param \App\Models\JenisPengeluaran $jenisPengeluaran
+     * @param \App\Models\JenisPengeluaran $jenis_pengeluaran
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request, JenisPengeluaran $jenisPengeluaran)
+    public function edit(Request $request, JenisPengeluaran $jenis_pengeluaran)
     {
         return view('jenis_pengeluaran.edit', compact('jenis_pengeluaran'));
     }
@@ -56,32 +56,46 @@ class JenisPengeluaranController extends Controller
      */
     public function store(JenisPengeluaranStoreRequest $request)
     {
-        $jenisPengeluaran = JenisPengeluaran::create($request->validated());
-
-        return redirect()->route('jenis_pengeluaran.index');
+        try{
+            JenisPengeluaran::create($request->validated());
+        }catch(Exception $e){
+            Log::info($e->getMessage());
+            return redirect()->back()->withInput()->with('success', 'Gagal mengubah jenis pengeluaran');
+        }
+        
+        return redirect()->route('jenis_pengeluaran.index')->with('success', 'Berhasil mengubah jenis pengeluaran');
     }
 
     /**
      * @param \App\Http\Requests\JenisPengeluaranUpdateRequest $request
-     * @param \App\Models\JenisPengeluaran $jenisPengeluaran
+     * @param \App\Models\JenisPengeluaran $jenis_pengeluaran
      * @return \Illuminate\Http\Response
      */
-    public function update(JenisPengeluaranUpdateRequest $request, JenisPengeluaran $jenisPengeluaran)
+    public function update(JenisPengeluaranUpdateRequest $request, JenisPengeluaran $jenis_pengeluaran)
     {
-        $jenisPengeluaran->update($request->validated());
-
-        return redirect()->route('jenis_pengeluaran.index');
+        try{
+            $jenis_pengeluaran->update($request->validated());
+        }catch(Exception $e){
+            Log::info($e->getMessage());
+            return redirect()->back()->withInput()->with('success', 'Gagal mengubah jenis pengeluaran');
+        }
+        
+        return redirect()->route('jenis_pengeluaran.index')->with('success', 'Berhasil mengubah jenis pengeluaran');
     }
 
     /**
      * @param \Illuminate\Http\Request $request
-     * @param \App\Models\JenisPengeluaran $jenisPengeluaran
+     * @param \App\Models\JenisPengeluaran $jenis_pengeluaran
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, JenisPengeluaran $jenisPengeluaran)
+    public function destroy(Request $request, JenisPengeluaran $jenis_pengeluaran)
     {
         try {
-            $jenisPengeluaran->delete();
+            if($jenis_pengeluaran->jumlah_pengeluaran > 0){
+                return response(['code' => 0, 'message' => 'Jenis pengeluaran masih aktif digunakan']);
+            }
+
+            $jenis_pengeluaran->delete();
         } catch (Exception $e) {
             Log::info($e->getMessage());
             return response(['code' => 0, 'message' => 'Gagal menghapus data jenis pengeluaran']);

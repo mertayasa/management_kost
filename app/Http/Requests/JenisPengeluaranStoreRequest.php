@@ -24,7 +24,7 @@ class JenisPengeluaranStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'jenis_pengeluaran' => ['required', 'string', 'max:50'],
+            'jenis_pengeluaran' => ['required', 'string', 'max:50', 'unique:jenis_pengeluaran'],
         ];
     }
 }

@@ -32,6 +32,10 @@ class JenisPengeluaran extends Model
 
     public function pengeluaran()
     {
-        return $this->hasMany(\App\Models\Pengeluaran::class);
+        return $this->hasMany(\App\Models\Pengeluaran::class, 'id_jenis_pengeluaran');
+    }
+
+    public function getJumlahPengeluarAnattribute(){
+        return $this->pengeluaran->count();
     }
 }

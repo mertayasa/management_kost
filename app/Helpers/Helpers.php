@@ -58,5 +58,5 @@ function uploadFile($base_64_foto){
 }
 
 function isActive($param){
-    return Request::is($param) ? 'active' : '';
+    return Request::route()->getPrefix() == '/'.$param ? 'active' : '';
 }

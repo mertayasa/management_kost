@@ -52,6 +52,17 @@
     //     preloader.classList.add('d-none-custom')
     // }, 500);
 
+    function showToast(code, text){
+      if(code == 1){
+        toastr.success(text)
+      }
+
+      if(code == 0){
+        toastr.error(text)
+        window.location.reload()
+      }
+    }
+
     function deleteModel(deleteUrl, tableId, target = ''){
         Swal.fire({
             title: "Warning",
@@ -72,17 +83,9 @@
                     success:function(data){
                         console.log(data)
                         if(data.code == 1){
-                            Swal.fire(
-                                'Berhasil',
-                                data.message,
-                                'success'
-                        )
+                          showToast(data.code, data.message)
                         }else{
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Oops...',
-                                text: data.message
-                            })
+                            showToast(data.code, data.message)
                         }
                         $('#'+tableId).DataTable().ajax.reload();
                     }

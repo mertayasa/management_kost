@@ -24,10 +24,10 @@ class PengeluaranStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'id_jenis_pengeluaran' => ['required', 'integer', 'gt:0'],
+            'id_jenis_pengeluaran' => ['required', 'integer', 'exists:jenis_pengeluaran,id'],
             'tgl_pengeluaran' => ['required', 'date'],
             'keterangan' => ['required', 'string'],
-            'jumlah' => ['required', 'integer'],
+            'jumlah' => ['required', 'integer', 'min:1', 'max:1000000000'],
         ];
     }
 }

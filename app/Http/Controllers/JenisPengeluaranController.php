@@ -60,10 +60,10 @@ class JenisPengeluaranController extends Controller
             JenisPengeluaran::create($request->validated());
         }catch(Exception $e){
             Log::info($e->getMessage());
-            return redirect()->back()->withInput()->with('success', 'Gagal mengubah jenis pengeluaran');
+            return redirect()->back()->withInput()->with('success', 'Gagal menambahkan jenis pengeluaran');
         }
         
-        return redirect()->route('jenis_pengeluaran.index')->with('success', 'Berhasil mengubah jenis pengeluaran');
+        return redirect()->route('jenis_pengeluaran.index')->with('success', 'Berhasil menambahkan jenis pengeluaran');
     }
 
     /**

@@ -32,13 +32,13 @@ class Pengeluaran extends Model
     protected $casts = [
         'id' => 'integer',
         'id_jenis_pengeluaran' => 'integer',
-        'tgl_pengeluaran' => 'date',
+        // 'tgl_pengeluaran' => 'date',
         'status_validasi' => 'integer',
     ];
 
 
-    public function jenisPengeluaran()
+    public function jenis_pengeluaran()
     {
-        return $this->belongsTo(\App\Models\JenisPengeluaran::class);
+        return $this->belongsTo(\App\Models\JenisPengeluaran::class, 'id_jenis_pengeluaran');
     }
 }

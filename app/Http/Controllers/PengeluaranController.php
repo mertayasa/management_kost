@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\DataTables\PengeluaranDataTable;
 use App\Http\Requests\PengeluaranStoreRequest;
 use App\Http\Requests\PengeluaranUpdateRequest;
+use App\Models\JenisPengeluaran;
 use App\Models\Pengeluaran;
 use Exception;
 use Illuminate\Http\Request;
@@ -38,7 +39,8 @@ class PengeluaranController extends Controller
      */
     public function create(Request $request)
     {
-        return view('pengeluaran.create');
+        $jenis_pengeluaran = JenisPengeluaran::pluck('jenis_pengeluaran', 'id');
+        return view('pengeluaran.create', compact('jenis_pengeluaran'));
     }
 
     /**
@@ -57,9 +59,14 @@ class PengeluaranController extends Controller
      */
     public function store(PengeluaranStoreRequest $request)
     {
-        $pengeluaran = Pengeluaran::create($request->validated());
-
-        return redirect()->route('pengeluaran.index');
+        try{
+            Pengeluaran::create($request->validated());
+        }catch(Exception $e){
+            Log::info($e->getMessage());
+            return redirect()->back()->withInput()->with('success', 'Gagal menambahkan pengeluaran');
+        }
+        
+        return redirect()->route('pengeluaran.index')->with('success', 'Berhasil menambahkan pengeluaran');
     }
 
     /**
@@ -69,9 +76,14 @@ class PengeluaranController extends Controller
      */
     public function update(PengeluaranUpdateRequest $request, Pengeluaran $pengeluaran)
     {
-        $pengeluaran->update($request->validated());
-
-        return redirect()->route('pengeluaran.index');
+        try{
+            $pengeluaran->update($request->validated());
+        }catch(Exception $e){
+            Log::info($e->getMessage());
+            return redirect()->back()->withInput()->with('success', 'Gagal mengubah pengeluaran');
+        }
+        
+        return redirect()->route('pengeluaran.index')->with('success', 'Berhasil mengubah pengeluaran');
     }
 
     /**

@@ -60,3 +60,9 @@ function uploadFile($base_64_foto){
 function isActive($param){
     return Request::route()->getPrefix() == '/'.$param ? 'active' : '';
 }
+
+function getVerificationBadge($model){
+    $badge_color = $model->status_validasi == 1 ? 'success' : 'danger';
+    $badge_text = $model->status_validasi == 1 ? 'Tervalidasi' : 'Belum Tervalidasi';
+    return '<span class="badge badge-'.$badge_color.'">'. $badge_text .'</span>';
+}

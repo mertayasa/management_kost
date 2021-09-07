@@ -6,17 +6,17 @@
       <div class="col-12">
         <div class="card">
           <div class="card-header d-flex justify-content-between">
-            <h4>Edit Kamar</h4>
+            <h4>Edit Pembayaran</h4>
             {{-- <a href="{{route('employee.create')}}" class="btn btn-primary">Tambah Karyawan</a> --}}
           </div>
           <div class="card-body">
             @include('layouts.flash')
             @include('layouts.error_message')
-            {!! Form::model($kamar, ['route' => ['kamar.update', $kamar->id], 'method' => 'patch']) !!}
-            @include('kamar.form')
+            {!! Form::model($pembayaran, ['route' => ['pembayaran.update', $pembayaran->id], 'method' => 'patch']) !!}
+            @include('pembayaran.form')
             <div class="row mt-3">
                 <div class="col-12">
-                    <a href="{{route('kamar.index')}}" class="btn btn-secondary">Kembali</a>
+                    <a href="{{route('pembayaran.index')}}" class="btn btn-secondary">Kembali</a>
                     <button class="btn btn-primary ml-3" type="submit">Simpan</button>
                 </div>
             </div>

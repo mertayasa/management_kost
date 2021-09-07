@@ -24,8 +24,6 @@ class SewaUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'id_kamar' => ['required', 'integer', 'gt:0'],
-            'id_penyewa' => ['required', 'integer', 'gt:0'],
             'tgl_masuk' => ['required', 'date']
         ];
     }

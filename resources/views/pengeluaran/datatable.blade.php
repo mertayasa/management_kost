@@ -1,10 +1,11 @@
 <table class="table table-hover table-striped" width="100%" id="pengeluaranDatatable">
     <thead>
         <tr>
-        <th>No</th>
+        <th>No</th> <th></th>
         <th>Jenis</th>
         <th>Jumlah</th>
         <th>Tanggal</th>
+        <th>Validasi</th>
         <th>Keterangan</th>
         <th>Aksi</th>
         </tr>
@@ -28,9 +29,11 @@
             ajax: url,
             columns: [
                 {data: 'DT_RowIndex', name: 'no',orderable: false, searchable: false},
+                {data:'updated_at', name:'updated_at', visible:false, searchable:false},
                 {data: 'id_jenis_pengeluaran', name: 'id_jenis_pengeluaran'},
                 {data: 'jumlah', name: 'jumlah'},
                 {data: 'tgl_pengeluaran', name: 'tgl_pengeluaran'},
+                {data: 'status_validasi', name: 'status_validasi'},
                 {data: 'keterangan', name: 'keterangan'},
                 {data: 'action', name: 'action', orderable: false, searchable: false}
             ],

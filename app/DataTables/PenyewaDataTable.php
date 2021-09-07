@@ -13,9 +13,7 @@ class PenyewaDataTable
     { 
         return Datatables::of($penyewa)
             ->editColumn('status_validasi', function ($penyewa) {
-                $badge_color = $penyewa->status_validasi == 1 ? 'success' : 'danger';
-                $badge_text = $penyewa->status_validasi == 1 ? 'Terverifikasi' : 'Belum Terverifikasi';
-                return '<span class="badge badge-'.$badge_color.'">'. $badge_text .'</span>';
+                return getVerificationBadge($penyewa);
             })
 
             ->addColumn('action', function ($penyewa) {

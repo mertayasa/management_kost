@@ -40,18 +40,18 @@ class Pembayaran extends Model
     ];
 
 
-    public function jenisPembayaran()
+    public function jenis_pembayaran()
     {
-        return $this->belongsTo(\App\Models\JenisPembayaran::class);
+        return $this->belongsTo(\App\Models\JenisPembayaran::class, 'id_jenis_pembayaran');
     }
 
     public function penyewa()
     {
-        return $this->belongsTo(\App\Models\Penyewa::class);
+        return $this->belongsTo(\App\Models\Penyewa::class, 'id_penyewa');
     }
 
     public function kamar()
     {
-        return $this->belongsTo(\App\Models\Kamar::class);
+        return $this->belongsTo(\App\Models\Kamar::class, 'id_kamar');
     }
 }

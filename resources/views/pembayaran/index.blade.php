@@ -6,14 +6,14 @@
       <div class="col-12">
         <div class="card">
           <div class="card-header d-flex justify-content-between">
-            <h4>Kamar</h4>
-            <a href="{{route('kamar.create')}}" class="btn btn-primary">Tambah Kamar</a>
+            <h4>Pembayaran</h4>
+            <a href="{{route('pembayaran.create')}}" class="btn btn-primary">Tambah Pembayaran</a>
           </div>
           <div class="col-12">
               @include('layouts.flash')
           </div>
           <div class="card-body">
-              @include('kamar.datatable')
+              @include('pembayaran.datatable')
           </div>
         </div>
       </div>

@@ -25,6 +25,9 @@ class PengeluaranDataTable
             ->editColumn('keterangan', function($pengeluaran){
                 return Str::limit($pengeluaran->keterangan, 30);
             })
+            ->editColumn('status_validasi', function ($pengeluaran) {
+                return getVerificationBadge($pengeluaran);
+            })
             ->addColumn('action', function ($pengeluaran) {
                 $deleteUrl = "'" . route('pengeluaran.destroy', $pengeluaran->id) . "', 'pengeluaranDatatable', 'pengeluaran sejumlah ". formatPrice($pengeluaran->jumlah)."'";
                 return
@@ -32,7 +35,7 @@ class PengeluaranDataTable
                     '<a href="' . route('pengeluaran.edit', $pengeluaran->id) . '" class="btn btn-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit" style="margin-right: 5px" ><i class="menu-icon fa fa-pencil-alt"></i></a>' .
                     '<a href="#" onclick="deleteModel(' . $deleteUrl . ',)" class="btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Hapus" style="margin-right: 5px"><i class="menu-icon fa fa-trash"></i></a>' .
                     '</div>';
-            })->addIndexColumn()->rawColumns(['action'])->make(true);
+            })->addIndexColumn()->rawColumns(['action', 'status_validasi'])->make(true);
 
     }
 }

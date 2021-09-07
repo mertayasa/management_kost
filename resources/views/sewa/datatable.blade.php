@@ -1,7 +1,7 @@
 <table class="table table-hover table-striped" width="100%" id="sewaDatatable">
     <thead>
         <tr>
-        <th>No</th>
+        <th>No</th> <th></th>
         <th>Nama Kost</th>
         <th>No Kamar</th>
         <th>Penyewa</th>
@@ -28,7 +28,7 @@
             responsive: true,
             ajax: url,
             columns: [
-                {data: 'DT_RowIndex', name: 'no',orderable: false, searchable: false},
+{data: 'DT_RowIndex', name: 'no',orderable: false, searchable: false},{data:'updated_at', name:'updated_at', visible:false, searchable:false},
                 {data: 'nama_kost', name: 'nama_kost'},
                 {data: 'no_kamar', name: 'no_kamar'},
                 {data: 'penyewa', name: 'penyewa'},

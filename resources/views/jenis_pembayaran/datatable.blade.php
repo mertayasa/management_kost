@@ -1,7 +1,7 @@
 <table class="table table-hover table-striped" width="100%" id="jenisPembayaranDatatable">
     <thead>
         <tr>
-        <th>No</th>
+        <th>No</th> <th></th>
         <th>Jenis Pembayaran</th>
         <th>Aksi</th>
         </tr>
@@ -24,7 +24,7 @@
             responsive: true,
             ajax: url,
             columns: [
-                {data: 'DT_RowIndex', name: 'no',orderable: false, searchable: false},
+{data: 'DT_RowIndex', name: 'no',orderable: false, searchable: false},{data:'updated_at', name:'updated_at', visible:false, searchable:false},
                 {data: 'jenis_pembayaran', name: 'jenis_pembayaran'},
                 {data: 'action', name: 'action', orderable: false, searchable: false}
             ],

@@ -1,7 +1,7 @@
 <table class="table table-hover table-striped" width="100%" id="kostDatatable">
     <thead>
         <tr>
-        <th>No</th>
+        <th>No</th> <th></th>
         <th>Nama</th>
         <th>Alamat</th>
         <th>Jumlah Kamar</th>
@@ -26,7 +26,7 @@
             responsive: true,
             ajax: url,
             columns: [
-                {data: 'DT_RowIndex', name: 'no',orderable: false, searchable: false},
+{data: 'DT_RowIndex', name: 'no',orderable: false, searchable: false},{data:'updated_at', name:'updated_at', visible:false, searchable:false},
                 {data: 'nama', name: 'nama'},
                 {data: 'alamat', name: 'alamat'},
                 {data: 'jumlah_kamar', name: 'jumlah_kamar'},

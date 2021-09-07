@@ -32,18 +32,16 @@ class Sewa extends Model
         'id' => 'integer',
         'id_kamar' => 'integer',
         'id_penyewa' => 'integer',
-        'tgl_masuk' => 'date',
-        'tgl_keluar' => 'date',
+        // 'tgl_masuk' => 'date',
+        // 'tgl_keluar' => 'date',
     ];
 
 
-    public function kamar()
-    {
+    public function kamar(){
         return $this->belongsTo(\App\Models\Kamar::class, 'id_kamar');
     }
 
-    public function penyewa()
-    {
+    public function penyewa(){
         return $this->belongsTo(\App\Models\Penyewa::class, 'id_penyewa');
     }
 

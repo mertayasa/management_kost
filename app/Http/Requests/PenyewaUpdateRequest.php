@@ -31,7 +31,6 @@ class PenyewaUpdateRequest extends FormRequest
             'telpon' => ['required', 'string', 'max:15'],
             'alamat' => ['required', 'string'],
             'pekerjaan' => ['required', 'string'],
-            'status_validasi' => ['required', 'integer'],
         ];
     }
 }

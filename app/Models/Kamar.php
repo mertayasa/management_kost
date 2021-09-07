@@ -40,11 +40,16 @@ class Kamar extends Model
 
     public function sewa()
     {
-        return $this->hasMany(\App\Models\Sewa::class);
+        return $this->hasMany(\App\Models\Sewa::class, 'id_kamar');
     }
 
     public function pembayaran()
     {
         return $this->hasMany(\App\Models\Pembayaran::class);
+    }
+
+    public function getJumlahSewaAttribute()
+    {
+        return $this->sewa != null ? $this->sewa()->count() : 0;
     }
 }

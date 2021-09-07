@@ -26,8 +26,7 @@ class SewaUpdateRequest extends FormRequest
         return [
             'id_kamar' => ['required', 'integer', 'gt:0'],
             'id_penyewa' => ['required', 'integer', 'gt:0'],
-            'tgl_masuk' => ['required', 'date'],
-            'tgl_keluar' => ['required', 'date'],
+            'tgl_masuk' => ['required', 'date']
         ];
     }
 }

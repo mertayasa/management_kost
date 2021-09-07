@@ -38,11 +38,16 @@ class Penyewa extends Model
 
     public function sewa()
     {
-        return $this->hasOne(\App\Models\Sewa::class);
+        return $this->hasOne(\App\Models\Sewa::class, 'id_penyewa');
     }
 
     public function pembayaran()
     {
-        return $this->hasMany(\App\Models\Pembayaran::class);
+        return $this->hasMany(\App\Models\Pembayaran::class, 'id_penyewa');
+    }
+
+    public function getJumlahSewaAttribute()
+    {
+        return $this->sewa != null ? $this->sewa()->count() : 0;
     }
 }

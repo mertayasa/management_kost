@@ -6,16 +6,16 @@
       <div class="col-12">
         <div class="card">
           <div class="card-header d-flex justify-content-between">
-            <h4>Tambah Kamar</h4>
+            <h4>Tambah Data Sewa</h4>
           </div>
           <div class="card-body">
             @include('layouts.flash')
             @include('layouts.error_message')
-            {!! Form::open(['route' => 'kamar.store']) !!}
-            @include('kamar.form')
+            {!! Form::open(['route' => 'sewa.store']) !!}
+            @include('sewa.form')
             <div class="row mt-3">
                 <div class="col-12">
-                    <a href="{{route('kamar.index')}}" class="btn btn-secondary">Kembali</a>
+                    <a href="{{route('sewa.index')}}" class="btn btn-secondary">Kembali</a>
                     <button class="btn btn-primary ml-3" type="submit">Simpan</button>
                 </div>
             </div>

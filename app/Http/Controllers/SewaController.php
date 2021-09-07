@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\DataTables\SewaDataTable;
 use App\Http\Requests\SewaStoreRequest;
 use App\Http\Requests\SewaUpdateRequest;
+use App\Models\Kamar;
+use App\Models\Kost;
+use App\Models\Penyewa;
 use App\Models\Sewa;
 use Exception;
 use Illuminate\Http\Request;
@@ -40,7 +43,33 @@ class SewaController extends Controller
      */
     public function create(Request $request)
     {
-        return view('sewa.create');
+        $penyewa = $this->pluckPenyewa();
+        $kamar = $this->pluckKamar();
+        
+        $kamar_full = count($kamar) < 1 ? 'Tidak ada kamar tersedia' : '';
+        $penyewa_full = count($penyewa) < 1 ? 'Semua penyewa sudah memiliki kamar' : '';
+
+        return view('sewa.create', compact('penyewa', 'kamar', 'penyewa_full', 'kamar_full'));
+    }
+
+    private function pluckPenyewa()
+    {
+        $penyewa = Penyewa::get()->where('jumlah_sewa', 0)->pluck('nama', 'id');
+        return $penyewa;
+    }
+
+    private function pluckKamar()
+    {
+        $raw_kost = Kost::get();
+        $kamar = [];
+
+        foreach($raw_kost as $key => $kost){
+            $kamar += [$kost->nama =>
+                $kost->kamar->where('jumlah_sewa', 0)->pluck('no_kamar', 'id')->toArray()
+            ];
+        }
+
+        return $kamar;
     }
 
     /**
@@ -59,9 +88,14 @@ class SewaController extends Controller
      */
     public function store(SewaStoreRequest $request)
     {
-        $sewa = Sewa::create($request->validated());
-
-        return redirect()->route('sewa.index');
+        try{
+            Sewa::create($request->validated());
+        }catch(Exception $e){
+            Log::info($e->getMessage());
+            return redirect()->back()->withInput()->with('success', 'Gagal menambahkan sewa');
+        }
+        
+        return redirect()->route('sewa.index')->with('success', 'Berhasil menambahkan sewa');
     }
 
     /**
@@ -71,9 +105,14 @@ class SewaController extends Controller
      */
     public function update(SewaUpdateRequest $request, Sewa $sewa)
     {
-        $sewa->update($request->validated());
-
-        return redirect()->route('sewa.index');
+        try{
+            $sewa->update($request->validated());
+        }catch(Exception $e){
+            Log::info($e->getMessage());
+            return redirect()->back()->withInput()->with('success', 'Gagal menambahkan sewa');
+        }
+        
+        return redirect()->route('sewa.index')->with('success', 'Berhasil menambahkan sewa');
     }
 
     /**

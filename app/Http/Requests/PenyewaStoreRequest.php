@@ -30,8 +30,7 @@ class PenyewaStoreRequest extends FormRequest
             'no_ktp' => ['required', 'string', 'max:16'],
             'telpon' => ['required', 'string', 'max:15'],
             'alamat' => ['required', 'string'],
-            'pekerjaan' => ['required', 'string'],
-            'status_validasi' => ['required', 'integer'],
+            'pekerjaan' => ['required', 'string']
         ];
     }
 }

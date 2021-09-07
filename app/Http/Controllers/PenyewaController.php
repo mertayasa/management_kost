@@ -18,7 +18,7 @@ class PenyewaController extends Controller
      */
     public function index(Request $request)
     {
-        return view('penyewa.index', compact('penyewa'));
+        return view('penyewa.index');
     }
 
     /**
@@ -57,9 +57,14 @@ class PenyewaController extends Controller
      */
     public function store(PenyewaStoreRequest $request)
     {
-        $penyewa = Penyewa::create($request->validated());
-
-        return redirect()->route('penyewa.index');
+        try{
+            Penyewa::create($request->validated());
+        }catch(Exception $e){
+            Log::info($e->getMessage());
+            return redirect()->back()->withInput()->with('success', 'Gagal menambahkan penyewa');
+        }
+        
+        return redirect()->route('penyewa.index')->with('success', 'Berhasil menambahkan penyewa');
     }
 
     /**
@@ -69,9 +74,14 @@ class PenyewaController extends Controller
      */
     public function update(PenyewaUpdateRequest $request, Penyewa $penyewa)
     {
-        $penyewa->update($request->validated());
-
-        return redirect()->route('penyewa.index');
+        try{
+            $penyewa->update($request->validated());
+        }catch(Exception $e){
+            Log::info($e->getMessage());
+            return redirect()->back()->withInput()->with('success', 'Gagal mengubah penyewa');
+        }
+        
+        return redirect()->route('penyewa.index')->with('success', 'Berhasil mengubah penyewa');
     }
 
     /**

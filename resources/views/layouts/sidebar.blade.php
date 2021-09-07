@@ -1,10 +1,10 @@
 <div class="main-sidebar">
     <aside id="sidebar-wrapper">
       <div class="sidebar-brand">
-        <a href="index.html">LH 44</a>
+        <a href="index.html">Management Kost</a>
       </div>
       <div class="sidebar-brand sidebar-brand-sm">
-        <a href="index.html">St</a>
+        <a href="index.html">KOST</a>
       </div>
       <ul class="sidebar-menu">
           <li class="menu-header">Main Menu</li>
@@ -21,8 +21,12 @@
             <a href="{{route('kamar.index')}}" class="nav-link"><i class="fas fa-door-open"></i><span>Kamar</span></a>
           </li>
 
+          <li class="nav-item dropdown {{isActive('penyewa')}}">
+            <a href="{{route('penyewa.index')}}" class="nav-link"><i class="fas fa-users"></i><span>Penyewa</span></a>
+          </li>
+
           <li class="nav-item dropdown {{isActive('sewa')}}">
-            <a href="{{route('sewa.index')}}" class="nav-link"><i class="fas fa-house-user"></i><span>Penyewaan</span></a>
+            <a href="{{route('sewa.index')}}" class="nav-link"><i class="fas fa-house-user"></i><span>Sewa</span></a>
           </li>
 
           <li class="nav-item dropdown {{isActive('pembayaran')}}">

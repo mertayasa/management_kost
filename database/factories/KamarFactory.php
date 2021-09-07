@@ -24,12 +24,11 @@ class KamarFactory extends Factory
     public function definition()
     {
         $id_kost = Kost::inRandomOrder()->first()->id;
-        $count_kamar = Kamar::where('id_kost', $id_kost)->count();
         $price_list = ['500000', '650000', '800000', '400000'];
 
         return [
             'id_kost' => $id_kost,
-            'no_kamar' => 'A '.($count_kamar + 1),
+            'no_kamar' => 'A '.rand(50, 500),
             'harga' => $price_list[rand(0, 3)],
         ];
     }

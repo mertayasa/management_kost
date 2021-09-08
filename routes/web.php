@@ -123,7 +123,9 @@ Route::middleware(['auth'])->group(function () {
             Route::get('create', [SewaController::class, 'create'])->name('create');
             Route::post('store', [SewaController::class, 'store'])->name('store');
             Route::get('edit/{sewa}', [SewaController::class, 'edit'])->name('edit');
+            Route::get('keluar/{sewa}', [SewaController::class, 'edit'])->name('keluar');
             Route::patch('update/{sewa}', [SewaController::class, 'update'])->name('update');
+            Route::patch('keluar/update/{sewa}', [SewaController::class, 'update'])->name('keluar.update');
             Route::delete('destroy/{sewa}', [SewaController::class, 'destroy'])->name('destroy');
         });
 

@@ -46,8 +46,21 @@ class Penyewa extends Model
         return $this->hasMany(\App\Models\Pembayaran::class, 'id_penyewa');
     }
 
-    public function getJumlahSewaAttribute()
+    public function getStatusSewaAttribute()
     {
-        return $this->sewa != null ? $this->sewa()->count() : 0;
+        $status_sewa = 0;
+        
+        // if($this->sewa != null){
+        //     $status_sewa = 1;
+        //     if($this->sewa->tgl_keluar == null){
+        //         $status_sewa = 0;
+        //     }
+        // }
+
+        if($this->sewa()->whereNull('tgl_keluar')->count() > 0){
+            $status_sewa = 1;
+        }
+
+        return $status_sewa;
     }
 }

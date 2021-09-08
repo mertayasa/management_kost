@@ -50,6 +50,13 @@ class Kamar extends Model
 
     public function getJumlahSewaAttribute()
     {
-        return $this->sewa != null ? $this->sewa()->count() : 0;
+        // return $this->sewa != null ? $this->sewa()->count() : 0;
+
+        $status_sewa = 0;
+        if($this->sewa()->whereNull('tgl_keluar')->count() > 0){
+            $status_sewa = 1;
+        }
+
+        return $status_sewa;
     }
 }

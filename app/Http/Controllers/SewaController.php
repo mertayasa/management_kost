@@ -44,9 +44,10 @@ class SewaController extends Controller
     public function create(Request $request)
     {
         $penyewa = $this->pluckPenyewa();
-        $kamar = $this->pluckKamar();
-        
-        $kamar_full = count($kamar) < 1 ? 'Tidak ada kamar tersedia' : '';
+        $raw_kamar = $this->pluckKamar();
+        $kamar = $raw_kamar['kamar'];
+
+        $kamar_full = $raw_kamar['sum'] < 1 ? 'Tidak ada kamar tersedia' : '';
         $penyewa_full = count($penyewa) < 1 ? 'Semua penyewa sudah memiliki kamar' : '';
 
         return view('sewa.create', compact('penyewa', 'kamar', 'penyewa_full', 'kamar_full'));
@@ -54,7 +55,7 @@ class SewaController extends Controller
 
     private function pluckPenyewa()
     {
-        $penyewa = Penyewa::get()->where('jumlah_sewa', 0)->pluck('nama', 'id');
+        $penyewa = Penyewa::get()->where('status_sewa', 0)->pluck('nama', 'id');
         return $penyewa;
     }
 
@@ -63,13 +64,15 @@ class SewaController extends Controller
         $raw_kost = Kost::get();
         $kamar = [];
 
+        $sum = 0;
+
         foreach($raw_kost as $key => $kost){
-            $kamar += [$kost->nama =>
-                $kost->kamar->where('jumlah_sewa', 0)->pluck('no_kamar', 'id')->toArray()
-            ];
+            $list = $kost->kamar->where('jumlah_sewa', 0)->pluck('no_kamar', 'id')->toArray();
+            $kamar += [$kost->nama => $list];
+            $sum = $sum + count($list);
         }
 
-        return $kamar;
+        return ['kamar' => $kamar, 'sum' => $sum];
     }
 
     /**
@@ -92,10 +95,10 @@ class SewaController extends Controller
             Sewa::create($request->validated());
         }catch(Exception $e){
             Log::info($e->getMessage());
-            return redirect()->back()->withInput()->with('success', 'Gagal menambahkan sewa');
+            return redirect()->back()->withInput()->with('success', 'Gagal menambahkan data sewa');
         }
         
-        return redirect()->route('sewa.index')->with('success', 'Berhasil menambahkan sewa');
+        return redirect()->route('sewa.index')->with('success', 'Berhasil menambahkan data sewa');
     }
 
     /**
@@ -109,10 +112,10 @@ class SewaController extends Controller
             $sewa->update($request->validated());
         }catch(Exception $e){
             Log::info($e->getMessage());
-            return redirect()->back()->withInput()->with('success', 'Gagal menambahkan sewa');
+            return redirect()->back()->withInput()->with('success', 'Gagal mengubah data sewa');
         }
         
-        return redirect()->route('sewa.index')->with('success', 'Berhasil menambahkan sewa');
+        return redirect()->route('sewa.index')->with('success', 'Berhasil mengubah data sewa');
     }
 
     /**

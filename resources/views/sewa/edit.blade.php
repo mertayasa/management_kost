@@ -12,7 +12,7 @@
           <div class="card-body">
             @include('layouts.flash')
             @include('layouts.error_message')
-            {!! Form::model($sewa, ['route' => ['sewa.update', $sewa->id], 'method' => 'patch']) !!}
+            {!! Form::model($sewa, ['route' => [Request::is('*keluar*') ? 'sewa.keluar.update' : 'sewa.update', $sewa->id], 'method' => 'patch']) !!}
             @include('sewa.form')
             <div class="row mt-3">
                 <div class="col-12">

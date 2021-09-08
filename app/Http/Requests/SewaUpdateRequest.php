@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Request;
 
 class SewaUpdateRequest extends FormRequest
 {
@@ -23,8 +24,14 @@ class SewaUpdateRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'tgl_masuk' => ['required', 'date']
-        ];
+        if(Request::is('*keluar*')){
+            return [
+                'tgl_keluar' => ['required', 'date']
+            ];
+        }else{
+            return [
+                'tgl_masuk' => ['required', 'date']
+            ];
+        }
     }
 }

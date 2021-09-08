@@ -31,12 +31,14 @@ class PembayaranDataTable
                 return getVerificationBadge($pembayaran);
             })
             ->addColumn('action', function ($pembayaran) {
-                $deleteUrl = "'" . route('pembayaran.destroy', $pembayaran->id) . "', 'pembayaranDatatable'";
-                return
-                    '<div class="btn-group">' .
-                    '<a href="' . route('pembayaran.edit', $pembayaran->id) . '" class="btn btn-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit" style="margin-right: 5px" ><i class="menu-icon fa fa-pencil-alt"></i></a>' .
-                    '<a href="#" onclick="deleteModel(' . $deleteUrl . ',)" class="btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Hapus" style="margin-right: 5px"><i class="menu-icon fa fa-trash"></i></a>' .
-                    '</div>';
+                if($pembayaran->status_validasi != 1){
+                    $deleteUrl = "'" . route('pembayaran.destroy', $pembayaran->id) . "', 'pembayaranDatatable'";
+                    return
+                        '<div class="btn-group">' .
+                        '<a href="' . route('pembayaran.edit', $pembayaran->id) . '" class="btn btn-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit" style="margin-right: 5px" ><i class="menu-icon fa fa-pencil-alt"></i></a>' .
+                        '<a href="#" onclick="deleteModel(' . $deleteUrl . ',)" class="btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Hapus" style="margin-right: 5px"><i class="menu-icon fa fa-trash"></i></a>' .
+                        '</div>';
+                }
             })->addIndexColumn()->rawColumns(['action', 'status_validasi'])->make(true);
 
     }

@@ -27,11 +27,15 @@ class PembayaranController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function datatable(Request $request)
+    public function datatable(Request $request, $status = null)
     {
-        $pembayarans = Pembayaran::all();
+        if($status != null){
+            $pembayarans = Pembayaran::where('status_validasi', $status)->get();
+        }else{
+            $pembayarans = Pembayaran::all();
+        }
 
-        return PembayaranDataTable::set($pembayarans);
+        return PembayaranDataTable::set($pembayarans, $status);
     }
 
     /**
@@ -52,8 +56,11 @@ class PembayaranController extends Controller
      */
     public function edit(Request $request, Pembayaran $pembayaran)
     {
+        $referer = request()->headers->get('referer');
+        $back_url = strpos($referer, 'validasi') ? route('validasi.index', 'pembayaranTab') : route('pembayaran.index');
+
         $jenis_pembayaran = JenisPembayaran::pluck('jenis_pembayaran', 'id');
-        return view('pembayaran.edit', compact('pembayaran', 'jenis_pembayaran'));
+        return view('pembayaran.edit', compact('pembayaran', 'jenis_pembayaran', 'back_url'));
     }
 
     /**

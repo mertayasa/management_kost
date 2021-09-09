@@ -25,11 +25,15 @@ class PenyewaController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function datatable(Request $request)
+    public function datatable(Request $request, $status = null)
     {
-        $penyewas = Penyewa::all();
+        if($status != null){
+            $penyewas = Penyewa::where('status_validasi', $status)->get();
+        }else{
+            $penyewas = Penyewa::all();
+        }
 
-        return PenyewaDataTable::set($penyewas);
+        return PenyewaDataTable::set($penyewas, $status);
     }
 
     /**
@@ -48,7 +52,9 @@ class PenyewaController extends Controller
      */
     public function edit(Request $request, Penyewa $penyewa)
     {
-        return view('penyewa.edit', compact('penyewa'));
+        $referer = request()->headers->get('referer');
+        $back_url = strpos($referer, 'validasi') ? route('validasi.index', 'penyewaTab') : route('penyewa.index');
+        return view('penyewa.edit', compact('penyewa', 'back_url'));
     }
 
     public function getNamaKamar(Penyewa $penyewa)

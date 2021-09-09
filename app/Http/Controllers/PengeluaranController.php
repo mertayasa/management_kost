@@ -26,11 +26,15 @@ class PengeluaranController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function datatable(Request $request)
+    public function datatable(Request $request, $status = null)
     {
-        $pengeluarans = Pengeluaran::all();
+        if($status != null){
+            $pengeluarans = Pengeluaran::where('status_validasi', $status)->get();
+        }else{
+            $pengeluarans = Pengeluaran::all();
+        }
 
-        return PengeluaranDataTable::set($pengeluarans);
+        return PengeluaranDataTable::set($pengeluarans, $status);
     }
 
     /**
@@ -50,7 +54,10 @@ class PengeluaranController extends Controller
      */
     public function edit(Request $request, Pengeluaran $pengeluaran)
     {
-        return view('pengeluaran.edit', compact('pengeluaran'));
+        $referer = request()->headers->get('referer');
+        $back_url = strpos($referer, 'validasi') ? route('validasi.index', 'pengeluaranTab') : route('pengeluaran.index');
+
+        return view('pengeluaran.edit', compact('pengeluaran', 'back_url'));
     }
 
     /**

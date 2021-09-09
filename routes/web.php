@@ -10,6 +10,7 @@ use App\Http\Controllers\PengeluaranController;
 use App\Http\Controllers\PenyewaController;
 use App\Http\Controllers\SewaController;
 use App\Http\Controllers\TinyUploadController;
+use App\Http\Controllers\ValidasiController;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -114,7 +115,7 @@ Route::middleware(['auth'])->group(function () {
             Route::delete('destroy/{penyewa}', [PenyewaController::class, 'destroy'])->name('destroy');
         });
 
-        Route::get('datatable', [PenyewaController::class, 'datatable'])->name('datatable');
+        Route::get('datatable/{status?}', [PenyewaController::class, 'datatable'])->name('datatable');
     });
 
     Route::group(['prefix' => 'sewa', 'as' => 'sewa.'], function () {
@@ -144,7 +145,7 @@ Route::middleware(['auth'])->group(function () {
             Route::delete('destroy/{pembayaran}', [PembayaranController::class, 'destroy'])->name('destroy');
         });
 
-        Route::get('datatable', [PembayaranController::class, 'datatable'])->name('datatable');
+        Route::get('datatable/{status?}', [PembayaranController::class, 'datatable'])->name('datatable');
     });
 
     Route::group(['prefix' => 'pengeluaran', 'as' => 'pengeluaran.'], function () {
@@ -158,7 +159,14 @@ Route::middleware(['auth'])->group(function () {
             Route::delete('destroy/{pengeluaran}', [PengeluaranController::class, 'destroy'])->name('destroy');
         });
 
-        Route::get('datatable', [PengeluaranController::class, 'datatable'])->name('datatable');
+        Route::get('datatable/{status?}', [PengeluaranController::class, 'datatable'])->name('datatable');
+    });
+
+    Route::group(['prefix' => 'validasi', 'as' => 'validasi.'], function () {
+        Route::get('/{active_tab?}', [ValidasiController::class, 'index'])->name('index');
+        Route::patch('update-status-penyewa/{penyewa}/{status}', [ValidasiController::class, 'validasiPenyewa'])->name('penyewa');
+        Route::patch('update-status-pembayaran/{pembayaran}/{status}', [ValidasiController::class, 'validasiPembayaran'])->name('pembayaran');
+        Route::patch('update-status-pengeluaran/{pengeluaran}/{status}', [ValidasiController::class, 'validasiPengeluaran'])->name('pengeluaran');
     });
 
 });

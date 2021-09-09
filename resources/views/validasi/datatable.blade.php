@@ -1,11 +1,12 @@
-<table class="table table-hover table-striped" width="100%" id="penyewaDatatable">
+<table class="table table-hover table-striped" width="100%" id="sewaDatatable">
     <thead>
         <tr>
         <th>No</th> <th></th>
-        <th>Nama</th>
-        <th>No Telp</th>
-        <th>No Ktp</th>
-        <th>Validasi</th>
+        <th>Nama Kost</th>
+        <th>No Kamar</th>
+        <th>Penyewa</th>
+        <th>Tanggal Masuk</th>
+        <th>Tanggal Keluar</th>
         <th>Aksi</th>
         </tr>
     </thead>
@@ -16,27 +17,23 @@
 <script>
 
     let table
-    @if(isset($status))
-        let url = "{{ route('penyewa.datatable', $status) }}"
-    @else
-        let url = "{{ route('penyewa.datatable') }}"
-    @endif
+    let url = "{{ route('sewa.datatable') }}"
 
     datatable(url)
     function datatable (url){
 
-        table = $('#penyewaDatatable').DataTable({
+        table = $('#sewaDatatable').DataTable({
             processing: true,
             serverSide: true,
             responsive: true,
             ajax: url,
             columns: [
-                {data: 'DT_RowIndex', name: 'no',orderable: false, searchable: false},
-                {data:'updated_at', name:'updated_at', visible:false, searchable:false},
-                {data: 'nama', name: 'nama'},
-                {data: 'telpon', name: 'telpon'},
-                {data: 'no_ktp', name: 'no_ktp'},
-                {data: 'status_validasi', name: 'status_validasi'},
+{data: 'DT_RowIndex', name: 'no',orderable: false, searchable: false},{data:'updated_at', name:'updated_at', visible:false, searchable:false},
+                {data: 'nama_kost', name: 'nama_kost'},
+                {data: 'no_kamar', name: 'no_kamar'},
+                {data: 'penyewa', name: 'penyewa'},
+                {data: 'tgl_masuk', name: 'tgl_masuk'},
+                {data: 'tgl_keluar', name: 'tgl_keluar'},
                 {data: 'action', name: 'action', orderable: false, searchable: false}
             ],
             order: [[ 1, "desc" ]],

@@ -10,7 +10,7 @@ use Illuminate\Support\Str;
 
 class PengeluaranDataTable
 {
-    static public function set($pengeluaran){
+    static public function set($pengeluaran, $req_validasi){
 
         return Datatables::of($pengeluaran)
             ->editColumn('id_jenis_pengeluaran', function($pengeluaran){
@@ -28,7 +28,21 @@ class PengeluaranDataTable
             ->editColumn('status_validasi', function ($pengeluaran) {
                 return getVerificationBadge($pengeluaran);
             })
-            ->addColumn('action', function ($pengeluaran) {
+            ->addColumn('action', function ($pengeluaran) use($req_validasi) {
+                $approve_pengeluaran_url = "`" . route('validasi.pengeluaran', [$pengeluaran->id, 1]) . "`, `Apakah anda yakin menerima data pengeluaran sejumlah ( ". formatPrice($pengeluaran->jumlah) ." )`, `pengeluaranDatatable`";
+                // $decline_pengeluaran_url = "`" . route('validasi.pengeluaran', [$pengeluaran->id, 2]) . "`, `Apakah anda yakin menolak data pengeluaran ( ". $pengeluaran->nama ." )`, `pengeluaranDatatable`";
+                $deleteUrl = "'" . route('pengeluaran.destroy', $pengeluaran->id) . "', 'pengeluaranDatatable', '".$pengeluaran->nama."'";
+                
+                if($req_validasi != null){
+                    return 
+                        '<div class="btn-group">' .
+                            '<a href="#" onclick="updateStatus(' . $approve_pengeluaran_url . ')" class="btn btn-success" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Terima" style="margin-right: 5px">Terima</a>'.
+                            '<a href="#" onclick="deleteModel(' . $deleteUrl . ',)" class="btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Hapus" style="margin-right: 5px">Hapus</a>' .
+                            '<a href="' . route('pengeluaran.edit', $pengeluaran->id) . '" class="btn btn-warning" data-bs-toggle="tooltip" title="Rangkuman" data-bs-placement="bottom" title="Detail" >Edit</a>' .
+                        '</div>';
+                }
+
+
                 if($pengeluaran->status_validasi != 1){
                     $deleteUrl = "'" . route('pengeluaran.destroy', $pengeluaran->id) . "', 'pengeluaranDatatable', 'pengeluaran sejumlah ". formatPrice($pengeluaran->jumlah)."'";
                     return

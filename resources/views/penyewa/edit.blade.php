@@ -16,7 +16,7 @@
             @include('penyewa.form')
             <div class="row mt-3">
                 <div class="col-12">
-                    <a href="{{route('penyewa.index')}}" class="btn btn-secondary">Kembali</a>
+                    <a href="{{$back_url}}" class="btn btn-secondary">Kembali</a>
                     <button class="btn btn-primary ml-3" type="submit">Simpan</button>
                 </div>
             </div>

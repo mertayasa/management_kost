@@ -9,7 +9,7 @@ use Yajra\DataTables\DataTables;
 
 class PembayaranDataTable
 {
-    static public function set($pembayaran){
+    static public function set($pembayaran, $req_validasi){
 
         return Datatables::of($pembayaran)
             ->editColumn('id_jenis_pembayaran', function($pembayaran){
@@ -30,7 +30,20 @@ class PembayaranDataTable
             ->editColumn('status_validasi', function ($pembayaran) {
                 return getVerificationBadge($pembayaran);
             })
-            ->addColumn('action', function ($pembayaran) {
+            ->addColumn('action', function ($pembayaran) use($req_validasi) {
+                $approve_pembayaran_url = "`" . route('validasi.pembayaran', [$pembayaran->id, 1]) . "`, `Apakah anda yakin menerima data pembayaran sejumlah ( ". formatPrice($pembayaran->jumlah) ." )`, `pembayaranDatatable`";
+                // $decline_pembayaran_url = "`" . route('validasi.pembayaran', [$pembayaran->id, 2]) . "`, `Apakah anda yakin menolak data pembayaran ( ". $pembayaran->nama ." )`, `pembayaranDatatable`";
+                $deleteUrl = "'" . route('pembayaran.destroy', $pembayaran->id) . "', 'pembayaranDatatable', '".$pembayaran->nama."'";
+                
+                if($req_validasi != null){
+                    return 
+                        '<div class="btn-group">' .
+                            '<a href="#" onclick="updateStatus(' . $approve_pembayaran_url . ')" class="btn btn-success" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Terima" style="margin-right: 5px">Terima</a>'.
+                            '<a href="#" onclick="deleteModel(' . $deleteUrl . ',)" class="btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Hapus" style="margin-right: 5px">Hapus</a>' .
+                            '<a href="' . route('pembayaran.edit', $pembayaran->id) . '" class="btn btn-warning" data-bs-toggle="tooltip" title="Rangkuman" data-bs-placement="bottom" title="Detail" >Edit</a>' .
+                        '</div>';
+                }
+
                 if($pembayaran->status_validasi != 1){
                     $deleteUrl = "'" . route('pembayaran.destroy', $pembayaran->id) . "', 'pembayaranDatatable'";
                     return

@@ -16,17 +16,22 @@
 @push('scripts')
 <script>
 
-    let table
-    let url = "{{ route('pengeluaran.datatable') }}"
+    let tablePengeluaran
 
-    datatable(url)
-    function datatable (url){
+    @if(isset($status))
+        let urlPengeluaran = "{{ route('pengeluaran.datatable', $status) }}"
+    @else
+        let urlPengeluaran = "{{ route('pengeluaran.datatable') }}"
+    @endif
 
-        table = $('#pengeluaranDatatable').DataTable({
+    datatablePengeluaran(urlPengeluaran)
+    function datatablePengeluaran (urlPengeluaran){
+
+        tablePengeluaran = $('#pengeluaranDatatable').DataTable({
             processing: true,
             serverSide: true,
             responsive: true,
-            ajax: url,
+            ajax: urlPengeluaran,
             columns: [
                 {data: 'DT_RowIndex', name: 'no',orderable: false, searchable: false},
                 {data:'updated_at', name:'updated_at', visible:false, searchable:false},

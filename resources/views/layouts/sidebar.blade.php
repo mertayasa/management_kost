@@ -36,6 +36,12 @@
           <li class="nav-item dropdown {{isActive('pengeluaran')}}">
             <a href="{{route('pengeluaran.index')}}" class="nav-link"><i class="far fa-credit-card"></i><span>Pengeluaran</span></a>
           </li>
+
+          <li class="menu-header">Validasi Data</li>
+          
+          <li class="nav-item dropdown {{isActive('validasi')}}">
+            <a href="{{route('validasi.index', 'penyewaTab')}}" class="nav-link"><i class="fas fa-check-square"></i><span>Validasi Data</span></a>
+          </li>
           
           <li class="menu-header">Extra</li>
           <li class="nav-item dropdown {{isActive('jenis-pembayaran')}}">

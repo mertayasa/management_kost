@@ -14,15 +14,15 @@ use Illuminate\Support\Facades\Log;
 
 class ValidasiController extends Controller
 {
-    public function index()
+    public function index($active_tab = null)
     {
-        return view('validasi.index');
+        return view('validasi.index', compact('active_tab'));
     }
 
-    public function validasiPenyewa(ValidasiPenyewaRequest $request, Penyewa $penyewa)
+    public function validasiPenyewa(Request $request, Penyewa $penyewa, $status)
     {
         try {
-            $penyewa->update(['status_validasi' => 1]);
+            $penyewa->update(['status_validasi' => $status]);
         } catch (Exception $e) {
             Log::info($e->getMessage());
             return response(['code' => 0, 'message' => 'Gagal memvalidasi data penyewa']);
@@ -31,10 +31,10 @@ class ValidasiController extends Controller
         return response(['code' => 1, 'message' => 'Berhasil memvalidasi data penyewa']);
     }
 
-    public function validasiPembayaran(ValidasiPembayaranRequest $request, Pembayaran $pembayaran)
+    public function validasiPembayaran(Request $request, Pembayaran $pembayaran, $status)
     {
         try {
-            $pembayaran->update(['status_validasi' => 1]);
+            $pembayaran->update(['status_validasi' => $status]);
         } catch (Exception $e) {
             Log::info($e->getMessage());
             return response(['code' => 0, 'message' => 'Gagal memvalidasi data pembayaran']);
@@ -43,10 +43,10 @@ class ValidasiController extends Controller
         return response(['code' => 1, 'message' => 'Berhasil memvalidasi data pembayaran']);
     }
 
-    public function validasiPengeluaran(ValidasiPengeluaranRequest $request, Pengeluaran $pengeluaran)
+    public function validasiPengeluaran(Request $request, Pengeluaran $pengeluaran, $status)
     {
         try {
-            $pengeluaran->update(['status_validasi' => 1]);
+            $pengeluaran->update(['status_validasi' => $status]);
         } catch (Exception $e) {
             Log::info($e->getMessage());
             return response(['code' => 0, 'message' => 'Gagal memvalidasi data pengeluaran']);

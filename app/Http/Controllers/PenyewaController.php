@@ -51,6 +51,11 @@ class PenyewaController extends Controller
         return view('penyewa.edit', compact('penyewa'));
     }
 
+    public function getNamaKamar(Penyewa $penyewa)
+    {
+        return response(['code' => 1, 'data' => $penyewa->kamar_kost ?? 'Tidak Ada Data']);
+    }
+
     /**
      * @param \App\Http\Requests\PenyewaStoreRequest $request
      * @return \Illuminate\Http\Response

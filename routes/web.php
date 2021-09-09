@@ -104,6 +104,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::group(['prefix' => 'penyewa', 'as' => 'penyewa.'], function () {
         Route::get('/', [PenyewaController::class, 'index'])->name('index');
+        Route::get('get-nama-kamar/{penyewa}', [PenyewaController::class, 'getNamaKamar'])->name('get_nama_kamar');
 
         Route::group(['middleware' => 'role:admin'], function () {
             Route::get('create', [PenyewaController::class, 'create'])->name('create');

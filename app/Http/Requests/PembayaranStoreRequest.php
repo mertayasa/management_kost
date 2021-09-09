@@ -26,7 +26,6 @@ class PembayaranStoreRequest extends FormRequest
         return [
             'id_jenis_pembayaran' => ['required', 'integer', 'gt:0'],
             'id_penyewa' => ['required', 'integer', 'gt:0'],
-            'id_kamar' => ['required', 'integer', 'gt:0'],
             'jumlah' => ['required', 'integer'],
             'tgl_pembayaran' => ['required', 'date'],
         ];

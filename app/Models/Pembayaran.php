@@ -54,4 +54,9 @@ class Pembayaran extends Model
     {
         return $this->belongsTo(\App\Models\Kamar::class, 'id_kamar');
     }
+
+    public function getNamaKostAttribute()
+    {
+        return $this->kamar->kost->nama. ', Kamar '.$this->kamar->no_kamar;
+    }
 }

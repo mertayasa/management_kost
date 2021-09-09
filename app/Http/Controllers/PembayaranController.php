@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\DataTables\PembayaranDataTable;
 use App\Http\Requests\PembayaranStoreRequest;
 use App\Http\Requests\PembayaranUpdateRequest;
+use App\Models\JenisPembayaran;
 use App\Models\Pembayaran;
+use App\Models\Penyewa;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -38,7 +40,9 @@ class PembayaranController extends Controller
      */
     public function create(Request $request)
     {
-        return view('pembayaran.create');
+        $penyewa = Penyewa::get()->where('status_sewa', 1)->pluck('nama', 'id');
+        $jenis_pembayaran = JenisPembayaran::pluck('jenis_pembayaran', 'id');
+        return view('pembayaran.create', compact('penyewa', 'jenis_pembayaran'));
     }
 
     /**
@@ -48,7 +52,8 @@ class PembayaranController extends Controller
      */
     public function edit(Request $request, Pembayaran $pembayaran)
     {
-        return view('pembayaran.edit', compact('pembayaran'));
+        $jenis_pembayaran = JenisPembayaran::pluck('jenis_pembayaran', 'id');
+        return view('pembayaran.edit', compact('pembayaran', 'jenis_pembayaran'));
     }
 
     /**
@@ -57,9 +62,16 @@ class PembayaranController extends Controller
      */
     public function store(PembayaranStoreRequest $request)
     {
-        $pembayaran = Pembayaran::create($request->validated());
+        $data = $request->validated();
+        $data['id_kamar'] = Penyewa::find($data['id_penyewa'])->sewa()->whereNull('tgl_keluar')->get()[0]->id_kamar;
+        try{
+            Pembayaran::create($data);
+        }catch(Exception $e){
+            Log::info($e->getMessage());
+            return redirect()->back()->withInput()->with('error', 'Gagal menambahkan data pembayaran');
+        }
 
-        return redirect()->route('pembayaran.index');
+        return redirect()->route('pembayaran.index')->with('success', 'Berhasil menambahkan data pembayaran');
     }
 
     /**
@@ -69,9 +81,14 @@ class PembayaranController extends Controller
      */
     public function update(PembayaranUpdateRequest $request, Pembayaran $pembayaran)
     {
-        $pembayaran->update($request->validated());
+        try{
+            $pembayaran->update($request->validated());
+        }catch(Exception $e){
+            Log::info($e->getMessage());
+            return redirect()->back()->withInput()->with('error', 'Gagal mengubah data pembayaran');
+        }
 
-        return redirect()->route('pembayaran.index');
+        return redirect()->route('pembayaran.index')->with('success', 'Berhasil mengubah data pembayaran');
     }
 
     /**

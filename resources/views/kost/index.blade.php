@@ -7,7 +7,9 @@
         <div class="card">
           <div class="card-header d-flex justify-content-between">
             <h4>Kost</h4>
-            <a href="{{route('kost.create')}}" class="btn btn-primary">Tambah Kost</a>
+            @if (userRole() != 'pegawai')
+              <a href="{{route('kost.create')}}" class="btn btn-primary">Tambah Kost</a>
+            @endif
           </div>
           <div class="col-12">
               @include('layouts.flash')

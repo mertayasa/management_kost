@@ -14,6 +14,12 @@ class KostDataTable{
                 return $kost->jumlah_kamar;
             })
             ->addColumn('action', function ($kost) {
+                if(userRole() == 'pegawai'){
+                    return '<div class="btn-group">' .
+                        '<a href="' . route('kost.show', $kost->id) . '" class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit" style="margin-right: 5px" ><i class="menu-icon fas fa-eye"></i></a>' .
+                    '</div>';
+                }
+
                 $deleteUrl = "'" . route('kost.destroy', $kost->id) . "', 'kostDatatable', '".$kost->nama."'";
                 return
                     '<div class="btn-group">' .

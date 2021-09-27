@@ -16,7 +16,7 @@
                             <div class="bs-example">
                                 <ul class="nav nav-tabs">
                                     <li class="nav-item">
-                                        <a href="#penyewaTab" class="nav-link {{$active_tab == 'penyewaTab' || $active_tab == null ? 'active' : ''}}" data-toggle="tab">Petani</a>
+                                        <a href="#penyewaTab" class="nav-link {{$active_tab == 'penyewaTab' || $active_tab == null ? 'active' : ''}}" data-toggle="tab">Penyewa</a>
                                     </li>
                                     <li class="nav-item">
                                         <a href="#pembayaranTab" class="nav-link {{$active_tab == 'pembayaranTab' ? 'active' : ''}}" data-toggle="tab">Pembayaran</a>

@@ -99,7 +99,7 @@
   </script>
 
   <!-- Page Specific JS File -->
-  {{-- <script src="{{asset('admin/js/page/index.js')}}"></script> --}}
+  {{-- <script src="{{asset('owner/js/page/index.js')}}"></script> --}}
   @stack('scripts')
 </body>
 </html>

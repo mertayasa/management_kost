@@ -9,12 +9,12 @@ function formatPrice($value){
     return 'Rp '. number_format($value,0,',','.');
 }
 
-function userRole(){
+function userRole($level = null){
     // 3 User
-    // $role_name = Auth::user()->level == 0 ? 'role1' : (Auth::user()->level == 1 ? 'role2' : 'role3');
+    $role_name = ($level ?? Auth::user()->level) == 0 ? 'owner' : (($level ?? Auth::user()->level) == 1 ? 'manager' : 'pegawai');
 
     // 2 user
-    $role_name = Auth::user()->level == 0 ? 'role1' : 'role2';
+    // $role_name = Auth::user()->level == 0 ? 'role1' : 'role2';
 
     return $role_name;
 }

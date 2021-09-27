@@ -75,10 +75,10 @@ class PembayaranController extends Controller
             Pembayaran::create($data);
         }catch(Exception $e){
             Log::info($e->getMessage());
-            return redirect()->back()->withInput()->with('error', 'Gagal menambahkan data pembayaran');
+            return redirect()->back()->withInput()->with('error', 'Gagal menambahkan data pemasukan');
         }
 
-        return redirect()->route('pembayaran.index')->with('success', 'Berhasil menambahkan data pembayaran');
+        return redirect()->route('pembayaran.index')->with('success', 'Berhasil menambahkan data pemasukan');
     }
 
     /**
@@ -92,10 +92,10 @@ class PembayaranController extends Controller
             $pembayaran->update($request->validated());
         }catch(Exception $e){
             Log::info($e->getMessage());
-            return redirect()->back()->withInput()->with('error', 'Gagal mengubah data pembayaran');
+            return redirect()->back()->withInput()->with('error', 'Gagal mengubah data pemasukan');
         }
 
-        return redirect()->route('pembayaran.index')->with('success', 'Berhasil mengubah data pembayaran');
+        return redirect()->route('pembayaran.index')->with('success', 'Berhasil mengubah data pemasukan');
     }
 
     /**

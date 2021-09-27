@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\UserDataTable;
+use App\Http\Requests\UserStoreRequest;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
@@ -11,7 +12,7 @@ use Illuminate\Support\Facades\Log;
 class UserController extends Controller{
 
     public function index(){
-        //
+        return view('user.index');
     }
 
     public function datatable(){
@@ -21,30 +22,14 @@ class UserController extends Controller{
     }
 
     public function create(){
-        //
+        $level = [1 => 'Manager', 2 => 'Pegawai'];
+        return view('user.create', compact('level'));
     }
 
-    public function store(Request $request){
-        //
-    }
-
-    public function show($id){
-        //
-    }
-
-    public function edit(User $user){
-        return view('profile.edit', compact('user'));
-    }
-
-    public function update(Request $request, User $user){
+    public function store(UserStoreRequest $request){
         try{
             $data = $request->all();
-
-            // if($data['password']){
-            //     $data['password'] = bcrypt($data['password']);
-            // }else{
-            //     unset($data['password']);
-            // }
+            $data['password'] = bcrypt($data['password']);
 
             // $base_64_foto = json_decode($request['foto'], true);
             // $upload_image = uploadFile($base_64_foto);
@@ -55,29 +40,76 @@ class UserController extends Controller{
 
             // $data['foto'] = $upload_image;
 
-            // $update_user = $user->update($data);
+            User::create($data);
 
-            // if(userRole() == 'admin'){
-            //     Admin::updateOrCreate(['user_id' => $user->id], $data);
+            // if(userlevel() == 'owner'){
+            //     owner::updateOrCreate(['user_id' => $user->id], $data);
             // }else{
             //     $user->pegawai->update($data);
             // }
         }catch(Exception $e){
             Log::info($e->getMessage());
-            return redirect()->back()->withInput()->with('error', 'Gagal mengubah profile!');
+            dd($e->getMessage());
+            return redirect()->back()->withInput()->with('error', 'Gagal menambahkan user');
         }
 
-        return redirect()->back()->with('success','Profile berhasil diubah!');
+        return redirect()->route('user.index')->with('success','Berhasil menambahkan user');
     }
 
-    public function destroy($user){
+    public function show($id){
+        //
+    }
+
+    public function edit(User $user){
+        $level = [1 => 'Manager', 2 => 'Pegawai'];
+        return view('user.edit', compact('user', 'level'));
+    }
+
+    public function update(Request $request, User $user){
+        try{
+            $data = $request->all();
+
+            if($data['password']){
+                $data['password'] = bcrypt($data['password']);
+            }else{
+                unset($data['password']);
+            }
+
+            // $base_64_foto = json_decode($request['foto'], true);
+            // $upload_image = uploadFile($base_64_foto);
+
+            // if($upload_image == 0){
+            //     return redirect()->back()->withInput()->with('error', 'Gagal mengupload gambar!');
+            // }
+
+            // $data['foto'] = $upload_image;
+
+            $user->update($data);
+        }catch(Exception $e){
+            Log::info($e->getMessage());
+            return redirect()->back()->withInput()->with('error', 'Gagal mengubah user');
+        }
+
+        return redirect()->route('user.index')->with('success','Berhasil mengubah user');
+    }
+
+    public function destroy(User $user){
+        $name = $user->name;
         try{
             $user->delete();
         }catch(Exception $e){
             Log::info($e->getMessage());
-            return response(['code' => 0, 'message' => 'Gagal menghapus user']);
+            return response(['code' => 0, 'message' => 'Gagal menghapus user '.$name]);
         }
 
-        return response(['code' => 1, 'message' => 'Berhasil menghapus user']);
+        return response(['code' => 1, 'message' => 'Berhasil menghapus user '.$name]);
+    }
+
+    public function editProfile(){
+        return view('user.edit_profile');
+    }
+
+    public function updatProfile(){
+        
     }
 }

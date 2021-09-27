@@ -10,6 +10,7 @@ use App\Http\Controllers\PengeluaranController;
 use App\Http\Controllers\PenyewaController;
 use App\Http\Controllers\SewaController;
 use App\Http\Controllers\TinyUploadController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\ValidasiController;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Support\Facades\Auth;
@@ -50,7 +51,7 @@ Route::middleware(['auth'])->group(function () {
     Route::group(['prefix' => 'kost', 'as' => 'kost.'], function () {
         Route::get('/', [KostController::class, 'index'])->name('index');
 
-        Route::group(['middleware' => 'role:admin'], function () {
+        Route::group(['middleware' => 'role:owner'], function () {
             Route::get('create', [KostController::class, 'create'])->name('create');
             Route::post('store', [KostController::class, 'store'])->name('store');
             Route::get('edit/{kost}', [KostController::class, 'edit'])->name('edit');
@@ -58,13 +59,14 @@ Route::middleware(['auth'])->group(function () {
             Route::delete('destroy/{kost}', [KostController::class, 'destroy'])->name('destroy');
         });
         
+        Route::get('edit/{show}', [KostController::class, 'show'])->name('show');
         Route::get('datatable', [KostController::class, 'datatable'])->name('datatable');
     });
 
     Route::group(['prefix' => 'kamar', 'as' => 'kamar.'], function () {
         Route::get('/', [KamarController::class, 'index'])->name('index');
 
-        Route::group(['middleware' => 'role:admin'], function () {
+        Route::group(['middleware' => 'role:owner'], function () {
             Route::get('create', [KamarController::class, 'create'])->name('create');
             Route::post('store', [KamarController::class, 'store'])->name('store');
             Route::get('edit/{kamar}', [KamarController::class, 'edit'])->name('edit');
@@ -78,7 +80,7 @@ Route::middleware(['auth'])->group(function () {
     Route::group(['prefix' => 'jenis-pembayaran', 'as' => 'jenis_pembayaran.'], function () {
         Route::get('/', [JenisPembayaranController::class, 'index'])->name('index');
 
-        Route::group(['middleware' => 'role:admin'], function () {
+        Route::group(['middleware' => 'role:owner'], function () {
             Route::get('create', [JenisPembayaranController::class, 'create'])->name('create');
             Route::post('store', [JenisPembayaranController::class, 'store'])->name('store');
             Route::get('edit/{jenis_pembayaran}', [JenisPembayaranController::class, 'edit'])->name('edit');
@@ -92,7 +94,7 @@ Route::middleware(['auth'])->group(function () {
     Route::group(['prefix' => 'jenis-pengeluaran', 'as' => 'jenis_pengeluaran.'], function () {
         Route::get('/', [JenisPengeluaranController::class, 'index'])->name('index');
 
-        Route::group(['middleware' => 'role:admin'], function () {
+        Route::group(['middleware' => 'role:owner'], function () {
             Route::get('create', [JenisPengeluaranController::class, 'create'])->name('create');
             Route::post('store', [JenisPengeluaranController::class, 'store'])->name('store');
             Route::get('edit/{jenis_pengeluaran}', [JenisPengeluaranController::class, 'edit'])->name('edit');
@@ -107,7 +109,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/', [PenyewaController::class, 'index'])->name('index');
         Route::get('get-nama-kamar/{penyewa}', [PenyewaController::class, 'getNamaKamar'])->name('get_nama_kamar');
 
-        Route::group(['middleware' => 'role:admin'], function () {
+        Route::group(['middleware' => 'role:owner'], function () {
             Route::get('create', [PenyewaController::class, 'create'])->name('create');
             Route::post('store', [PenyewaController::class, 'store'])->name('store');
             Route::get('edit/{penyewa}', [PenyewaController::class, 'edit'])->name('edit');
@@ -118,10 +120,26 @@ Route::middleware(['auth'])->group(function () {
         Route::get('datatable/{status?}', [PenyewaController::class, 'datatable'])->name('datatable');
     });
 
+    Route::group(['prefix' => 'user', 'as' => 'user.'], function () {
+        Route::get('edit/profile/{user}', [UserController::class, 'edit'])->name('edit.profile');
+        Route::patch('update/profile/{user}', [UserController::class, 'update'])->name('update.profile');
+        
+        Route::group(['middleware' => 'role:owner'], function () {
+            Route::get('/', [UserController::class, 'index'])->name('index');
+            Route::get('create', [UserController::class, 'create'])->name('create');
+            Route::post('store', [UserController::class, 'store'])->name('store');
+            Route::get('edit/{user}', [UserController::class, 'edit'])->name('edit');
+            Route::patch('update/{user}', [UserController::class, 'update'])->name('update');
+            Route::delete('destroy/{user}', [UserController::class, 'destroy'])->name('destroy');
+            Route::get('datatable', [UserController::class, 'datatable'])->name('datatable');
+        });
+
+    });
+
     Route::group(['prefix' => 'sewa', 'as' => 'sewa.'], function () {
         Route::get('/', [SewaController::class, 'index'])->name('index');
 
-        Route::group(['middleware' => 'role:admin'], function () {
+        Route::group(['middleware' => 'role:owner'], function () {
             Route::get('create', [SewaController::class, 'create'])->name('create');
             Route::post('store', [SewaController::class, 'store'])->name('store');
             Route::get('edit/{sewa}', [SewaController::class, 'edit'])->name('edit');
@@ -137,7 +155,7 @@ Route::middleware(['auth'])->group(function () {
     Route::group(['prefix' => 'pembayaran', 'as' => 'pembayaran.'], function () {
         Route::get('/', [PembayaranController::class, 'index'])->name('index');
 
-        Route::group(['middleware' => 'role:admin'], function () {
+        Route::group(['middleware' => 'role:owner'], function () {
             Route::get('create', [PembayaranController::class, 'create'])->name('create');
             Route::post('store', [PembayaranController::class, 'store'])->name('store');
             Route::get('edit/{pembayaran}', [PembayaranController::class, 'edit'])->name('edit');
@@ -151,7 +169,7 @@ Route::middleware(['auth'])->group(function () {
     Route::group(['prefix' => 'pengeluaran', 'as' => 'pengeluaran.'], function () {
         Route::get('/', [PengeluaranController::class, 'index'])->name('index');
 
-        Route::group(['middleware' => 'role:admin'], function () {
+        Route::group(['middleware' => 'role:owner'], function () {
             Route::get('create', [PengeluaranController::class, 'create'])->name('create');
             Route::post('store', [PengeluaranController::class, 'store'])->name('store');
             Route::get('edit/{pengeluaran}', [PengeluaranController::class, 'edit'])->name('edit');

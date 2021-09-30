@@ -15,7 +15,14 @@ class KamarDataTable
             ->addColumn('nama_kost', function($kamar){
                 return $kamar->kost->nama;
             })
+            ->addColumn('status', function($kamar){
+                return $kamar->jumlah_sewa == 0 ? 'Kosong' : 'Isi';
+            })
             ->addColumn('action', function ($kamar) {
+                if(userRole() == 'pegawai'){
+                    return '-';
+                }
+
                 $deleteUrl = "'" . route('kamar.destroy', $kamar->id) . "', 'kamarDatatable', '".$kamar->no_kamar."'";
                 return
                     '<div class="btn-group">' .

@@ -103,7 +103,11 @@ class PenyewaController extends Controller
     public function destroy(Request $request, Penyewa $penyewa)
     {
         try {
-            $penyewa->delete();
+            if($penyewa->status_sewa > 0){
+                return response(['code' => 0, 'message' => 'Penyewa masih memiliki data sewa']);
+            }
+
+            // $penyewa->delete();
         } catch (Exception $e) {
             Log::info($e->getMessage());
             return response(['code' => 0, 'message' => 'Gagal menghapus data penyewa']);

@@ -23,6 +23,7 @@ class KostDataTable{
                 $deleteUrl = "'" . route('kost.destroy', $kost->id) . "', 'kostDatatable', '".$kost->nama."'";
                 return
                     '<div class="btn-group">' .
+                    '<a href="' . route('kost.show', $kost->id) . '" class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit" style="margin-right: 5px" ><i class="menu-icon fas fa-eye"></i></a>' .
                     '<a href="' . route('kost.edit', $kost->id) . '" class="btn btn-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit" style="margin-right: 5px" ><i class="menu-icon fa fa-pencil-alt"></i></a>' .
                     '<a href="#" onclick="deleteModel(' . $deleteUrl . ',)" class="btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Hapus" style="margin-right: 5px"><i class="menu-icon fa fa-trash"></i></a>' .
                     '</div>';

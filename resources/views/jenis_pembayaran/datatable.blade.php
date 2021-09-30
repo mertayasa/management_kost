@@ -2,7 +2,7 @@
     <thead>
         <tr>
         <th>No</th> <th></th>
-        <th>Jenis Pembayaran</th>
+        <th>Jenis Pemasukan</th>
         <th>Aksi</th>
         </tr>
     </thead>

@@ -26,9 +26,9 @@
               <a href="{{route('kost.index')}}" class="nav-link"><i class="fas fa-home"></i><span>Kost</span></a>
             </li>
 
-            <li class="nav-item dropdown {{isActive('kamar')}}">
+            {{-- <li class="nav-item dropdown {{isActive('kamar')}}">
               <a href="{{route('kamar.index')}}" class="nav-link"><i class="fas fa-door-open"></i><span>Kamar</span></a>
-            </li>
+            </li> --}}
 
             <li class="nav-item dropdown {{isActive('penyewa')}}">
               <a href="{{route('penyewa.index')}}" class="nav-link"><i class="fas fa-users"></i><span>Penyewa</span></a>
@@ -55,7 +55,7 @@
             
             <li class="menu-header">Extra</li>
             <li class="nav-item dropdown {{isActive('jenis-pembayaran')}}">
-              <a href="{{route('jenis_pembayaran.index')}}" class="nav-link"><i class="fas fa-list-ul"></i><span>Jenis Pembayaran</span></a>
+              <a href="{{route('jenis_pembayaran.index')}}" class="nav-link"><i class="fas fa-list-ul"></i><span>Jenis Pemasukan</span></a>
             </li>
 
             <li class="nav-item dropdown {{isActive('jenis-pengeluaran')}}">

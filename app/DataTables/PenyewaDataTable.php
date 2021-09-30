@@ -16,7 +16,18 @@ class PenyewaDataTable
                 return getVerificationBadge($penyewa);
             })
 
+            ->addColumn('status', function($penyewa){
+                return $penyewa->status_sewa == 0 ? 'Tidak Menyewa' : 'Menyewa';
+            })
+
             ->addColumn('action', function ($penyewa) use($req_validasi) {
+
+                if(userRole() == 'pegawai'){
+                    return '<div class="btn-group">' .
+                    '<a href="' . route('penyewa.edit', $penyewa->id) . '" class="btn btn-warning" data-bs-toggle="tooltip" title="Rangkuman" data-bs-placement="bottom" title="Detail" >Edit</a>' .
+                '</div>';
+                }
+
                 $approve_penyewa_url = "`" . route('validasi.penyewa', [$penyewa->id, 1]) . "`, `Apakah anda yakin menerima data penyewa ( ". $penyewa->nama ." )`, `penyewaDatatable`";
                 // $decline_penyewa_url = "`" . route('validasi.penyewa', [$penyewa->id, 2]) . "`, `Apakah anda yakin menolak data penyewa ( ". $penyewa->nama ." )`, `penyewaDatatable`";
                 $deleteUrl = "'" . route('penyewa.destroy', $penyewa->id) . "', 'penyewaDatatable', '".$penyewa->nama."'";

@@ -12,7 +12,7 @@
           <div class="card-body">
             @include('layouts.flash')
             @include('layouts.error_message')
-            {!! Form::model($user, ['route' => ['user.update', $user->id], 'method' => 'patch']) !!}
+            {!! Form::model($user, ['route' => ['user.update.profile', $user->id], 'method' => 'patch']) !!}
             @include('user.form')
             <div class="row mt-3">
                 <div class="col-12">

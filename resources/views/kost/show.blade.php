@@ -6,14 +6,17 @@
       <div class="col-12">
         <div class="card">
           <div class="card-header d-flex justify-content-between">
-            <h4>Jenis Pemasukan</h4>
-            <a href="{{route('jenis_pembayaran.create')}}" class="btn btn-primary">Tambah Jenis Pemasukan</a>
+            <h4>{{$kost->nama}}</h4>
           </div>
           <div class="col-12">
+              <div class="col-12 px-2 mt-3">
+                  <h6>Alamat : {{$kost->alamat}}</h6>
+                  <hr>
+              </div>
               @include('layouts.flash')
           </div>
           <div class="card-body">
-              @include('jenis_pembayaran.datatable')
+              @include('kost.datatable_kamar')
           </div>
         </div>
       </div>

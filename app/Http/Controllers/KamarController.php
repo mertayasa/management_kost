@@ -26,9 +26,14 @@ class KamarController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function datatable(Request $request)
+    public function datatable($id_kost = null)
     {
-        $kamars = Kamar::all();
+        if($id_kost){
+            $kamars = Kamar::where('id_kost', $id_kost);
+        }else{
+            $kamars = Kamar::all();
+        }
+        
         return KamarDataTable::set($kamars);
     }
 
@@ -94,6 +99,10 @@ class KamarController extends Controller
     public function destroy(Request $request, Kamar $kamar)
     {
         try {
+            if($kamar->jumlah_sewa > 0){
+                return response(['code' => 0, 'message' => 'Kamar masih disewa']);
+            }
+
             $kamar->delete();
         } catch (Exception $e) {
             Log::info($e->getMessage());

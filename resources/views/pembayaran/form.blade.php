@@ -15,7 +15,7 @@
 
 <div class="row mt-3">
     <div class="col-12 col-md-6">
-        {!! Form::label('jenisPembayaran', 'Jenis Pembayaran', ['class' => 'mb-1']) !!}
+        {!! Form::label('jenisPembayaran', 'Jenis Pemasukan', ['class' => 'mb-1']) !!}
         {!! Form::select('id_jenis_pembayaran', $jenis_pembayaran, null, ['class' => 'form-control', 'id' => 'jenisPembayaran']) !!}
     </div>
     <div class="col-12 col-md-6">

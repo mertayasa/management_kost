@@ -32,10 +32,12 @@
 </div>
 
 <div class="row mt-3">
-    <div class="col-12 col-md-6">
-        {!! Form::label('levelUser', 'Level User', ['class' => 'mb-1']) !!}
-        {!! Form::select('level', $level, null, ['class' => 'form-control', 'id' => 'levelUser']) !!}
-    </div>
+    @if (!$hide_level)
+        <div class="col-12 col-md-6">
+            {!! Form::label('levelUser', 'Level User', ['class' => 'mb-1']) !!}
+            {!! Form::select('level', $level, null, ['class' => 'form-control', 'id' => 'levelUser']) !!}
+        </div>
+    @endif
     <div class="col-12 col-md-6">
         {!! Form::label('alamatUser', 'Alamat', ['class' => 'mb-1']) !!}
         {!! Form::textarea('alamat', null, ['class' => 'form-control', 'id' => 'alamatUser', 'style' => 'height:150px']) !!}

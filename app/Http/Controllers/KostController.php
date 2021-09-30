@@ -25,7 +25,7 @@ class KostController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function datatable(Request $request)
+    public function datatable()
     {
         $kosts = Kost::all();
 
@@ -39,6 +39,14 @@ class KostController extends Controller
     public function create(Request $request)
     {
         return view('kost.create');
+    }
+
+    public function show(Kost $kost)
+    {
+        // dd($kost);
+        $url_datatable = route('kamar.datatable', $kost->id);
+
+        return view('kost.show', compact('kost', 'url_datatable'));
     }
 
     /**

@@ -62,10 +62,20 @@ class UserController extends Controller{
 
     public function edit(User $user){
         $level = [1 => 'Manager', 2 => 'Pegawai'];
-        return view('user.edit', compact('user', 'level'));
+        if(userRole($user->level) == 'owner' || userRole() != 'owner'){
+            $hide_level = true;
+        }else{
+            $hide_level = false;
+        }
+
+        $url_update_profile = route('user.update.profile', $user->id);
+        // dd($hide_level);
+
+        return view('user.edit', compact('user', 'level', 'hide_level'));
     }
 
     public function update(Request $request, User $user){
+        $http_referer = request()->headers->get('referer');
         try{
             $data = $request->all();
 
@@ -73,6 +83,10 @@ class UserController extends Controller{
                 $data['password'] = bcrypt($data['password']);
             }else{
                 unset($data['password']);
+            }
+
+            if(str_contains($http_referer, 'profile')){
+                unset($data['level']);
             }
 
             // $base_64_foto = json_decode($request['foto'], true);
@@ -88,6 +102,10 @@ class UserController extends Controller{
         }catch(Exception $e){
             Log::info($e->getMessage());
             return redirect()->back()->withInput()->with('error', 'Gagal mengubah user');
+        }
+
+        if(str_contains($http_referer, 'profile')){
+            return redirect()->back()->with('success','Berhasil mengubah profil');
         }
 
         return redirect()->route('user.index')->with('success','Berhasil mengubah user');

@@ -6,6 +6,7 @@
         <th>No Telp</th>
         <th>No Ktp</th>
         <th>Validasi</th>
+        <th>Status Sewa</th>
         <th>Aksi</th>
         </tr>
     </thead>
@@ -37,6 +38,7 @@
                 {data: 'telpon', name: 'telpon'},
                 {data: 'no_ktp', name: 'no_ktp'},
                 {data: 'status_validasi', name: 'status_validasi'},
+                {data: 'status', name: 'status'},
                 {data: 'action', name: 'action', orderable: false, searchable: false}
             ],
             order: [[ 1, "desc" ]],

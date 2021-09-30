@@ -61,10 +61,10 @@ class JenisPembayaranController extends Controller
             JenisPembayaran::create($request->validated());
         }catch(Exception $e){
             Log::info($e->getMessage());
-            return redirect()->back()->withInput()->with('success', 'Gagal menambahkan jenis pembayaran baru');
+            return redirect()->back()->withInput()->with('success', 'Gagal menambahkan jenis pemasukan baru');
         }
         
-        return redirect()->route('jenis_pembayaran.index')->with('success', 'Berhasil menambahkan jenis pembayaran baru');
+        return redirect()->route('jenis_pembayaran.index')->with('success', 'Berhasil menambahkan jenis pemasukan baru');
     }
 
     /**
@@ -78,10 +78,10 @@ class JenisPembayaranController extends Controller
             $jenis_pembayaran->update($request->validated());
         }catch(Exception $e){
             Log::info($e->getMessage());
-            return redirect()->back()->withInput()->with('success', 'Gagal mengubah jenis pembayaran');
+            return redirect()->back()->withInput()->with('success', 'Gagal mengubah jenis pemasukan');
         }
         
-        return redirect()->route('jenis_pembayaran.index')->with('success', 'Berhasil mengubah jenis pembayaran');
+        return redirect()->route('jenis_pembayaran.index')->with('success', 'Berhasil mengubah jenis pemasukan');
     }
 
     /**
@@ -100,9 +100,9 @@ class JenisPembayaranController extends Controller
             $jenis_pembayaran->delete();
         } catch (Exception $e) {
             Log::info($e->getMessage());
-            return response(['code' => 0, 'message' => 'Gagal menghapus data jenis pembayaran']);
+            return response(['code' => 0, 'message' => 'Gagal menghapus data jenis pemasukan']);
         }
 
-        return response(['code' => 1, 'message' => 'Berhasil menghapus data jenis pembayaran']);
+        return response(['code' => 1, 'message' => 'Berhasil menghapus data jenis pemasukan']);
     }
 }

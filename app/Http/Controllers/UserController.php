@@ -23,7 +23,8 @@ class UserController extends Controller{
 
     public function create(){
         $level = [1 => 'Manager', 2 => 'Pegawai'];
-        return view('user.create', compact('level'));
+        $hide_level = false;
+        return view('user.create', compact('level', 'hide_level'));
     }
 
     public function store(UserStoreRequest $request){
@@ -62,6 +63,7 @@ class UserController extends Controller{
 
     public function edit(User $user){
         $level = [1 => 'Manager', 2 => 'Pegawai'];
+        
         if(userRole($user->level) == 'owner' || userRole() != 'owner'){
             $hide_level = true;
         }else{

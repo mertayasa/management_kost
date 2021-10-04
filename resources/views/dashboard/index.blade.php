@@ -71,66 +71,70 @@
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h4>Grafik Profit</h4>
-                        <div class="card-header-action">
-                            <div class="card-stats-title">
-                                <div class="dropdown d-inline">
-                                    <a class="font-weight-600 btn btn-danger dropdown-toggle" data-toggle="dropdown"
-                                        href="#" id="orders-month">Pilih Tahun</a>
-                                    <ul class="dropdown-menu dropdown-menu-sm">
-                                        @foreach ($dashboard_data['tahun_pemasukan'] as $year)
-                                            <li><a href="javascript:void(0)" class="dropdown-item"
-                                                    onclick="generateProfitData('{{ $year }}')">{{ $year }}</a>
-                                            </li>
-                                        @endforeach
-                                    </ul>
+        @if (userRole() == 'owner')
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Grafik Profit</h4>
+                            <div class="card-header-action">
+                                <div class="card-stats-title">
+                                    <div class="dropdown d-inline">
+                                        <a class="font-weight-600 btn btn-danger dropdown-toggle" data-toggle="dropdown"
+                                            href="#" id="orders-month">Pilih Tahun</a>
+                                        <ul class="dropdown-menu dropdown-menu-sm">
+                                            @foreach ($dashboard_data['tahun_pemasukan'] as $year)
+                                                <li><a href="javascript:void(0)" class="dropdown-item"
+                                                        onclick="generateProfitData('{{ $year }}')">{{ $year }}</a>
+                                                </li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="card-body">
-                        <canvas id="profitChart" height="70"></canvas>
+                        <div class="card-body">
+                            <canvas id="profitChart" height="70"></canvas>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h4>Grafik Pemasukan Dan Pengeluaran</h4>
-                        <div class="card-header-action">
-                            <div class="card-stats-title">
-                                <div class="dropdown d-inline">
-                                    <a class="font-weight-600 btn btn-danger dropdown-toggle" data-toggle="dropdown"
-                                        href="#" id="orders-month">Pilih Tahun</a>
-                                    <ul class="dropdown-menu dropdown-menu-sm">
-                                        @foreach ($dashboard_data['tahun_pemasukan'] as $year)
-                                            <li><a href="javascript:void(0)" class="dropdown-item"
-                                                    onclick="generateInOutData('{{ $year }}')">{{ $year }}</a>
-                                            </li>
-                                        @endforeach
-                                    </ul>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Grafik Pemasukan Dan Pengeluaran</h4>
+                            <div class="card-header-action">
+                                <div class="card-stats-title">
+                                    <div class="dropdown d-inline">
+                                        <a class="font-weight-600 btn btn-danger dropdown-toggle" data-toggle="dropdown"
+                                            href="#" id="orders-month">Pilih Tahun</a>
+                                        <ul class="dropdown-menu dropdown-menu-sm">
+                                            @foreach ($dashboard_data['tahun_pemasukan'] as $year)
+                                                <li><a href="javascript:void(0)" class="dropdown-item"
+                                                        onclick="generateInOutData('{{ $year }}')">{{ $year }}</a>
+                                                </li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="card-body">
-                        <canvas id="incomeAndExpenseChart" height="70"></canvas>
+                        <div class="card-body">
+                            <canvas id="incomeAndExpenseChart" height="70"></canvas>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        @endif
 
     </section>
 @endsection
 
 @push('scripts')
+
+@if (userRole() == 'owner')
     <script>
 		let chart
 		const labels = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"]
@@ -339,4 +343,5 @@
 		}
 
     </script>
+@endif
 @endpush

@@ -13,6 +13,10 @@ class JenisPembayaranDataTable
 
         return Datatables::of($jenis_pembayaran)
             ->addColumn('action', function ($jenis_pembayaran) {
+                if(userRole() != 'manager'){
+                    return '-';    
+                }
+
                 $deleteUrl = "'" . route('jenis_pembayaran.destroy', $jenis_pembayaran->id) . "', 'jenisPembayaranDatatable'";
                 return
                     '<div class="btn-group">' .

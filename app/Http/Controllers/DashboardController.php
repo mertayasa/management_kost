@@ -2,10 +2,74 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pembayaran;
+use App\Models\Pengeluaran;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller{
-    public function index(){
-        return view('dashboard.index');
+    public function index(Request $request){
+        // dd($this->getInOutChart($request, true));
+        $dashboard_data = $this->getDashboardData();
+        return view('dashboard.index', compact('dashboard_data'));
+    }
+
+    private function getDashboardData(){
+        $total_pemasukan = Pembayaran::where('status_validasi', 1)->sum('jumlah');
+        $total_pengeluaran = Pengeluaran::where('status_validasi', 1)->sum('jumlah');
+        $total_profit = $total_pemasukan - $total_pengeluaran;
+        $tahun_pemasukan = Pembayaran::selectRaw('DISTINCT year(tgl_pembayaran) year')->orderBy('year', 'DESC')->pluck('year', 'year');
+
+        return [
+            'total_pemasukan' => $total_pemasukan,
+            'total_pengeluaran' => $total_pengeluaran,
+            'total_profit' => $total_profit,
+            'tahun_pemasukan' => $tahun_pemasukan,
+        ];
+    }
+
+    public function getInOutChart(Request $request, $req_profit = null){
+        // $year = 2021;
+        $year = $request->year != 'now' ? $request->year : Carbon::now()->year;
+        $months = [ 'January',  'February',  'March',  'April',  'May',  'June',  'July',  'August',  'September',  'October',  'November',  'December'];
+        $pemasukan = Pembayaran::selectRaw('year(tgl_pembayaran) year, monthname(tgl_pembayaran) month, sum(jumlah) data')
+                ->whereYear('tgl_pembayaran', $year)
+                ->groupBy('year', 'month')
+                ->orderBy('month', 'DESC')
+                ->get()->toArray();
+
+        $pengeluaran = Pengeluaran::selectRaw('year(tgl_pengeluaran) year, monthname(tgl_pengeluaran) month, sum(jumlah) data')
+                ->whereYear('tgl_pengeluaran', $year)
+                ->groupBy('year', 'month')
+                ->orderBy('month', 'DESC')
+                ->get()->toArray();
+
+        $data_pengeluaran = [];
+        $data_pemasukan = [];
+
+        foreach($months as $key => $month){
+            $key = array_search($month, array_column($pemasukan, 'month'));
+            $data = $key === false ? 0 : $pemasukan[$key]['data'];
+            array_push($data_pemasukan, $data);
+        }
+
+        foreach($months as $key => $month){
+            $key = array_search($month, array_column($pengeluaran, 'month'));
+            $data = $key === false ? 0 : $pengeluaran[$key]['data'];
+            array_push($data_pengeluaran, $data);
+        }
+
+        $profit = [];
+
+        if($req_profit != null){
+            foreach ($data_pemasukan as $key => $value) {
+                if(array_key_exists($key, $data_pengeluaran) && array_key_exists($key, $data_pemasukan))
+                    $profit[$key] = $data_pemasukan[$key] - $data_pengeluaran[$key];
+            }
+        }
+
+        // dd($profit);
+
+        return response(['code' => 1, 'pemasukan' => $data_pemasukan, 'pengeluaran' => $data_pengeluaran, 'profit' => $profit]);
     }
 }

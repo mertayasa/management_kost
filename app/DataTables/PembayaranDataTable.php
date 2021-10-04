@@ -31,6 +31,10 @@ class PembayaranDataTable
                 return getVerificationBadge($pembayaran);
             })
             ->addColumn('action', function ($pembayaran) use($req_validasi) {
+                if(userRole() != 'admin'){
+                    return '-';    
+                }
+
                 $approve_pembayaran_url = "`" . route('validasi.pembayaran', [$pembayaran->id, 1]) . "`, `Apakah anda yakin menerima data pembayaran sejumlah ( ". formatPrice($pembayaran->jumlah) ." )`, `pembayaranDatatable`";
                 // $decline_pembayaran_url = "`" . route('validasi.pembayaran', [$pembayaran->id, 2]) . "`, `Apakah anda yakin menolak data pembayaran ( ". $pembayaran->nama ." )`, `pembayaranDatatable`";
                 $deleteUrl = "'" . route('pembayaran.destroy', $pembayaran->id) . "', 'pembayaranDatatable', '".$pembayaran->nama."'";

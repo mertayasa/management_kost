@@ -29,6 +29,10 @@ class PengeluaranDataTable
                 return getVerificationBadge($pengeluaran);
             })
             ->addColumn('action', function ($pengeluaran) use($req_validasi) {
+                if(userRole() != 'admin'){
+                    return '-';    
+                }
+                
                 $approve_pengeluaran_url = "`" . route('validasi.pengeluaran', [$pengeluaran->id, 1]) . "`, `Apakah anda yakin menerima data pengeluaran sejumlah ( ". formatPrice($pengeluaran->jumlah) ." )`, `pengeluaranDatatable`";
                 // $decline_pengeluaran_url = "`" . route('validasi.pengeluaran', [$pengeluaran->id, 2]) . "`, `Apakah anda yakin menolak data pengeluaran ( ". $pengeluaran->nama ." )`, `pengeluaranDatatable`";
                 $deleteUrl = "'" . route('pengeluaran.destroy', $pengeluaran->id) . "', 'pengeluaranDatatable', '".$pengeluaran->nama."'";

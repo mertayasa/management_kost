@@ -46,6 +46,7 @@ Route::middleware(['auth'])->group(function () {
     
     Route::group(['prefix' => 'dashboard', 'as' => 'dashboard.'], function () {
         Route::get('/', [DashboardController::class, 'index'])->name('index');
+        Route::post('generate-in-out-chart/{req_profit?}', [DashboardController::class, 'getInOutChart'])->name('chart_in_out');
     });
 
     Route::group(['prefix' => 'kost', 'as' => 'kost.'], function () {

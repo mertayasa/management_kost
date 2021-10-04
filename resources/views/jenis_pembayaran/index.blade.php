@@ -7,7 +7,9 @@
         <div class="card">
           <div class="card-header d-flex justify-content-between">
             <h4>Jenis Pemasukan</h4>
-            <a href="{{route('jenis_pembayaran.create')}}" class="btn btn-primary">Tambah Jenis Pemasukan</a>
+            @if (userRole() == 'manager')
+              <a href="{{route('jenis_pembayaran.create')}}" class="btn btn-primary">Tambah Jenis Pemasukan</a>
+            @endif
           </div>
           <div class="col-12">
               @include('layouts.flash')

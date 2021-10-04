@@ -13,6 +13,10 @@ class JenisPengeluaranDataTable
 
         return Datatables::of($jenis_pengeluaran)
             ->addColumn('action', function ($jenis_pengeluaran) {
+                if(userRole() != 'manager'){
+                    return '-';    
+                }
+                
                 $deleteUrl = "'" . route('jenis_pengeluaran.destroy', $jenis_pengeluaran->id) . "', 'jenisPengeluaranDatatable'";
                 return
                     '<div class="btn-group">' .

@@ -31,7 +31,7 @@
                     </div>
                     <div class="card-wrap">
                         <div class="card-header">
-                            <h4>Total Pemasukan {{userRole() == 'manager' ? 'Bulan ini' : ''}} <small class="text-danger"> (Tervalidasi) </small></h4>
+                            <h4>Total Pemasukan {{userRole() == 'manager' ? 'Bulan ini' : (userRole() == 'pegawai' ? 'Hari ini' : '')}} <small class="text-danger"> (Tervalidasi) </small></h4>
                         </div>
                         <div class="card-body">
                             {{ formatPrice($dashboard_data['total_pemasukan']) }}
@@ -46,7 +46,7 @@
                     </div>
                     <div class="card-wrap">
                         <div class="card-header">
-                            <h4>Total Pengeluaran {{userRole() == 'manager' ? 'Bulan ini' : ''}} <small class="text-danger"> (Tervalidasi) </small></h4>
+                            <h4>Total Pengeluaran {{userRole() == 'manager' ? 'Bulan ini' : (userRole() == 'pegawai' ? 'Hari ini' : '')}} <small class="text-danger"> (Tervalidasi) </small></h4>
                         </div>
                         <div class="card-body">
                             {{ formatPrice($dashboard_data['total_pengeluaran']) }}
@@ -61,7 +61,7 @@
                     </div>
                     <div class="card-wrap">
                         <div class="card-header">
-                            <h4>Profit {{userRole() == 'manager' ? 'Bulan ini' : ''}}</h4>
+                            <h4>Profit {{userRole() == 'manager' ? 'Bulan ini' : (userRole() == 'pegawai' ? 'Hari ini' : '')}}</h4>
                         </div>
                         <div class="card-body">
                             <span class=" {{ $dashboard_data['total_profit'] < 1 ? 'text-danger' : 'text-success' }} " > {{ formatPrice($dashboard_data['total_profit']) }} </span>

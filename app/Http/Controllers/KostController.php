@@ -27,7 +27,7 @@ class KostController extends Controller
      */
     public function datatable()
     {
-        $kosts = Kost::all();
+        $kosts = Kost::with('sewa')->get();
 
         return KostDataTable::set($kosts);
     }

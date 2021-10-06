@@ -18,6 +18,9 @@ class KamarDataTable
             ->addColumn('status', function($kamar){
                 return $kamar->jumlah_sewa == 0 ? 'Kosong' : 'Isi';
             })
+            ->editColumn('harga', function($kamar){
+                return formatPrice($kamar->harga);
+            })
             ->addColumn('action', function ($kamar) {
                 if(userRole() == 'pegawai'){
                     return '-';

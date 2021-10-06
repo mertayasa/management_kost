@@ -5,6 +5,7 @@
         <th>Nama</th>
         <th>Alamat</th>
         <th>Jumlah Kamar</th>
+        <th>Kamar Kosong</th>
         <th>Aksi</th>
         </tr>
     </thead>
@@ -31,6 +32,7 @@
                 {data: 'nama', name: 'nama'},
                 {data: 'alamat', name: 'alamat'},
                 {data: 'jumlah_kamar', name: 'jumlah_kamar'},
+                {data: 'jumlah_kosong', name: 'jumlah_kosong'},
                 {data: 'action', name: 'action', orderable: false, searchable: false}
             ],
             order: [[ 1, "desc" ]],

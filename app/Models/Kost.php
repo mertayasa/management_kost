@@ -34,7 +34,16 @@ class Kost extends Model
 
     public function kamar()
     {
-        return $this->hasMany(\App\Models\Kamar::class, 'id_kost');
+        return $this->hasMany(Kamar::class, 'id_kost');
+    }
+
+    public function sewa()
+    {
+        return $this->hasManyThrough(Sewa::class, Kamar::class, 'id_kost', 'id_kamar');
+    }
+
+    public function getJumlahKosongAttribute(){
+        return $this->sewa->whereNotNull('tgl_keluar')->count();
     }
 
     public function getJumlahKamarAttribute(){

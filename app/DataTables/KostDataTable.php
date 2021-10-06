@@ -13,6 +13,9 @@ class KostDataTable{
             ->addColumn('jumlah_kamar', function($kost){
                 return $kost->jumlah_kamar;
             })
+            ->addColumn('jumlah_kosong', function($kost){
+                return $kost->jumlah_kosong;
+            })
             ->addColumn('action', function ($kost) {
                 if(userRole() == 'pegawai'){
                     return '<div class="btn-group">' .

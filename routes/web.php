@@ -12,6 +12,7 @@ use App\Http\Controllers\SewaController;
 use App\Http\Controllers\TinyUploadController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ValidasiController;
+use Carbon\Carbon;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -141,7 +142,7 @@ Route::middleware(['auth'])->group(function () {
     Route::group(['prefix' => 'sewa', 'as' => 'sewa.'], function () {
         Route::get('/', [SewaController::class, 'index'])->name('index');
 
-        Route::group(['middleware' => 'role:owner'], function () {
+        // Route::group(['middleware' => 'role:owner'], function () {
             Route::get('create', [SewaController::class, 'create'])->name('create');
             Route::post('store', [SewaController::class, 'store'])->name('store');
             Route::get('edit/{sewa}', [SewaController::class, 'edit'])->name('edit');
@@ -149,7 +150,7 @@ Route::middleware(['auth'])->group(function () {
             Route::patch('update/{sewa}', [SewaController::class, 'update'])->name('update');
             Route::patch('keluar/update/{sewa}', [SewaController::class, 'update'])->name('keluar.update');
             Route::delete('destroy/{sewa}', [SewaController::class, 'destroy'])->name('destroy');
-        });
+        // });
 
         Route::get('datatable', [SewaController::class, 'datatable'])->name('datatable');
     });
@@ -174,13 +175,13 @@ Route::middleware(['auth'])->group(function () {
     Route::group(['prefix' => 'pengeluaran', 'as' => 'pengeluaran.'], function () {
         Route::get('/', [PengeluaranController::class, 'index'])->name('index');
 
-        Route::group(['middleware' => 'role:owner'], function () {
+        // Route::group(['middleware' => 'role:owner'], function () {
             Route::get('create', [PengeluaranController::class, 'create'])->name('create');
             Route::post('store', [PengeluaranController::class, 'store'])->name('store');
             Route::get('edit/{pengeluaran}', [PengeluaranController::class, 'edit'])->name('edit');
             Route::patch('update/{pengeluaran}', [PengeluaranController::class, 'update'])->name('update');
             Route::delete('destroy/{pengeluaran}', [PengeluaranController::class, 'destroy'])->name('destroy');
-        });
+        // });
 
         Route::get('datatable/{status?}', [PengeluaranController::class, 'datatable'])->name('datatable');
     });

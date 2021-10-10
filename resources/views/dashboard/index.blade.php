@@ -24,51 +24,53 @@
 @section('content')
     <section class="section">
         <div class="row">
-            <div class="col-lg-4 col-md-4 col-sm-12">
-                <div class="card card-statistic-2">
-                    <div class="card-icon shadow-primary bg-primary">
-                        <i class="fas fa-wallet"></i>
-                    </div>
-                    <div class="card-wrap">
-                        <div class="card-header">
-                            <h4>Total Pemasukan {{userRole() == 'manager' ? 'Bulan ini' : (userRole() == 'pegawai' ? 'Hari ini' : '')}} <small class="text-danger"> (Tervalidasi) </small></h4>
+            @if (userRole() != 'pegawai')
+                <div class="col-lg-4 col-md-4 col-sm-12">
+                    <div class="card card-statistic-2">
+                        <div class="card-icon shadow-primary bg-primary">
+                            <i class="fas fa-wallet"></i>
                         </div>
-                        <div class="card-body">
-                            {{ formatPrice($dashboard_data['total_pemasukan']) }}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-12">
-                <div class="card card-statistic-2">
-                    <div class="card-icon shadow-primary bg-primary">
-                        <i class="fas fa-file-invoice-dollar"></i>
-                    </div>
-                    <div class="card-wrap">
-                        <div class="card-header">
-                            <h4>Total Pengeluaran {{userRole() == 'manager' ? 'Bulan ini' : (userRole() == 'pegawai' ? 'Hari ini' : '')}} <small class="text-danger"> (Tervalidasi) </small></h4>
-                        </div>
-                        <div class="card-body">
-                            {{ formatPrice($dashboard_data['total_pengeluaran']) }}
+                        <div class="card-wrap">
+                            <div class="card-header">
+                                <h4>Total Pemasukan {{userRole() == 'manager' ? 'Bulan ini' : (userRole() == 'pegawai' ? 'Hari ini' : '')}} <small class="text-danger"> (Tervalidasi) </small></h4>
+                            </div>
+                            <div class="card-body">
+                                {{ formatPrice($dashboard_data['total_pemasukan']) }}
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-12">
-                <div class="card card-statistic-2">
-                    <div class="card-icon shadow-primary bg-primary">
-                        <i class="fas fa-piggy-bank"></i>
-                    </div>
-                    <div class="card-wrap">
-                        <div class="card-header">
-                            <h4>Profit {{userRole() == 'manager' ? 'Bulan ini' : (userRole() == 'pegawai' ? 'Hari ini' : '')}}</h4>
+                <div class="col-lg-4 col-md-4 col-sm-12">
+                    <div class="card card-statistic-2">
+                        <div class="card-icon shadow-primary bg-primary">
+                            <i class="fas fa-file-invoice-dollar"></i>
                         </div>
-                        <div class="card-body">
-                            <span class=" {{ $dashboard_data['total_profit'] < 1 ? 'text-danger' : 'text-success' }} " > {{ formatPrice($dashboard_data['total_profit']) }} </span>
+                        <div class="card-wrap">
+                            <div class="card-header">
+                                <h4>Total Pengeluaran {{userRole() == 'manager' ? 'Bulan ini' : (userRole() == 'pegawai' ? 'Hari ini' : '')}} <small class="text-danger"> (Tervalidasi) </small></h4>
+                            </div>
+                            <div class="card-body">
+                                {{ formatPrice($dashboard_data['total_pengeluaran']) }}
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+                <div class="col-lg-4 col-md-4 col-sm-12">
+                    <div class="card card-statistic-2">
+                        <div class="card-icon shadow-primary bg-primary">
+                            <i class="fas fa-piggy-bank"></i>
+                        </div>
+                        <div class="card-wrap">
+                            <div class="card-header">
+                                <h4>Profit {{userRole() == 'manager' ? 'Bulan ini' : (userRole() == 'pegawai' ? 'Hari ini' : '')}}</h4>
+                            </div>
+                            <div class="card-body">
+                                <span class=" {{ $dashboard_data['total_profit'] < 1 ? 'text-danger' : 'text-success' }} " > {{ formatPrice($dashboard_data['total_profit']) }} </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endif
 
             <div class="col-lg-4 col-md-4 col-sm-12">
                 <div class="card card-statistic-2">

@@ -107,7 +107,7 @@ class PenyewaController extends Controller
                 return response(['code' => 0, 'message' => 'Penyewa masih memiliki data sewa']);
             }
 
-            // $penyewa->delete();
+            $penyewa->delete();
         } catch (Exception $e) {
             Log::info($e->getMessage());
             return response(['code' => 0, 'message' => 'Gagal menghapus data penyewa']);

@@ -19,7 +19,7 @@
                                         <a href="#penyewaTab" class="nav-link {{$active_tab == 'penyewaTab' || $active_tab == null ? 'active' : ''}}" data-toggle="tab">Penyewa</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="#pembayaranTab" class="nav-link {{$active_tab == 'pembayaranTab' ? 'active' : ''}}" data-toggle="tab">Pembayaran</a>
+                                        <a href="#pembayaranTab" class="nav-link {{$active_tab == 'pembayaranTab' ? 'active' : ''}}" data-toggle="tab">Pemasukan</a>
                                     </li>
                                     <li class="nav-item">
                                         <a href="#pengeluaranTab" class="nav-link {{$active_tab == 'pengeluaranTab' ? 'active' : ''}}" data-toggle="tab">Pengeluaran</a>

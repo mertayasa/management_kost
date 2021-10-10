@@ -29,7 +29,7 @@ class PengeluaranDataTable
                 return getVerificationBadge($pengeluaran);
             })
             ->addColumn('action', function ($pengeluaran) use($req_validasi) {
-                if(userRole() != 'admin'){
+                if(userRole() == 'owner'){
                     return '-';    
                 }
                 
@@ -54,6 +54,8 @@ class PengeluaranDataTable
                         '<a href="' . route('pengeluaran.edit', $pengeluaran->id) . '" class="btn btn-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit" style="margin-right: 5px" ><i class="menu-icon fa fa-pencil-alt"></i></a>' .
                         '<a href="#" onclick="deleteModel(' . $deleteUrl . ',)" class="btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Hapus" style="margin-right: 5px"><i class="menu-icon fa fa-trash"></i></a>' .
                         '</div>';
+                }else{
+                    return '-';
                 }
             })->addIndexColumn()->rawColumns(['action', 'status_validasi'])->make(true);
 

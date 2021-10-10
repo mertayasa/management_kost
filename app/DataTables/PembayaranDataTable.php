@@ -31,7 +31,7 @@ class PembayaranDataTable
                 return getVerificationBadge($pembayaran);
             })
             ->addColumn('action', function ($pembayaran) use($req_validasi) {
-                if(userRole() != 'admin'){
+                if(userRole() == 'owner'){
                     return '-';    
                 }
 

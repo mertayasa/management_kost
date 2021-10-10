@@ -17,6 +17,12 @@
           </div>
           <div class="card-body">
               @include('kost.datatable_kamar')
+              <div class="row mt-3">
+                <div class="col-12">
+                    <a href="{{route('kost.index')}}" class="btn btn-secondary">Kembali</a>
+                    {{-- <button class="btn btn-primary ml-3" type="submit">Simpan</button> --}}
+                </div>
+            </div>
           </div>
         </div>
       </div>

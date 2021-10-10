@@ -109,9 +109,9 @@ class PembayaranController extends Controller
             $pembayaran->delete();
         } catch (Exception $e) {
             Log::info($e->getMessage());
-            return response(['code' => 0, 'message' => 'Gagal menghapus data pembayaran']);
+            return response(['code' => 0, 'message' => 'Gagal menghapus data pemasukan']);
         }
 
-        return response(['code' => 1, 'message' => 'Berhasil menghapus data pembayaran']);
+        return response(['code' => 1, 'message' => 'Berhasil menghapus data pemasukan']);
     }
 }

@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
         $this->call(KostSeeder::class);
         $this->call(KamarSeeder::class);
         $this->call(JenisPengeluaranSeeder::class);
-        $this->call(JenisPembayaranSeeder::class);
+        $this->call(JenisPemasukanSeeder::class);
         $this->call(PenyewaSeeder::class);
         $this->call(PengeluaranSeeder::class);
     }

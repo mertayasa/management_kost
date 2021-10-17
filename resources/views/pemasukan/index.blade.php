@@ -8,14 +8,14 @@
           <div class="card-header d-flex justify-content-between">
             <h4>Pemasukan</h4>
             @if (userRole() != 'owner')
-              <a href="{{route('pembayaran.create')}}" class="btn btn-primary">Tambah Pemasukan</a>
+              <a href="{{route('pemasukan.create')}}" class="btn btn-primary">Tambah Pemasukan</a>
             @endif
           </div>
           <div class="col-12">
               @include('layouts.flash')
           </div>
           <div class="card-body">
-              @include('pembayaran.datatable')
+              @include('pemasukan.datatable')
           </div>
         </div>
       </div>

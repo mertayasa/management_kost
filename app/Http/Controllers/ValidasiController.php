@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ValidasiPembayaranRequest;
+use App\Http\Requests\ValidasiPemasukanRequest;
 use App\Http\Requests\ValidasiPengeluaranRequest;
 use App\Http\Requests\ValidasiPenyewaRequest;
-use App\Models\Pembayaran;
+use App\Models\Pemasukan;
 use App\Models\Pengeluaran;
 use App\Models\Penyewa;
 use Exception;
@@ -31,16 +31,16 @@ class ValidasiController extends Controller
         return response(['code' => 1, 'message' => 'Berhasil memvalidasi data penyewa']);
     }
 
-    public function validasiPembayaran(Request $request, Pembayaran $pembayaran, $status)
+    public function validasiPemasukan(Request $request, Pemasukan $pemasukan, $status)
     {
         try {
-            $pembayaran->update(['status_validasi' => $status]);
+            $pemasukan->update(['status_validasi' => $status]);
         } catch (Exception $e) {
             Log::info($e->getMessage());
-            return response(['code' => 0, 'message' => 'Gagal memvalidasi data pembayaran']);
+            return response(['code' => 0, 'message' => 'Gagal memvalidasi data pemasukan']);
         }
 
-        return response(['code' => 1, 'message' => 'Berhasil memvalidasi data pembayaran']);
+        return response(['code' => 1, 'message' => 'Berhasil memvalidasi data pemasukan']);
     }
 
     public function validasiPengeluaran(Request $request, Pengeluaran $pengeluaran, $status)

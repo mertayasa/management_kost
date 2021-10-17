@@ -14,10 +14,10 @@ class UserDataTable{
             })
             ->addColumn('action', function($user){
                 $deleteUrl = "'".route('user.destroy', $user->id)."', 'userDatatable', 'user ".$user->nama." '";
-                $delete_button = userRole($user->level) != 'owner' ? '<a href="#" onclick="deleteModel('.$deleteUrl.')" class="btn btn-danger" ><i class="menu-icon fa fa-trash"></i></a>' : '';
+                $delete_button = userRole($user->level) != 'owner' ? '<a href="#" onclick="deleteModel('.$deleteUrl.')" class="btn btn-danger" >Hapus</a>' : '';
 
                 return  '<div class="btn-group">'.
-                    '<a href="'. route('user.edit', $user) .'" class="btn btn-warning" ><i class="menu-icon fa fa-pencil-alt"></i></a>'. $delete_button .
+                    '<a href="'. route('user.edit', $user) .'" class="btn btn-warning" >Edit</a>'. $delete_button .
                 '</div>';
             })->addIndexColumn()->rawColumns(['action'])->make(true);
     }

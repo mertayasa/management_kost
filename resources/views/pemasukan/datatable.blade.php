@@ -1,4 +1,4 @@
-<table class="table table-hover table-striped" width="100%" id="pembayaranDatatable">
+<table class="table table-hover table-striped" width="100%" id="pemasukanDatatable">
     <thead>
         <tr>
         <th>No</th>
@@ -7,7 +7,7 @@
         <th>Penyewa</th>
         <th>Kamar</th>
         <th>Nominal</th>
-        <th>Tgl Pembayaran</th>
+        <th>Tgl Pemasukan</th>
         <th>Validasi</th>
         <th>Aksi</th>
         </tr>
@@ -18,30 +18,30 @@
 @push('scripts')
 <script>
 
-    let pembayaranTable
+    let pemasukanTable
 
     @if(isset($status))
-        let urlPembayaran = "{{ route('pembayaran.datatable', $status) }}"
+        let urlPemasukan = "{{ route('pemasukan.datatable', $status) }}"
     @else
-        let urlPembayaran = "{{ route('pembayaran.datatable') }}"
+        let urlPemasukan = "{{ route('pemasukan.datatable') }}"
     @endif
 
-    datatablePembayaran(urlPembayaran)
-    function datatablePembayaran (urlPembayaran){
+    datatablePemasukan(urlPemasukan)
+    function datatablePemasukan (urlPemasukan){
 
-        pembayaranTable = $('#pembayaranDatatable').DataTable({
+        pemasukanTable = $('#pemasukanDatatable').DataTable({
             processing: true,
             serverSide: true,
             responsive: true,
-            ajax: urlPembayaran,
+            ajax: urlPemasukan,
             columns: [
                 {data: 'DT_RowIndex', name: 'no',orderable: false, searchable: false},
                 {data:'updated_at', name:'updated_at', visible:false, searchable:false},
-                {data: 'id_jenis_pembayaran', name: 'id_jenis_pembayaran'},
+                {data: 'id_jenis_pemasukan', name: 'id_jenis_pemasukan'},
                 {data: 'id_penyewa', name: 'id_penyewa'},
                 {data: 'id_kamar', name: 'id_kamar'},
                 {data: 'jumlah', name: 'jumlah'},
-                {data: 'tgl_pembayaran', name: 'tgl_pembayaran'},
+                {data: 'tgl_pemasukan', name: 'tgl_pemasukan'},
                 {data: 'status_validasi', name: 'status_validasi'},
                 {data: 'action', name: 'action', orderable: false, searchable: false}
             ],

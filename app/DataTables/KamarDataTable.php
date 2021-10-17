@@ -22,15 +22,15 @@ class KamarDataTable
                 return formatPrice($kamar->harga);
             })
             ->addColumn('action', function ($kamar) {
-                if(userRole() == 'pegawai'){
+                if(userRole() == 'pegawai' || userRole() == 'manager'){
                     return '-';
                 }
 
                 $deleteUrl = "'" . route('kamar.destroy', $kamar->id) . "', 'kamarDatatable', '".$kamar->no_kamar."'";
                 return
                     '<div class="btn-group">' .
-                    '<a href="' . route('kamar.edit', $kamar->id) . '" class="btn btn-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit" style="margin-right: 5px" ><i class="menu-icon fa fa-pencil-alt"></i></a>' .
-                    '<a href="#" onclick="deleteModel(' . $deleteUrl . ',)" class="btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Hapus" style="margin-right: 5px"><i class="menu-icon fa fa-trash"></i></a>' .
+                    '<a href="' . route('kamar.edit', $kamar->id) . '" class="btn btn-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit" style="margin-right: 5px" >Edit</a>' .
+                    '<a href="#" onclick="deleteModel(' . $deleteUrl . ',)" class="btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Hapus" style="margin-right: 5px">Hapus</a>' .
                     '</div>';
             })->addIndexColumn()->rawColumns(['action'])->make(true);
 

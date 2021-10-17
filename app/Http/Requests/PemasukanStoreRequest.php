@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PembayaranUpdateRequest extends FormRequest
+class PemasukanStoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,10 @@ class PembayaranUpdateRequest extends FormRequest
     public function rules()
     {
         return [
+            'id_jenis_pemasukan' => ['required', 'integer', 'gt:0'],
+            'id_penyewa' => ['required', 'integer', 'gt:0'],
             'jumlah' => ['required', 'integer'],
-            'tgl_pembayaran' => ['required', 'date'],
+            'tgl_pemasukan' => ['required', 'date'],
         ];
     }
 }

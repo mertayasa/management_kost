@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class JenisPembayaran extends Model
+class JenisPemasukan extends Model
 {
     use HasFactory;
 
-    protected $table="jenis_pembayaran";
+    protected $table="jenis_pemasukan";
 
     /**
      * The attributes that are mass assignable.
@@ -17,7 +17,7 @@ class JenisPembayaran extends Model
      * @var array
      */
     protected $fillable = [
-        'jenis_pembayaran',
+        'jenis_pemasukan',
     ];
 
     /**
@@ -30,12 +30,12 @@ class JenisPembayaran extends Model
     ];
 
 
-    public function pembayaran()
+    public function pemasukan()
     {
-        return $this->hasMany(\App\Models\Pembayaran::class, 'id_jenis_pembayaran');
+        return $this->hasMany(\App\Models\Pemasukan::class, 'id_jenis_pemasukan');
     }
 
-    public function getJumlahPembayaranAttribute(){
-        return $this->pembayaran->count();
+    public function getJumlahPemasukanAttribute(){
+        return $this->pemasukan->count();
     }
 }

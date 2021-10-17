@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class JenisPembayaranStoreRequest extends FormRequest
+class JenisPemasukanUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,8 +23,9 @@ class JenisPembayaranStoreRequest extends FormRequest
      */
     public function rules()
     {
+        $id_jenis = $this->route('jenis_pemasukan')->id;
         return [
-            'jenis_pembayaran' => ['required', 'string', 'max:50', 'unique:jenis_pembayaran'],
+            'jenis_pemasukan' => ['required', 'string', 'max:50', 'unique:jenis_pemasukan,jenis_pemasukan,'.$id_jenis],
         ];
     }
 }

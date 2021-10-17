@@ -5,7 +5,9 @@
         <th>Nama Kost</th>
         <th>No Kamar</th>
         <th>Harga</th>
-        <th>Aksi</th>
+        @if (userRole() == 'owner')
+            <th>Aksi</th>
+        @endif
         </tr>
     </thead>
     <tbody></tbody>
@@ -20,19 +22,24 @@
     datatable(url)
     function datatable (url){
 
+        let columns = [
+            {data: 'DT_RowIndex', name: 'no',orderable: false, searchable: false},
+            {data:'updated_at', name:'updated_at', visible:false, searchable:false},
+            {data: 'nama_kost', name: 'nama_kost'},
+            {data: 'no_kamar', name: 'no_kamar'},
+            {data: 'harga', name: 'harga'},
+        ]
+
+        if(userRole == 'owner'){
+            columns.push({data: 'action', name: 'action', orderable: false, searchable: false})
+        }
+
         table = $('#kamarDatatable').DataTable({
             processing: true,
             serverSide: true,
             responsive: true,
             ajax: url,
-            columns: [
-                {data: 'DT_RowIndex', name: 'no',orderable: false, searchable: false},
-                {data:'updated_at', name:'updated_at', visible:false, searchable:false},
-                {data: 'nama_kost', name: 'nama_kost'},
-                {data: 'no_kamar', name: 'no_kamar'},
-                {data: 'harga', name: 'harga'},
-                {data: 'action', name: 'action', orderable: false, searchable: false}
-            ],
+            columns: columns,
             order: [[ 1, "desc" ]],
             columnDefs: [
                 // { width: 300, targets: 1 },

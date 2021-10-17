@@ -2,16 +2,16 @@
 
 namespace Tests\Feature\Http\Controllers;
 
-use App\Models\JenisPembayaran;
+use App\Models\JenisPemasukan;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use JMac\Testing\Traits\AdditionalAssertions;
 use Tests\TestCase;
 
 /**
- * @see \App\Http\Controllers\JenisPembayaranController
+ * @see \App\Http\Controllers\JenisPemasukanController
  */
-class JenisPembayaranControllerTest extends TestCase
+class JenisPemasukanControllerTest extends TestCase
 {
     use AdditionalAssertions, RefreshDatabase, WithFaker;
 
@@ -20,10 +20,10 @@ class JenisPembayaranControllerTest extends TestCase
      */
     public function index_displays_view()
     {
-        $response = $this->get(route('jenis-pembayaran.index'));
+        $response = $this->get(route('jenis-pemasukan.index'));
 
         $response->assertOk();
-        $response->assertViewIs('jenis_pembayaran.index');
+        $response->assertViewIs('jenis_pemasukan.index');
     }
 
 
@@ -32,9 +32,9 @@ class JenisPembayaranControllerTest extends TestCase
      */
     public function datatable_behaves_as_expected()
     {
-        $jenisPembayarans = JenisPembayaran::factory()->count(3)->create();
+        $jenisPemasukans = JenisPemasukan::factory()->count(3)->create();
 
-        $response = $this->get(route('jenis-pembayaran.datatable'));
+        $response = $this->get(route('jenis-pemasukan.datatable'));
     }
 
 
@@ -43,10 +43,10 @@ class JenisPembayaranControllerTest extends TestCase
      */
     public function create_displays_view()
     {
-        $response = $this->get(route('jenis-pembayaran.create'));
+        $response = $this->get(route('jenis-pemasukan.create'));
 
         $response->assertOk();
-        $response->assertViewIs('jenis_pembayaran.create');
+        $response->assertViewIs('jenis_pemasukan.create');
     }
 
 
@@ -55,13 +55,13 @@ class JenisPembayaranControllerTest extends TestCase
      */
     public function edit_displays_view()
     {
-        $jenisPembayaran = JenisPembayaran::factory()->create();
+        $jenisPemasukan = JenisPemasukan::factory()->create();
 
-        $response = $this->get(route('jenis-pembayaran.edit', $jenisPembayaran));
+        $response = $this->get(route('jenis-pemasukan.edit', $jenisPemasukan));
 
         $response->assertOk();
-        $response->assertViewIs('jenis_pembayaran.edit');
-        $response->assertViewHas('jenis_pembayaran');
+        $response->assertViewIs('jenis_pemasukan.edit');
+        $response->assertViewHas('jenis_pemasukan');
     }
 
 
@@ -71,9 +71,9 @@ class JenisPembayaranControllerTest extends TestCase
     public function store_uses_form_request_validation()
     {
         $this->assertActionUsesFormRequest(
-            \App\Http\Controllers\JenisPembayaranController::class,
+            \App\Http\Controllers\JenisPemasukanController::class,
             'store',
-            \App\Http\Requests\JenisPembayaranStoreRequest::class
+            \App\Http\Requests\JenisPemasukanStoreRequest::class
         );
     }
 
@@ -82,19 +82,19 @@ class JenisPembayaranControllerTest extends TestCase
      */
     public function store_saves_and_redirects()
     {
-        $jenis_pembayaran = $this->faker->word;
+        $jenis_pemasukan = $this->faker->word;
 
-        $response = $this->post(route('jenis-pembayaran.store'), [
-            'jenis_pembayaran' => $jenis_pembayaran,
+        $response = $this->post(route('jenis-pemasukan.store'), [
+            'jenis_pemasukan' => $jenis_pemasukan,
         ]);
 
-        $jenisPembayarans = JenisPembayaran::query()
-            ->where('jenis_pembayaran', $jenis_pembayaran)
+        $jenisPemasukans = JenisPemasukan::query()
+            ->where('jenis_pemasukan', $jenis_pemasukan)
             ->get();
-        $this->assertCount(1, $jenisPembayarans);
-        $jenisPembayaran = $jenisPembayarans->first();
+        $this->assertCount(1, $jenisPemasukans);
+        $jenisPemasukan = $jenisPemasukans->first();
 
-        $response->assertRedirect(route('jenis_pembayaran.index'));
+        $response->assertRedirect(route('jenis_pemasukan.index'));
     }
 
 
@@ -104,9 +104,9 @@ class JenisPembayaranControllerTest extends TestCase
     public function update_uses_form_request_validation()
     {
         $this->assertActionUsesFormRequest(
-            \App\Http\Controllers\JenisPembayaranController::class,
+            \App\Http\Controllers\JenisPemasukanController::class,
             'update',
-            \App\Http\Requests\JenisPembayaranUpdateRequest::class
+            \App\Http\Requests\JenisPemasukanUpdateRequest::class
         );
     }
 
@@ -115,18 +115,18 @@ class JenisPembayaranControllerTest extends TestCase
      */
     public function update_redirects()
     {
-        $jenisPembayaran = JenisPembayaran::factory()->create();
-        $jenis_pembayaran = $this->faker->word;
+        $jenisPemasukan = JenisPemasukan::factory()->create();
+        $jenis_pemasukan = $this->faker->word;
 
-        $response = $this->put(route('jenis-pembayaran.update', $jenisPembayaran), [
-            'jenis_pembayaran' => $jenis_pembayaran,
+        $response = $this->put(route('jenis-pemasukan.update', $jenisPemasukan), [
+            'jenis_pemasukan' => $jenis_pemasukan,
         ]);
 
-        $jenisPembayaran->refresh();
+        $jenisPemasukan->refresh();
 
-        $response->assertRedirect(route('jenis_pembayaran.index'));
+        $response->assertRedirect(route('jenis_pemasukan.index'));
 
-        $this->assertEquals($jenis_pembayaran, $jenisPembayaran->jenis_pembayaran);
+        $this->assertEquals($jenis_pemasukan, $jenisPemasukan->jenis_pemasukan);
     }
 
 
@@ -135,10 +135,10 @@ class JenisPembayaranControllerTest extends TestCase
      */
     public function destroy_deletes()
     {
-        $jenisPembayaran = JenisPembayaran::factory()->create();
+        $jenisPemasukan = JenisPemasukan::factory()->create();
 
-        $response = $this->delete(route('jenis-pembayaran.destroy', $jenisPembayaran));
+        $response = $this->delete(route('jenis-pemasukan.destroy', $jenisPemasukan));
 
-        $this->assertDeleted($jenisPembayaran);
+        $this->assertDeleted($jenisPemasukan);
     }
 }

@@ -41,9 +41,9 @@ class Penyewa extends Model
         return $this->hasOne(\App\Models\Sewa::class, 'id_penyewa');
     }
 
-    public function pembayaran()
+    public function pemasukan()
     {
-        return $this->hasMany(\App\Models\Pembayaran::class, 'id_penyewa');
+        return $this->hasMany(\App\Models\Pemasukan::class, 'id_penyewa');
     }
 
     public function getKamarKostAttribute()

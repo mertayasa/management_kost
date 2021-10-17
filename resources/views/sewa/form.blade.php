@@ -25,9 +25,9 @@
         {!! Form::label('tglMasuk', 'Tanggal Masuk', ['class' => 'mb-1']) !!}
         {!! Form::date('tgl_masuk', null, ['class'=>'form-control', 'id' => 'tglMasuk', Request::is('*keluar*') ? 'readonly' : '']) !!}
 
-        @if (Request::is('*keluar*'))
-            {!! Form::label('tglKeluar', 'Tanggal Keluar', ['class' => 'mb-1 mt-3']) !!}
-            {!! Form::date('tgl_keluar', null, ['class'=>'form-control', 'id' => 'tglKeluar']) !!}
-        @endif
+        {{-- @if (Request::is('*keluar*')) --}}
+        {!! Form::label('tglKeluar', 'Tanggal Keluar', ['class' => 'mb-1 mt-3']) !!}
+        {!! Form::date('tgl_keluar', null, ['class'=>'form-control', 'id' => 'tglKeluar']) !!}
+        {{-- @endif --}}
     </div>
 </div>

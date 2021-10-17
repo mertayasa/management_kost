@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\DataTables\JenisPembayaranDataTable;
-use App\Http\Requests\JenisPembayaranStoreRequest;
-use App\Http\Requests\JenisPembayaranUpdateRequest;
-use App\Models\JenisPembayaran;
+use App\DataTables\JenisPemasukanDataTable;
+use App\Http\Requests\JenisPemasukanStoreRequest;
+use App\Http\Requests\JenisPemasukanUpdateRequest;
+use App\Models\JenisPemasukan;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
-class JenisPembayaranController extends Controller
+class JenisPemasukanController extends Controller
 {
     /**
      * @param \Illuminate\Http\Request $request
@@ -18,7 +18,7 @@ class JenisPembayaranController extends Controller
      */
     public function index(Request $request)
     {
-        return view('jenis_pembayaran.index');
+        return view('jenis_pemasukan.index');
     }
 
     /**
@@ -27,9 +27,9 @@ class JenisPembayaranController extends Controller
      */
     public function datatable(Request $request)
     {
-        $jenisPembayarans = JenisPembayaran::all();
+        $jenisPemasukans = JenisPemasukan::all();
 
-        return JenisPembayaranDataTable::set($jenisPembayarans);
+        return JenisPemasukanDataTable::set($jenisPemasukans);
     }
 
     /**
@@ -38,66 +38,66 @@ class JenisPembayaranController extends Controller
      */
     public function create(Request $request)
     {
-        return view('jenis_pembayaran.create');
+        return view('jenis_pemasukan.create');
     }
 
     /**
      * @param \Illuminate\Http\Request $request
-     * @param \App\Models\JenisPembayaran $jenisPembayaran
+     * @param \App\Models\JenisPemasukan $jenisPemasukan
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request, JenisPembayaran $jenis_pembayaran)
+    public function edit(Request $request, JenisPemasukan $jenis_pemasukan)
     {
-        return view('jenis_pembayaran.edit', compact('jenis_pembayaran'));
+        return view('jenis_pemasukan.edit', compact('jenis_pemasukan'));
     }
 
     /**
-     * @param \App\Http\Requests\JenisPembayaranStoreRequest $request
+     * @param \App\Http\Requests\JenisPemasukanStoreRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(JenisPembayaranStoreRequest $request)
+    public function store(JenisPemasukanStoreRequest $request)
     {
         try{
-            JenisPembayaran::create($request->validated());
+            JenisPemasukan::create($request->validated());
         }catch(Exception $e){
             Log::info($e->getMessage());
             return redirect()->back()->withInput()->with('success', 'Gagal menambahkan jenis pemasukan baru');
         }
         
-        return redirect()->route('jenis_pembayaran.index')->with('success', 'Berhasil menambahkan jenis pemasukan baru');
+        return redirect()->route('jenis_pemasukan.index')->with('success', 'Berhasil menambahkan jenis pemasukan baru');
     }
 
     /**
-     * @param \App\Http\Requests\JenisPembayaranUpdateRequest $request
-     * @param \App\Models\JenisPembayaran $jenisPembayaran
+     * @param \App\Http\Requests\JenisPemasukanUpdateRequest $request
+     * @param \App\Models\JenisPemasukan $jenisPemasukan
      * @return \Illuminate\Http\Response
      */
-    public function update(JenisPembayaranUpdateRequest $request, JenisPembayaran $jenis_pembayaran)
+    public function update(JenisPemasukanUpdateRequest $request, JenisPemasukan $jenis_pemasukan)
     {   
         try{
-            $jenis_pembayaran->update($request->validated());
+            $jenis_pemasukan->update($request->validated());
         }catch(Exception $e){
             Log::info($e->getMessage());
             return redirect()->back()->withInput()->with('success', 'Gagal mengubah jenis pemasukan');
         }
         
-        return redirect()->route('jenis_pembayaran.index')->with('success', 'Berhasil mengubah jenis pemasukan');
+        return redirect()->route('jenis_pemasukan.index')->with('success', 'Berhasil mengubah jenis pemasukan');
     }
 
     /**
      * @param \Illuminate\Http\Request $request
-     * @param \App\Models\JenisPembayaran $jenisPembayaran
+     * @param \App\Models\JenisPemasukan $jenisPemasukan
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, JenisPembayaran $jenis_pembayaran)
+    public function destroy(Request $request, JenisPemasukan $jenis_pemasukan)
     {
         
         try {
-            if($jenis_pembayaran->jumlah_pembayaran > 0){
-                return response(['code' => 0, 'message' => 'Jenis pembayaran masih aktif digunakan']);
+            if($jenis_pemasukan->jumlah_pemasukan > 0){
+                return response(['code' => 0, 'message' => 'Jenis pemasukan masih aktif digunakan']);
             }
 
-            $jenis_pembayaran->delete();
+            $jenis_pemasukan->delete();
         } catch (Exception $e) {
             Log::info($e->getMessage());
             return response(['code' => 0, 'message' => 'Gagal menghapus data jenis pemasukan']);

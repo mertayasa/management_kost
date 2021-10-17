@@ -1,4 +1,4 @@
-<table class="table table-hover table-striped" width="100%" id="jenisPembayaranDatatable">
+<table class="table table-hover table-striped" width="100%" id="jenisPemasukanDatatable">
     <thead>
         <tr>
         <th>No</th> <th></th>
@@ -13,19 +13,19 @@
 <script>
 
     let table
-    let url = "{{ route('jenis_pembayaran.datatable') }}"
+    let url = "{{ route('jenis_pemasukan.datatable') }}"
 
     datatable(url)
     function datatable (url){
 
-        table = $('#jenisPembayaranDatatable').DataTable({
+        table = $('#jenisPemasukanDatatable').DataTable({
             processing: true,
             serverSide: true,
             responsive: true,
             ajax: url,
             columns: [
 {data: 'DT_RowIndex', name: 'no',orderable: false, searchable: false},{data:'updated_at', name:'updated_at', visible:false, searchable:false},
-                {data: 'jenis_pembayaran', name: 'jenis_pembayaran'},
+                {data: 'jenis_pemasukan', name: 'jenis_pemasukan'},
                 {data: 'action', name: 'action', orderable: false, searchable: false}
             ],
             order: [[ 1, "desc" ]],

@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\DataTables\PembayaranDataTable;
-use App\Http\Requests\PembayaranStoreRequest;
-use App\Http\Requests\PembayaranUpdateRequest;
-use App\Models\JenisPembayaran;
-use App\Models\Pembayaran;
+use App\DataTables\PemasukanDataTable;
+use App\Http\Requests\PemasukanStoreRequest;
+use App\Http\Requests\PemasukanUpdateRequest;
+use App\Models\JenisPemasukan;
+use App\Models\Pemasukan;
 use App\Models\Penyewa;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
-class PembayaranController extends Controller
+class PemasukanController extends Controller
 {
     /**
      * @param \Illuminate\Http\Request $request
@@ -20,7 +20,7 @@ class PembayaranController extends Controller
      */
     public function index(Request $request)
     {
-        return view('pembayaran.index');
+        return view('pemasukan.index');
     }
 
     /**
@@ -30,12 +30,12 @@ class PembayaranController extends Controller
     public function datatable(Request $request, $status = null)
     {
         if($status != null){
-            $pembayarans = Pembayaran::where('status_validasi', $status)->get();
+            $pemasukans = Pemasukan::where('status_validasi', $status)->get();
         }else{
-            $pembayarans = Pembayaran::all();
+            $pemasukans = Pemasukan::all();
         }
 
-        return PembayaranDataTable::set($pembayarans, $status);
+        return PemasukanDataTable::set($pemasukans, $status);
     }
 
     /**
@@ -45,68 +45,68 @@ class PembayaranController extends Controller
     public function create(Request $request)
     {
         $penyewa = Penyewa::get()->where('status_sewa', 1)->pluck('nama', 'id');
-        $jenis_pembayaran = JenisPembayaran::pluck('jenis_pembayaran', 'id');
-        return view('pembayaran.create', compact('penyewa', 'jenis_pembayaran'));
+        $jenis_pemasukan = JenisPemasukan::pluck('jenis_pemasukan', 'id');
+        return view('pemasukan.create', compact('penyewa', 'jenis_pemasukan'));
     }
 
     /**
      * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Pembayaran $pembayaran
+     * @param \App\Models\Pemasukan $pemasukan
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request, Pembayaran $pembayaran)
+    public function edit(Request $request, Pemasukan $pemasukan)
     {
         $referer = request()->headers->get('referer');
-        $back_url = strpos($referer, 'validasi') ? route('validasi.index', 'pembayaranTab') : route('pembayaran.index');
+        $back_url = strpos($referer, 'validasi') ? route('validasi.index', 'pemasukanTab') : route('pemasukan.index');
 
-        $jenis_pembayaran = JenisPembayaran::pluck('jenis_pembayaran', 'id');
-        return view('pembayaran.edit', compact('pembayaran', 'jenis_pembayaran', 'back_url'));
+        $jenis_pemasukan = JenisPemasukan::pluck('jenis_pemasukan', 'id');
+        return view('pemasukan.edit', compact('pemasukan', 'jenis_pemasukan', 'back_url'));
     }
 
     /**
-     * @param \App\Http\Requests\PembayaranStoreRequest $request
+     * @param \App\Http\Requests\PemasukanStoreRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(PembayaranStoreRequest $request)
+    public function store(PemasukanStoreRequest $request)
     {
         $data = $request->validated();
         $data['id_kamar'] = Penyewa::find($data['id_penyewa'])->sewa()->whereNull('tgl_keluar')->get()[0]->id_kamar;
         try{
-            Pembayaran::create($data);
+            Pemasukan::create($data);
         }catch(Exception $e){
             Log::info($e->getMessage());
             return redirect()->back()->withInput()->with('error', 'Gagal menambahkan data pemasukan');
         }
 
-        return redirect()->route('pembayaran.index')->with('success', 'Berhasil menambahkan data pemasukan');
+        return redirect()->route('pemasukan.index')->with('success', 'Berhasil menambahkan data pemasukan');
     }
 
     /**
-     * @param \App\Http\Requests\PembayaranUpdateRequest $request
-     * @param \App\Models\Pembayaran $pembayaran
+     * @param \App\Http\Requests\PemasukanUpdateRequest $request
+     * @param \App\Models\Pemasukan $pemasukan
      * @return \Illuminate\Http\Response
      */
-    public function update(PembayaranUpdateRequest $request, Pembayaran $pembayaran)
+    public function update(PemasukanUpdateRequest $request, Pemasukan $pemasukan)
     {
         try{
-            $pembayaran->update($request->validated());
+            $pemasukan->update($request->validated());
         }catch(Exception $e){
             Log::info($e->getMessage());
             return redirect()->back()->withInput()->with('error', 'Gagal mengubah data pemasukan');
         }
 
-        return redirect()->route('pembayaran.index')->with('success', 'Berhasil mengubah data pemasukan');
+        return redirect()->route('pemasukan.index')->with('success', 'Berhasil mengubah data pemasukan');
     }
 
     /**
      * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Pembayaran $pembayaran
+     * @param \App\Models\Pemasukan $pemasukan
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, Pembayaran $pembayaran)
+    public function destroy(Request $request, Pemasukan $pemasukan)
     {
         try {
-            $pembayaran->delete();
+            $pemasukan->delete();
         } catch (Exception $e) {
             Log::info($e->getMessage());
             return response(['code' => 0, 'message' => 'Gagal menghapus data pemasukan']);

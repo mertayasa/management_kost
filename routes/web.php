@@ -1,11 +1,11 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\JenisPembayaranController;
+use App\Http\Controllers\JenisPemasukanController;
 use App\Http\Controllers\JenisPengeluaranController;
 use App\Http\Controllers\KamarController;
 use App\Http\Controllers\KostController;
-use App\Http\Controllers\PembayaranController;
+use App\Http\Controllers\PemasukanController;
 use App\Http\Controllers\PengeluaranController;
 use App\Http\Controllers\PenyewaController;
 use App\Http\Controllers\SewaController;
@@ -80,18 +80,18 @@ Route::middleware(['auth'])->group(function () {
         Route::get('datatable/{kost_id?}', [KamarController::class, 'datatable'])->name('datatable');
     });
 
-    Route::group(['prefix' => 'jenis-pembayaran', 'as' => 'jenis_pembayaran.'], function () {
-        Route::get('/', [JenisPembayaranController::class, 'index'])->name('index');
+    Route::group(['prefix' => 'jenis-pemasukan', 'as' => 'jenis_pemasukan.'], function () {
+        Route::get('/', [JenisPemasukanController::class, 'index'])->name('index');
 
         Route::group(['middleware' => 'role:owner,manager'], function () {
-            Route::get('create', [JenisPembayaranController::class, 'create'])->name('create');
-            Route::post('store', [JenisPembayaranController::class, 'store'])->name('store');
-            Route::get('edit/{jenis_pembayaran}', [JenisPembayaranController::class, 'edit'])->name('edit');
-            Route::patch('update/{jenis_pembayaran}', [JenisPembayaranController::class, 'update'])->name('update');
-            Route::delete('destroy/{jenis_pembayaran}', [JenisPembayaranController::class, 'destroy'])->name('destroy');
+            Route::get('create', [JenisPemasukanController::class, 'create'])->name('create');
+            Route::post('store', [JenisPemasukanController::class, 'store'])->name('store');
+            Route::get('edit/{jenis_pemasukan}', [JenisPemasukanController::class, 'edit'])->name('edit');
+            Route::patch('update/{jenis_pemasukan}', [JenisPemasukanController::class, 'update'])->name('update');
+            Route::delete('destroy/{jenis_pemasukan}', [JenisPemasukanController::class, 'destroy'])->name('destroy');
         });
 
-        Route::get('datatable', [JenisPembayaranController::class, 'datatable'])->name('datatable');
+        Route::get('datatable', [JenisPemasukanController::class, 'datatable'])->name('datatable');
     });
 
     Route::group(['prefix' => 'jenis-pengeluaran', 'as' => 'jenis_pengeluaran.'], function () {
@@ -155,21 +155,21 @@ Route::middleware(['auth'])->group(function () {
         Route::get('datatable', [SewaController::class, 'datatable'])->name('datatable');
     });
 
-    Route::group(['prefix' => 'pembayaran', 'as' => 'pembayaran.'], function () {
-        Route::get('/', [PembayaranController::class, 'index'])->name('index');
+    Route::group(['prefix' => 'pemasukan', 'as' => 'pemasukan.'], function () {
+        Route::get('/', [PemasukanController::class, 'index'])->name('index');
 
         Route::group(['middleware' => 'role:manager, pegawai'], function () {
-            Route::get('create', [PembayaranController::class, 'create'])->name('create');
-            Route::post('store', [PembayaranController::class, 'store'])->name('store');
-            Route::get('edit/{pembayaran}', [PembayaranController::class, 'edit'])->name('edit');
-            Route::patch('update/{pembayaran}', [PembayaranController::class, 'update'])->name('update');
+            Route::get('create', [PemasukanController::class, 'create'])->name('create');
+            Route::post('store', [PemasukanController::class, 'store'])->name('store');
+            Route::get('edit/{pemasukan}', [PemasukanController::class, 'edit'])->name('edit');
+            Route::patch('update/{pemasukan}', [PemasukanController::class, 'update'])->name('update');
         });
 
         Route::group(['middleware' => 'role:owner,manager'], function () {
-            Route::delete('destroy/{pembayaran}', [PembayaranController::class, 'destroy'])->name('destroy');
+            Route::delete('destroy/{pemasukan}', [PemasukanController::class, 'destroy'])->name('destroy');
         });
 
-        Route::get('datatable/{status?}', [PembayaranController::class, 'datatable'])->name('datatable');
+        Route::get('datatable/{status?}', [PemasukanController::class, 'datatable'])->name('datatable');
     });
 
     Route::group(['prefix' => 'pengeluaran', 'as' => 'pengeluaran.'], function () {
@@ -189,7 +189,7 @@ Route::middleware(['auth'])->group(function () {
     Route::group(['prefix' => 'validasi', 'as' => 'validasi.'], function () {
         Route::get('/{active_tab?}', [ValidasiController::class, 'index'])->name('index');
         Route::patch('update-status-penyewa/{penyewa}/{status}', [ValidasiController::class, 'validasiPenyewa'])->name('penyewa');
-        Route::patch('update-status-pembayaran/{pembayaran}/{status}', [ValidasiController::class, 'validasiPembayaran'])->name('pembayaran');
+        Route::patch('update-status-pemasukan/{pemasukan}/{status}', [ValidasiController::class, 'validasiPemasukan'])->name('pemasukan');
         Route::patch('update-status-pengeluaran/{pengeluaran}/{status}', [ValidasiController::class, 'validasiPengeluaran'])->name('pengeluaran');
     });
 

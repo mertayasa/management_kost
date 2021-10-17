@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Models\JenisPembayaran;
+use App\Models\JenisPemasukan;
 use App\Models\Kamar;
-use App\Models\Pembayaran;
+use App\Models\Pemasukan;
 use App\Models\Penyewa;
 use App\Models\Sewa;
 use Carbon\Carbon;
@@ -31,14 +31,14 @@ class PenyewaSeeder extends Seeder{
                 $sewa->tgl_keluar = null;
                 $sewa->save();
                 
-                $pembayaran = new Pembayaran;
-                $pembayaran->id_jenis_pembayaran = JenisPembayaran::inRandomOrder()->first()->id;
-                $pembayaran->id_penyewa = $penyewa->id;
-                $pembayaran->id_kamar = $id_kamar;
-                $pembayaran->jumlah = $faker->numberBetween(50000, 850000);
-                $pembayaran->tgl_pembayaran = $tanggal;
-                $pembayaran->status_validasi = 1;
-                $pembayaran->save();
+                $pemasukan = new Pemasukan;
+                $pemasukan->id_jenis_pemasukan = JenisPemasukan::inRandomOrder()->first()->id;
+                $pemasukan->id_penyewa = $penyewa->id;
+                $pemasukan->id_kamar = $id_kamar;
+                $pemasukan->jumlah = $faker->numberBetween(50000, 850000);
+                $pemasukan->tgl_pemasukan = $tanggal;
+                $pemasukan->status_validasi = 1;
+                $pemasukan->save();
             }
             
         });

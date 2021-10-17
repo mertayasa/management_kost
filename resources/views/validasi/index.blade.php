@@ -19,7 +19,7 @@
                                         <a href="#penyewaTab" class="nav-link {{$active_tab == 'penyewaTab' || $active_tab == null ? 'active' : ''}}" data-toggle="tab">Penyewa</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="#pembayaranTab" class="nav-link {{$active_tab == 'pembayaranTab' ? 'active' : ''}}" data-toggle="tab">Pemasukan</a>
+                                        <a href="#pemasukanTab" class="nav-link {{$active_tab == 'pemasukanTab' ? 'active' : ''}}" data-toggle="tab">Pemasukan</a>
                                     </li>
                                     <li class="nav-item">
                                         <a href="#pengeluaranTab" class="nav-link {{$active_tab == 'pengeluaranTab' ? 'active' : ''}}" data-toggle="tab">Pengeluaran</a>
@@ -34,9 +34,9 @@
                                           @include('penyewa.datatable', ['status' => 0])
                                         </div>
                                     </div>
-                                    <div class="tab-pane fade {{$active_tab == 'pembayaranTab' ? ' show active' : ''}}" id="pembayaranTab">
+                                    <div class="tab-pane fade {{$active_tab == 'pemasukanTab' ? ' show active' : ''}}" id="pemasukanTab">
                                         <div class="card-body px-0">
-                                            @include('pembayaran.datatable', ['status' => 0])
+                                            @include('pemasukan.datatable', ['status' => 0])
                                         </div>
                                     </div>
                                     <div class="tab-pane fade {{$active_tab == 'pengeluaranTab' ? 'show active' : ''}}" id="pengeluaranTab">

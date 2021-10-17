@@ -38,21 +38,23 @@
               </ul>
             </li>
 
-            <li class="nav-item dropdown {{isActive('jenis-pembayaran') }} {{isActive('pembayaran')}}">
+            <li class="nav-item dropdown {{isActive('jenis-pemasukan') }} {{isActive('pemasukan')}}">
               <a href="#" class="nav-link has-dropdown"><i class="fas fa-users"></i><span>Pemasukan</span></a>
               <ul class="dropdown-menu">
-                <li class="{{isActive('jenis-pembayaran')}}"> <a href="{{route('jenis_pembayaran.index')}}" class="nav-link">Jenis Pemasukan</a> </li>
-                <li class="{{isActive('pembayaran')}}"> <a href="{{route('pembayaran.index')}}" class="nav-link">Pemasukan</a> </li>
+                <li class="{{isActive('jenis-pemasukan')}}"> <a href="{{route('jenis_pemasukan.index')}}" class="nav-link">Jenis Pemasukan</a> </li>
+                <li class="{{isActive('pemasukan')}}"> <a href="{{route('pemasukan.index')}}" class="nav-link">Pemasukan</a> </li>
               </ul>
             </li>
 
-            <li class="nav-item dropdown {{isActive('jenis-pengeluaran') }} {{isActive('pengeluaran')}}">
-              <a href="#" class="nav-link has-dropdown"><i class="fas fa-users"></i><span>Pengeluaran</span></a>
-              <ul class="dropdown-menu">
-                <li class="{{isActive('jenis-pengeluaran')}}"> <a href="{{route('jenis_pengeluaran.index')}}" class="nav-link">Jenis Pengeluaran</a> </li>
-                <li class="{{isActive('pengeluaran')}}"> <a href="{{route('pengeluaran.index')}}" class="nav-link">Pengeluaran</a> </li>
-              </ul>
-            </li>
+            @if (userRole() != 'pegawai')
+              <li class="nav-item dropdown {{isActive('jenis-pengeluaran') }} {{isActive('pengeluaran')}}">
+                <a href="#" class="nav-link has-dropdown"><i class="fas fa-users"></i><span>Pengeluaran</span></a>
+                <ul class="dropdown-menu">
+                  <li class="{{isActive('jenis-pengeluaran')}}"> <a href="{{route('jenis_pengeluaran.index')}}" class="nav-link">Jenis Pengeluaran</a> </li>
+                  <li class="{{isActive('pengeluaran')}}"> <a href="{{route('pengeluaran.index')}}" class="nav-link">Pengeluaran</a> </li>
+                </ul>
+              </li>
+            @endif
 
           @if (userRole() == 'manager')
             <li class="menu-header">Validasi Data</li>

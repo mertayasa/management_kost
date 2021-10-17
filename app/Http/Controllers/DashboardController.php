@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kost;
-use App\Models\Pembayaran;
+use App\Models\Pemasukan;
 use App\Models\Pengeluaran;
 use App\Models\Penyewa;
 use App\Models\Sewa;
@@ -18,22 +18,22 @@ class DashboardController extends Controller{
     }
 
     private function getDashboardData(){
-        $pemasukan = Pembayaran::where('status_validasi', 1);
+        $pemasukan = Pemasukan::where('status_validasi', 1);
         $pengeluaran = Pengeluaran::where('status_validasi', 1);
         
         if(userRole() == 'owner'){
             $total_pemasukan = $pemasukan->sum('jumlah');
             $total_pengeluaran = $pengeluaran->sum('jumlah');
         }else if(userRole() == 'manager'){
-            $total_pemasukan = $pemasukan->whereMonth('tgl_pembayaran', Carbon::now()->format('m'))->sum('jumlah');
+            $total_pemasukan = $pemasukan->whereMonth('tgl_pemasukan', Carbon::now()->format('m'))->sum('jumlah');
             $total_pengeluaran = $pengeluaran->whereMonth('tgl_pengeluaran', Carbon::now()->format('m'))->sum('jumlah');
         }else{
-            $total_pemasukan = $pemasukan->whereDate('tgl_pembayaran', Carbon::today())->sum('jumlah');
+            $total_pemasukan = $pemasukan->whereDate('tgl_pemasukan', Carbon::today())->sum('jumlah');
             $total_pengeluaran = $pengeluaran->whereDate('tgl_pengeluaran', Carbon::today())->sum('jumlah');
         }
 
         $total_profit = $total_pemasukan - $total_pengeluaran;
-        $tahun_pemasukan = Pembayaran::selectRaw('DISTINCT year(tgl_pembayaran) year')->orderBy('year', 'DESC')->pluck('year', 'year');
+        $tahun_pemasukan = Pemasukan::selectRaw('DISTINCT year(tgl_pemasukan) year')->orderBy('year', 'DESC')->pluck('year', 'year');
         $kost = Kost::get();
         $kamar_kosong = $kost->sum('jumlah_kosong');
         $kamar_isi = $kost->sum('jumlah_kamar') - $kost->sum('jumlah_kosong');
@@ -52,8 +52,8 @@ class DashboardController extends Controller{
         // $year = 2021;
         $year = $request->year != 'now' ? $request->year : Carbon::now()->year;
         $months = [ 'January',  'February',  'March',  'April',  'May',  'June',  'July',  'August',  'September',  'October',  'November',  'December'];
-        $pemasukan = Pembayaran::selectRaw('year(tgl_pembayaran) year, monthname(tgl_pembayaran) month, sum(jumlah) data')
-                ->whereYear('tgl_pembayaran', $year)
+        $pemasukan = Pemasukan::selectRaw('year(tgl_pemasukan) year, monthname(tgl_pemasukan) month, sum(jumlah) data')
+                ->whereYear('tgl_pemasukan', $year)
                 ->groupBy('year', 'month')
                 ->orderBy('month', 'DESC')
                 ->get()->toArray();
@@ -96,7 +96,7 @@ class DashboardController extends Controller{
     public function getChartYearly(Request $request){
         $year = $request->year != 'now' ? $request->year : Carbon::now()->year;
 
-        $total_pemasukan = Pembayaran::whereYear('tgl_pembayaran', $year)->where('status_validasi', 1)->sum('jumlah');
+        $total_pemasukan = Pemasukan::whereYear('tgl_pemasukan', $year)->where('status_validasi', 1)->sum('jumlah');
         $total_pengeluaran = Pengeluaran::whereYear('tgl_pengeluaran', $year)->where('status_validasi', 1)->sum('jumlah');
 
         return response(['code' => 1, 'pemasukan' => $total_pemasukan, 'pengeluaran' => $total_pengeluaran]);

@@ -51,6 +51,8 @@
     //     preloader.classList.add('d-none-custom')
     // }, 500);
 
+    const userRole = "{{userRole()}}"
+
     function showToast(code, text){
       if(code == 1){
         toastr.success(text)

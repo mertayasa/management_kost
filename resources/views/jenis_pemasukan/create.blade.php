@@ -6,17 +6,16 @@
       <div class="col-12">
         <div class="card">
           <div class="card-header d-flex justify-content-between">
-            <h4>Edit Pemasukan</h4>
-            {{-- <a href="{{route('employee.create')}}" class="btn btn-primary">Tambah Karyawan</a> --}}
+            <h4>Tambah Jenis Pemasukan</h4>
           </div>
           <div class="card-body">
             @include('layouts.flash')
             @include('layouts.error_message')
-            {!! Form::model($pembayaran, ['route' => ['pembayaran.update', $pembayaran->id], 'method' => 'patch']) !!}
-            @include('pembayaran.form')
+            {!! Form::open(['route' => 'jenis_pemasukan.store']) !!}
+            @include('jenis_pemasukan.form')
             <div class="row mt-3">
                 <div class="col-12">
-                    <a href="{{$back_url}}" class="btn btn-secondary">Kembali</a>
+                    <a href="{{route('jenis_pemasukan.index')}}" class="btn btn-secondary">Kembali</a>
                     <button class="btn btn-primary ml-3" type="submit">Simpan</button>
                 </div>
             </div>

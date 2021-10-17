@@ -27,17 +27,17 @@ class SewaDataTable
                 if(userRole() == 'pegawai'){
                     return
                         '<div class="btn-group">' .
-                        '<a href="' . route('sewa.edit', $sewa->id) . '" class="btn btn-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit" style="margin-right: 5px" ><i class="menu-icon fa fa-pencil-alt"></i></a>' .
-                        '<a href="' . route('sewa.keluar', $sewa->id) . '" class="btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Atur tanggal keluar" style="margin-right: 5px" ><i class="fas fa-sign-out-alt"></i></a>' .
+                        '<a href="' . route('sewa.edit', $sewa->id) . '" class="btn btn-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit" style="margin-right: 5px" >Edit</a>' .
+                        // '<a href="' . route('sewa.keluar', $sewa->id) . '" class="btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Atur tanggal keluar" style="margin-right: 5px" ><i class="fas fa-sign-out-alt"></i></a>' .
                         '</div>';
                 }
 
                 $deleteUrl = "'" . route('sewa.destroy', $sewa->id) . "', 'sewaDatatable', 'sewa'";
                 return
                     '<div class="btn-group">' .
-                    '<a href="' . route('sewa.edit', $sewa->id) . '" class="btn btn-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit" style="margin-right: 5px" ><i class="menu-icon fa fa-pencil-alt"></i></a>' .
-                    '<a href="' . route('sewa.keluar', $sewa->id) . '" class="btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Atur tanggal keluar" style="margin-right: 5px" ><i class="fas fa-sign-out-alt"></i></a>' .
-                    '<a href="#" onclick="deleteModel(' . $deleteUrl . ',)" class="btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Hapus" style="margin-right: 5px"><i class="menu-icon fa fa-trash"></i></a>' .
+                    '<a href="' . route('sewa.edit', $sewa->id) . '" class="btn btn-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit" style="margin-right: 5px" >Edit</a>' .
+                    // '<a href="' . route('sewa.keluar', $sewa->id) . '" class="btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Atur tanggal keluar" style="margin-right: 5px" ><i class="fas fa-sign-out-alt"></i></a>' .
+                    '<a href="#" onclick="deleteModel(' . $deleteUrl . ',)" class="btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Hapus" style="margin-right: 5px">Hapus</a>' .
                     '</div>';
             })->addIndexColumn()->rawColumns(['action', 'thumbnail'])->make(true);
     }

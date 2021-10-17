@@ -10,7 +10,7 @@ class DataValidationController extends Controller{
         # code...
     }
 
-    public function validasiPembayaran(){
+    public function validasiPemasukan(){
         # code...
     }
 

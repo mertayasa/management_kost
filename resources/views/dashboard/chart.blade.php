@@ -119,7 +119,7 @@
             data: formData,
             dataType: 'json',
             success: function(data) {
-                console.log(data)
+                // console.log(data)
                 if (data.code === 1) {
                     if (year != null) {
                         chart.destroy()
@@ -225,7 +225,7 @@
             data: formData,
             dataType: 'json',
             success: function(data) {
-                console.log(data)
+                // console.log(data)
                 if (data.code === 1) {
                     if (year != null) {
                         profit.destroy()
@@ -250,8 +250,11 @@
             datasets: [{
                 label: 'Profit',
                 data: data.profit,
-                borderColor: 'rgb(145,208,246)',
-                backgroundColor: 'rgb(145,208,246)',
+                backgroundColor(context) {
+                    const index = context.dataIndex
+                    const value = context.dataset.data[index]
+                    return value < 0 ? 'rgb(244,174,194)' : 'rgb(145,208,246)'
+                }
             }]
         }
 

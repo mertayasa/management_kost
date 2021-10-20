@@ -28,12 +28,12 @@
                                 <div class="tab-content">
                                     <div class="tab-pane fade {{$active_tab == 'sewaTab' || $active_tab == null ? 'show active' : ''}}" id="sewaTab">
                                         <div class="card-body px-0">
-                                          @include('penyewa.datatable', ['status' => 0])
+                                          @include('sewa.datatable_inactive')
                                         </div>
                                     </div>
                                     <div class="tab-pane fade {{$active_tab == 'pemasukanTab' ? ' show active' : ''}}" id="pemasukanTab">
                                         <div class="card-body px-0">
-                                            @include('pemasukan.datatable', ['status' => 0])
+                                            @include('pemasukan.datatable_inactive')
                                         </div>
                                     </div>
                                     {{-- <div class="tab-pane fade" id="announcementTab">

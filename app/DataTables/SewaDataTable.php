@@ -5,7 +5,7 @@ use Yajra\DataTables\DataTables;
 
 class SewaDataTable
 {
-    static public function set($sewa){
+    static public function set($sewa, $status){
         return Datatables::of($sewa)
             ->addColumn('nama_kost', function($sewa){
                 return $sewa->kamar->kost->nama;
@@ -27,7 +27,7 @@ class SewaDataTable
                 return getVerificationBadge($pemasukan);
             })
 
-            ->addColumn('action', function ($sewa) {
+            ->addColumn('action', function ($sewa) use($status) {
                 $deleteUrl = "'" . route('sewa.destroy', $sewa->id) . "', 'sewaDatatable', 'sewa'";
                 
                 if(showFor(['pegawai'])){
@@ -41,6 +41,17 @@ class SewaDataTable
                     return '-';
                 }
 
+                if($status != null && $status == 0){
+                    $approve_sewa_url = "`" . route('validasi.sewa', [$sewa->id, 1]) . "`, `Apakah anda yakin menerima data sewa ( ". $sewa->penyewa->nama ." )`, `sewaDatatable`";
+                    $decline_sewa_url = "`" . route('validasi.sewa', [$sewa->id, 0]) . "`, `Apakah anda yakin menolak data sewa ( ". $sewa->penyewa->nama ." )`, `sewaDatatable`";
+                    return 
+                    '<div class="btn-group">' .
+                        '<a href="#" onclick="updateStatus(' . $approve_sewa_url . ')" class="btn btn-success" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Terima" style="margin-right: 5px">Terima</a>'.
+                        '<a href="#" onclick="updateStatus(' . $decline_sewa_url . ',)" class="btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Tolak" style="margin-right: 5px">Tolak</a>' .
+                        '<a href="' . route('sewa.edit', $sewa->id) . '" class="btn btn-warning" data-bs-toggle="tooltip" title="Rangkuman" data-bs-placement="bottom" title="Detail" >Edit</a>' .
+                    '</div>';
+                }
+                
                 return
                     '<div class="btn-group">' .
                         '<a href="' . route('sewa.edit', $sewa->id) . '" class="btn btn-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit" style="margin-right: 5px" >Edit</a>' .

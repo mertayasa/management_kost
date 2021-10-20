@@ -30,11 +30,16 @@ class SewaController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function datatable(Request $request)
+    public function datatable($status = null)
     {
-        $sewas = Sewa::all();
+        if($status != null){
+            $sewa = Sewa::where('status_validasi', 0)->get();
+        }else{
+            $sewa = Sewa::all();
+        }
 
-        return SewaDataTable::set($sewas);
+
+        return SewaDataTable::set($sewa, $status);
     }
 
     /**

@@ -6,9 +6,9 @@
       <div class="col-12">
         <div class="card">
           <div class="card-header d-flex justify-content-between">
-            <h4>Kost</h4>
-            @if (userRole() != 'pegawai')
-              <a href="{{route('kost.create')}}" class="btn btn-primary">Tambah Kost</a>
+            <h4>Kos</h4>
+            @if (showFor(['owner']))
+              <a href="{{route('kost.create')}}" class="btn btn-primary">Tambah Kos</a>
             @endif
           </div>
           <div class="col-12">

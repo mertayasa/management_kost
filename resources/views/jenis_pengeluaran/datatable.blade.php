@@ -3,7 +3,9 @@
         <tr>
         <th>No</th> <th></th>
         <th>Jenis Pengeluaran</th>
-        <th>Aksi</th>
+        @if(showFor(['manager']))
+            <th>Aksi</th>
+        @endif
         </tr>
     </thead>
     <tbody></tbody>
@@ -18,16 +20,21 @@
     datatable(url)
     function datatable (url){
 
+        let columns = [
+            {data: 'DT_RowIndex', name: 'no',orderable: false, searchable: false},{data:'updated_at', name:'updated_at', visible:false, searchable:false},
+            {data: 'jenis_pengeluaran', name: 'jenis_pengeluaran'},
+        ]
+
+        @if(showFor(['manager']))
+            columns.push({data: 'action', name: 'action', orderable: false, searchable: false})
+        @endif
+
         table = $('#jenisPengeluaranDatatable').DataTable({
             processing: true,
             serverSide: true,
             responsive: true,
             ajax: url,
-            columns: [
-{data: 'DT_RowIndex', name: 'no',orderable: false, searchable: false},{data:'updated_at', name:'updated_at', visible:false, searchable:false},
-                {data: 'jenis_pengeluaran', name: 'jenis_pengeluaran'},
-                {data: 'action', name: 'action', orderable: false, searchable: false}
-            ],
+            columns: columns,
             order: [[ 1, "desc" ]],
             columnDefs: [
                 // { width: 300, targets: 1 },

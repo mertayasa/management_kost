@@ -5,9 +5,10 @@
         <th>Jenis</th>
         <th>Jumlah</th>
         <th>Tanggal</th>
-        <th>Validasi</th>
         <th>Keterangan</th>
-        <th>Aksi</th>
+        @if(showFor(['manager']))
+            <th>Aksi</th>
+        @endif
         </tr>
     </thead>
     <tbody></tbody>
@@ -27,21 +28,25 @@
     datatablePengeluaran(urlPengeluaran)
     function datatablePengeluaran (urlPengeluaran){
 
+        let columns = [
+            {data: 'DT_RowIndex', name: 'no',orderable: false, searchable: false},
+            {data:'updated_at', name:'updated_at', visible:false, searchable:false},
+            {data: 'id_jenis_pengeluaran', name: 'id_jenis_pengeluaran'},
+            {data: 'jumlah', name: 'jumlah'},
+            {data: 'tgl_pengeluaran', name: 'tgl_pengeluaran'},
+            {data: 'keterangan', name: 'keterangan'},
+        ]
+
+        @if(showFor(['manager']))
+            columns.push({data: 'action', name: 'action', orderable: false, searchable: false})
+        @endif
+
         tablePengeluaran = $('#pengeluaranDatatable').DataTable({
             processing: true,
             serverSide: true,
             responsive: true,
             ajax: urlPengeluaran,
-            columns: [
-                {data: 'DT_RowIndex', name: 'no',orderable: false, searchable: false},
-                {data:'updated_at', name:'updated_at', visible:false, searchable:false},
-                {data: 'id_jenis_pengeluaran', name: 'id_jenis_pengeluaran'},
-                {data: 'jumlah', name: 'jumlah'},
-                {data: 'tgl_pengeluaran', name: 'tgl_pengeluaran'},
-                {data: 'status_validasi', name: 'status_validasi'},
-                {data: 'keterangan', name: 'keterangan'},
-                {data: 'action', name: 'action', orderable: false, searchable: false}
-            ],
+            columns: columns,
             order: [[ 1, "desc" ]],
             columnDefs: [
                 // { width: 300, targets: 1 },

@@ -6,7 +6,7 @@
       <div class="col-12">
         <div class="card">
           <div class="card-header d-flex justify-content-between">
-            <h4>Edit Kost</h4>
+            <h4>Edit Kos</h4>
             {{-- <a href="{{route('employee.create')}}" class="btn btn-primary">Tambah Karyawan</a> --}}
           </div>
           <div class="card-body">

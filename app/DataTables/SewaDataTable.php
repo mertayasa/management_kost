@@ -23,22 +23,29 @@ class SewaDataTable
                 return $sewa->tgl_keluar != null ? indonesianDate($sewa->tgl_keluar) : '-';
             })
 
+            ->editColumn('status_validasi', function ($pemasukan) {
+                return getVerificationBadge($pemasukan);
+            })
+
             ->addColumn('action', function ($sewa) {
-                if(userRole() == 'pegawai'){
+                $deleteUrl = "'" . route('sewa.destroy', $sewa->id) . "', 'sewaDatatable', 'sewa'";
+                
+                if(showFor(['pegawai'])){
                     return
                         '<div class="btn-group">' .
-                        '<a href="' . route('sewa.edit', $sewa->id) . '" class="btn btn-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit" style="margin-right: 5px" >Edit</a>' .
-                        // '<a href="' . route('sewa.keluar', $sewa->id) . '" class="btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Atur tanggal keluar" style="margin-right: 5px" ><i class="fas fa-sign-out-alt"></i></a>' .
+                            '<a href="' . route('sewa.edit', $sewa->id) . '" class="btn btn-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit" style="margin-right: 5px" >Edit</a>' .
                         '</div>';
                 }
 
-                $deleteUrl = "'" . route('sewa.destroy', $sewa->id) . "', 'sewaDatatable', 'sewa'";
+                if(showFor(['owner'])){
+                    return '-';
+                }
+
                 return
                     '<div class="btn-group">' .
-                    '<a href="' . route('sewa.edit', $sewa->id) . '" class="btn btn-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit" style="margin-right: 5px" >Edit</a>' .
-                    // '<a href="' . route('sewa.keluar', $sewa->id) . '" class="btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Atur tanggal keluar" style="margin-right: 5px" ><i class="fas fa-sign-out-alt"></i></a>' .
-                    '<a href="#" onclick="deleteModel(' . $deleteUrl . ',)" class="btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Hapus" style="margin-right: 5px">Hapus</a>' .
+                        '<a href="' . route('sewa.edit', $sewa->id) . '" class="btn btn-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit" style="margin-right: 5px" >Edit</a>' .
+                        '<a href="#" onclick="deleteModel(' . $deleteUrl . ',)" class="btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Hapus" style="margin-right: 5px">Hapus</a>' .
                     '</div>';
-            })->addIndexColumn()->rawColumns(['action', 'thumbnail'])->make(true);
+            })->addIndexColumn()->rawColumns(['action', 'thumbnail', 'status_validasi'])->make(true);
     }
 }

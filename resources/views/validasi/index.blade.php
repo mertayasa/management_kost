@@ -16,20 +16,17 @@
                             <div class="bs-example">
                                 <ul class="nav nav-tabs">
                                     <li class="nav-item">
-                                        <a href="#penyewaTab" class="nav-link {{$active_tab == 'penyewaTab' || $active_tab == null ? 'active' : ''}}" data-toggle="tab">Penyewa</a>
+                                        <a href="#sewaTab" class="nav-link {{$active_tab == 'sewaTab' || $active_tab == null ? 'active' : ''}}" data-toggle="tab">Penyewa</a>
                                     </li>
                                     <li class="nav-item">
                                         <a href="#pemasukanTab" class="nav-link {{$active_tab == 'pemasukanTab' ? 'active' : ''}}" data-toggle="tab">Pemasukan</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="#pengeluaranTab" class="nav-link {{$active_tab == 'pengeluaranTab' ? 'active' : ''}}" data-toggle="tab">Pengeluaran</a>
                                     </li>
                                     {{-- <li class="nav-item">
                                         <a href="#announcementTab" class="nav-link" data-toggle="tab">Pengumuman</a>
                                     </li> --}}
                                 </ul>
                                 <div class="tab-content">
-                                    <div class="tab-pane fade {{$active_tab == 'penyewaTab' || $active_tab == null ? 'show active' : ''}}" id="penyewaTab">
+                                    <div class="tab-pane fade {{$active_tab == 'sewaTab' || $active_tab == null ? 'show active' : ''}}" id="sewaTab">
                                         <div class="card-body px-0">
                                           @include('penyewa.datatable', ['status' => 0])
                                         </div>
@@ -37,11 +34,6 @@
                                     <div class="tab-pane fade {{$active_tab == 'pemasukanTab' ? ' show active' : ''}}" id="pemasukanTab">
                                         <div class="card-body px-0">
                                             @include('pemasukan.datatable', ['status' => 0])
-                                        </div>
-                                    </div>
-                                    <div class="tab-pane fade {{$active_tab == 'pengeluaranTab' ? 'show active' : ''}}" id="pengeluaranTab">
-                                        <div class="card-body px-0">
-                                            @include('pengeluaran.datatable', ['status' => 0])
                                         </div>
                                     </div>
                                     {{-- <div class="tab-pane fade" id="announcementTab">

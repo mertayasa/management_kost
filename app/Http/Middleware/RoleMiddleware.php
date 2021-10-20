@@ -8,18 +8,12 @@ use Illuminate\Support\Facades\Auth;
 
 class RoleMiddleware{
 
-    public function handle($request, Closure $next, $role_name, $second_role_name = null){
-        // 3 Users
-        $role = $role_name == 'owner' ? 0 : ($role_name == 'manager' ? 1 : 2);
-        $second_role = $second_role_name == 'owner' ? 0 : ($second_role_name == 'manager' ? 1 : 2);
-        
-        // 2 Users
-        // $role = $role_name == 'owner' ? 0 : 1;
-        // $second_role = $second_role_name == 'owner' ? 0 : 1;
+    public function handle($request, Closure $next, $first_role, $second_role = null, $third_role = null){
 
-        if(Auth::user()->level == $role || Auth::user()->level == $second_role){
+        if(userRole() == $first_role || userRole() == $second_role || userRole() == $third_role){
             return $next($request);
         }
+
         abort(403);
     }
 

@@ -83,7 +83,7 @@ Route::middleware(['auth'])->group(function () {
     Route::group(['prefix' => 'jenis-pemasukan', 'as' => 'jenis_pemasukan.'], function () {
         Route::get('/', [JenisPemasukanController::class, 'index'])->name('index');
 
-        Route::group(['middleware' => 'role:owner,manager'], function () {
+        Route::group(['middleware' => 'role:manager'], function () {
             Route::get('create', [JenisPemasukanController::class, 'create'])->name('create');
             Route::post('store', [JenisPemasukanController::class, 'store'])->name('store');
             Route::get('edit/{jenis_pemasukan}', [JenisPemasukanController::class, 'edit'])->name('edit');
@@ -158,14 +158,14 @@ Route::middleware(['auth'])->group(function () {
     Route::group(['prefix' => 'pemasukan', 'as' => 'pemasukan.'], function () {
         Route::get('/', [PemasukanController::class, 'index'])->name('index');
 
-        Route::group(['middleware' => 'role:manager, pegawai'], function () {
+        Route::group(['middleware' => 'role:manager,pegawai'], function () {
             Route::get('create', [PemasukanController::class, 'create'])->name('create');
             Route::post('store', [PemasukanController::class, 'store'])->name('store');
             Route::get('edit/{pemasukan}', [PemasukanController::class, 'edit'])->name('edit');
             Route::patch('update/{pemasukan}', [PemasukanController::class, 'update'])->name('update');
         });
 
-        Route::group(['middleware' => 'role:owner,manager'], function () {
+        Route::group(['middleware' => 'role:manager,pegawai'], function () {
             Route::delete('destroy/{pemasukan}', [PemasukanController::class, 'destroy'])->name('destroy');
         });
 

@@ -13,8 +13,8 @@ class JenisPengeluaranDataTable
 
         return Datatables::of($jenis_pengeluaran)
             ->addColumn('action', function ($jenis_pengeluaran) {
-                if(userRole() != 'manager'){
-                    return '-';    
+                if(showFor(['owner', 'pegawai'])){
+                    return '-';
                 }
                 
                 $deleteUrl = "'" . route('jenis_pengeluaran.destroy', $jenis_pengeluaran->id) . "', 'jenisPengeluaranDatatable'";

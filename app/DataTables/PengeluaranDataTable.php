@@ -22,14 +22,14 @@ class PengeluaranDataTable
             ->editColumn('tgl_pengeluaran', function($pengeluaran){
                 return indonesianDate($pengeluaran->tgl_pengeluaran);
             })
-            ->editColumn('keterangan', function($pengeluaran){
-                return Str::limit($pengeluaran->keterangan, 30);
-            })
-            ->editColumn('status_validasi', function ($pengeluaran) {
-                return getVerificationBadge($pengeluaran);
-            })
+            // ->editColumn('keterangan', function($pengeluaran){
+            //     return Str::limit($pengeluaran->keterangan, 30);
+            // })
+            // ->editColumn('status_validasi', function ($pengeluaran) {
+            //     return getVerificationBadge($pengeluaran);
+            // })
             ->addColumn('action', function ($pengeluaran) use($req_validasi) {
-                if(userRole() == 'owner'){
+                if(showFor(['owner'])){
                     return '-';    
                 }
                 
@@ -46,17 +46,13 @@ class PengeluaranDataTable
                         '</div>';
                 }
 
-
-                if($pengeluaran->status_validasi != 1){
-                    $deleteUrl = "'" . route('pengeluaran.destroy', $pengeluaran->id) . "', 'pengeluaranDatatable', 'pengeluaran sejumlah ". formatPrice($pengeluaran->jumlah)."'";
-                    return
-                        '<div class="btn-group">' .
-                        '<a href="' . route('pengeluaran.edit', $pengeluaran->id) . '" class="btn btn-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit" style="margin-right: 5px" >Edit</a>' .
-                        '<a href="#" onclick="deleteModel(' . $deleteUrl . ',)" class="btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Hapus" style="margin-right: 5px">Hapus</a>' .
-                        '</div>';
-                }else{
-                    return '-';
-                }
+                $deleteUrl = "'" . route('pengeluaran.destroy', $pengeluaran->id) . "', 'pengeluaranDatatable', 'pengeluaran sejumlah ". formatPrice($pengeluaran->jumlah)."'";
+                return
+                    '<div class="btn-group">' .
+                    '<a href="' . route('pengeluaran.edit', $pengeluaran->id) . '" class="btn btn-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit" style="margin-right: 5px" >Edit</a>' .
+                    '<a href="#" onclick="deleteModel(' . $deleteUrl . ',)" class="btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Hapus" style="margin-right: 5px">Hapus</a>' .
+                    '</div>';
+                    
             })->addIndexColumn()->rawColumns(['action', 'status_validasi'])->make(true);
 
     }

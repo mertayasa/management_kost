@@ -6,7 +6,7 @@
       <div class="col-12">
         <div class="card">
           <div class="card-header d-flex justify-content-between">
-            <h4>Tambah Kost</h4>
+            <h4>Tambah Kos</h4>
           </div>
           <div class="card-body">
             @include('layouts.flash')

@@ -66,3 +66,14 @@ function getVerificationBadge($model){
     $badge_text = $model->status_validasi == 1 ? 'Tervalidasi' : 'Belum Tervalidasi';
     return '<span class="badge badge-'.$badge_color.'">'. $badge_text .'</span>';
 }
+
+function showFor($roles)
+{
+    foreach($roles as $role){
+        if(userRole() == $role){
+            return true;
+        }
+    }
+
+    return false;
+}

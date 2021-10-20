@@ -22,7 +22,7 @@ class Penyewa extends Model
         'telpon',
         'alamat',
         'pekerjaan',
-        'status_validasi',
+        // 'status_validasi',
     ];
 
     /**

@@ -69,10 +69,10 @@ class KostController extends Controller
             Kost::create($request->validated());
         }catch(Exception $e){
             Log::info($e->getMessage());
-            return redirect()->back()->withInput()->with('success', 'Gagal menambahkan kost baru');
+            return redirect()->back()->withInput()->with('success', 'Gagal menambahkan kos baru');
         }
 
-        return redirect()->route('kost.index')->with('success', 'Berhasil menambahkan kost baru');
+        return redirect()->route('kost.index')->with('success', 'Berhasil menambahkan kos baru');
     }
 
     /**
@@ -87,10 +87,10 @@ class KostController extends Controller
             $kost->update($request->validated());
         }catch(Exception $e){
             Log::info($e->getMessage());
-            return redirect()->back()->withInput()->with('success', 'Gagal mengubah kost '.$kost->name);
+            return redirect()->back()->withInput()->with('success', 'Gagal mengubah kos '.$kost->name);
         }
 
-        return redirect()->route('kost.index')->with('success', 'Berhasil mengubah kost '.$kost->name);
+        return redirect()->route('kost.index')->with('success', 'Berhasil mengubah kos '.$kost->name);
     }
 
     /**
@@ -104,9 +104,9 @@ class KostController extends Controller
             $kost->delete();
         } catch (Exception $e) {
             Log::info($e->getMessage());
-            return response(['code' => 0, 'message' => 'Gagal menghapus data kost']);
+            return response(['code' => 0, 'message' => 'Gagal menghapus data kos']);
         }
 
-        return response(['code' => 1, 'message' => 'Berhasil menghapus data kost']);
+        return response(['code' => 1, 'message' => 'Berhasil menghapus data kos']);
     }
 }

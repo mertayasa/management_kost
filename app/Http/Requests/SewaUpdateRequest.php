@@ -24,14 +24,15 @@ class SewaUpdateRequest extends FormRequest
      */
     public function rules()
     {
-        if(Request::is('*keluar*')){
+        // if(Request::is('*keluar*')){
+        //     return [
+        //         'tgl_keluar' => ['required', 'date']
+        //     ];
+        // }else{
             return [
-                'tgl_keluar' => ['required', 'date']
+                'tgl_masuk' => ['required', 'date'],
+                'tgl_keluar' => ['nullable', 'date']
             ];
-        }else{
-            return [
-                'tgl_masuk' => ['required', 'date']
-            ];
-        }
+        // }
     }
 }

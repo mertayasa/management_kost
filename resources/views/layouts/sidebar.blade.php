@@ -1,7 +1,7 @@
 <div class="main-sidebar">
     <aside id="sidebar-wrapper">
       <div class="sidebar-brand">
-        <a href="index.html">Management Kost</a>
+        <a href="index.html">Management Kos</a>
         <p class="text-center mb-0">Hi, {{Auth::user()->nama}}</p>
         <p class="text-center mb-0">Login sebagai <b> {{userRole()}} </b></p>
       </div>
@@ -23,7 +23,7 @@
             @endif
 
             <li class="nav-item dropdown {{isActive('kost')}}">
-              <a href="{{route('kost.index')}}" class="nav-link"><i class="fas fa-home"></i><span>Kost</span></a>
+              <a href="{{route('kost.index')}}" class="nav-link"><i class="fas fa-home"></i><span>Kos</span></a>
             </li>
 
             {{-- <li class="nav-item dropdown {{isActive('kamar')}}">
@@ -60,7 +60,7 @@
             <li class="menu-header">Validasi Data</li>
             
             <li class="nav-item dropdown {{isActive('validasi')}}">
-              <a href="{{route('validasi.index', 'penyewaTab')}}" class="nav-link"><i class="fas fa-check-square"></i><span>Validasi Data</span></a>
+              <a href="{{route('validasi.index', 'sewaTab')}}" class="nav-link"><i class="fas fa-check-square"></i><span>Validasi Data</span></a>
             </li>
           @endif
 

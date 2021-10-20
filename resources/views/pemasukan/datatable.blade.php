@@ -9,7 +9,9 @@
         <th>Nominal</th>
         <th>Tgl Pemasukan</th>
         <th>Validasi</th>
-        <th>Aksi</th>
+        @if(showFor(['manager', 'pegawai']))
+            <th>Aksi</th>
+        @endif
         </tr>
     </thead>
     <tbody></tbody>
@@ -29,22 +31,27 @@
     datatablePemasukan(urlPemasukan)
     function datatablePemasukan (urlPemasukan){
 
+        let columns = [
+            {data: 'DT_RowIndex', name: 'no',orderable: false, searchable: false},
+            {data:'updated_at', name:'updated_at', visible:false, searchable:false},
+            {data: 'id_jenis_pemasukan', name: 'id_jenis_pemasukan'},
+            {data: 'id_penyewa', name: 'id_penyewa'},
+            {data: 'id_kamar', name: 'id_kamar'},
+            {data: 'jumlah', name: 'jumlah'},
+            {data: 'tgl_pemasukan', name: 'tgl_pemasukan'},
+            {data: 'status_validasi', name: 'status_validasi'},
+        ]
+
+        @if(showFor(['manager', 'pegawai']))
+            columns.push({data: 'action', name: 'action', orderable: false, searchable: false})
+        @endif
+
         pemasukanTable = $('#pemasukanDatatable').DataTable({
             processing: true,
             serverSide: true,
             responsive: true,
             ajax: urlPemasukan,
-            columns: [
-                {data: 'DT_RowIndex', name: 'no',orderable: false, searchable: false},
-                {data:'updated_at', name:'updated_at', visible:false, searchable:false},
-                {data: 'id_jenis_pemasukan', name: 'id_jenis_pemasukan'},
-                {data: 'id_penyewa', name: 'id_penyewa'},
-                {data: 'id_kamar', name: 'id_kamar'},
-                {data: 'jumlah', name: 'jumlah'},
-                {data: 'tgl_pemasukan', name: 'tgl_pemasukan'},
-                {data: 'status_validasi', name: 'status_validasi'},
-                {data: 'action', name: 'action', orderable: false, searchable: false}
-            ],
+            columns: columns,
             order: [[ 1, "desc" ]],
             columnDefs: [
                 // { width: 300, targets: 1 },

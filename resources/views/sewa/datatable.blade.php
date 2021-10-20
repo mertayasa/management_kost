@@ -7,7 +7,10 @@
         <th>Penyewa</th>
         <th>Tanggal Masuk</th>
         <th>Tanggal Keluar</th>
-        <th>Aksi</th>
+        <th>Status Validasi</th>
+        @if (showFor(['pegawai', 'manager']))
+            <th>Aksi</th>
+        @endif
         </tr>
     </thead>
     <tbody></tbody>
@@ -22,20 +25,27 @@
     datatable(url)
     function datatable (url){
 
+        let columns = [
+            {data: 'DT_RowIndex', name: 'no',orderable: false, searchable: false},{data:'updated_at', name:'updated_at', visible:false, searchable:false},
+            {data: 'nama_kost', name: 'nama_kost'},
+            {data: 'no_kamar', name: 'no_kamar'},
+            {data: 'penyewa', name: 'penyewa'},
+            {data: 'tgl_masuk', name: 'tgl_masuk'},
+            {data: 'tgl_keluar', name: 'tgl_keluar'},
+            {data: 'status_validasi', name: 'status_validasi'},
+        ];
+
+        @if (showFor(['pegawai', 'manager']))
+            columns.push({data: 'action', name: 'action', orderable: false, searchable: false})
+        @endif
+
+
         table = $('#sewaDatatable').DataTable({
             processing: true,
             serverSide: true,
             responsive: true,
             ajax: url,
-            columns: [
-{data: 'DT_RowIndex', name: 'no',orderable: false, searchable: false},{data:'updated_at', name:'updated_at', visible:false, searchable:false},
-                {data: 'nama_kost', name: 'nama_kost'},
-                {data: 'no_kamar', name: 'no_kamar'},
-                {data: 'penyewa', name: 'penyewa'},
-                {data: 'tgl_masuk', name: 'tgl_masuk'},
-                {data: 'tgl_keluar', name: 'tgl_keluar'},
-                {data: 'action', name: 'action', orderable: false, searchable: false}
-            ],
+            columns: columns,
             order: [[ 1, "desc" ]],
             columnDefs: [
                 // { width: 300, targets: 1 },

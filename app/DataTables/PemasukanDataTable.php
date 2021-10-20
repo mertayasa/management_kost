@@ -31,8 +31,8 @@ class PemasukanDataTable
                 return getVerificationBadge($pemasukan);
             })
             ->addColumn('action', function ($pemasukan) use($req_validasi) {
-                if(userRole() == 'owner'){
-                    return '-';    
+                if(showFor(['owner'])){
+                    return '-';
                 }
 
                 $approve_pemasukan_url = "`" . route('validasi.pemasukan', [$pemasukan->id, 1]) . "`, `Apakah anda yakin menerima data pemasukan sejumlah ( ". formatPrice($pemasukan->jumlah) ." )`, `pemasukanDatatable`";

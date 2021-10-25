@@ -8,7 +8,7 @@
         <th>Tanggal Masuk</th>
         <th>Tanggal Keluar</th>
         <th>Status Validasi</th>
-        @if (showFor(['pegawai', 'manager']))
+        @if (showFor(['pegawai']))
             <th>Aksi</th>
         @endif
         </tr>
@@ -36,7 +36,7 @@
             {data: 'status_validasi', name: 'status_validasi'},
         ];
 
-        @if (showFor(['pegawai', 'manager']))
+        @if (showFor(['pegawai']))
             columns.push({data: 'action', name: 'action', orderable: false, searchable: false})
         @endif
 

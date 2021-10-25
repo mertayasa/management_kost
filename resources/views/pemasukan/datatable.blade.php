@@ -9,7 +9,7 @@
         <th>Nominal</th>
         <th>Tgl Pemasukan</th>
         <th>Validasi</th>
-        @if(showFor(['manager', 'pegawai']))
+        @if(showFor(['pegawai']))
             <th>Aksi</th>
         @endif
         </tr>
@@ -42,7 +42,7 @@
             {data: 'status_validasi', name: 'status_validasi'},
         ]
 
-        @if(showFor(['manager', 'pegawai']))
+        @if(showFor(['pegawai']))
             columns.push({data: 'action', name: 'action', orderable: false, searchable: false})
         @endif
 

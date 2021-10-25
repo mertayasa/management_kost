@@ -7,7 +7,7 @@
         <div class="card">
           <div class="card-header d-flex justify-content-between">
             <h4>Penyewa</h4>
-            @if (userRole() != 'owner')
+            @if (showFor(['pegawai']))
               <a href="{{route('penyewa.create')}}" class="btn btn-primary">Tambah Penyewa</a>
             @endif
           </div>

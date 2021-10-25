@@ -31,10 +31,14 @@ class SewaDataTable
                 $deleteUrl = "'" . route('sewa.destroy', $sewa->id) . "', 'sewaDatatable', 'sewa'";
                 
                 if(showFor(['pegawai'])){
-                    return
-                        '<div class="btn-group">' .
-                            '<a href="' . route('sewa.edit', $sewa->id) . '" class="btn btn-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit" style="margin-right: 5px" >Edit</a>' .
-                        '</div>';
+                    return '<div class="btn-group">' .
+                                '<a href="' . route('sewa.edit', $sewa->id) . '" class="btn btn-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit" style="margin-right: 5px" >Edit</a>' .
+                                '<a href="#" onclick="deleteModel(' . $deleteUrl . ',)" class="btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Hapus" style="margin-right: 5px">Hapus</a>' .
+                            '</div>';
+                    // return
+                    //     '<div class="btn-group">' .
+                    //         '<a href="' . route('sewa.edit', $sewa->id) . '" class="btn btn-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit" style="margin-right: 5px" >Edit</a>' .
+                    //     '</div>';
                 }
 
                 if(showFor(['owner'])){
@@ -48,15 +52,15 @@ class SewaDataTable
                     '<div class="btn-group">' .
                         '<a href="#" onclick="updateStatus(' . $approve_sewa_url . ')" class="btn btn-success" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Terima" style="margin-right: 5px">Terima</a>'.
                         '<a href="#" onclick="declineData(' . $decline_sewa_url . ',)" class="btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Tolak" style="margin-right: 5px">Tolak</a>' .
-                        '<a href="' . route('sewa.edit', $sewa->id) . '" class="btn btn-warning" data-bs-toggle="tooltip" title="Rangkuman" data-bs-placement="bottom" title="Detail" >Edit</a>' .
+                        // '<a href="' . route('sewa.edit', $sewa->id) . '" class="btn btn-warning" data-bs-toggle="tooltip" title="Rangkuman" data-bs-placement="bottom" title="Detail" >Edit</a>' .
                     '</div>';
                 }
                 
-                return
-                    '<div class="btn-group">' .
-                        '<a href="' . route('sewa.edit', $sewa->id) . '" class="btn btn-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit" style="margin-right: 5px" >Edit</a>' .
-                        '<a href="#" onclick="deleteModel(' . $deleteUrl . ',)" class="btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Hapus" style="margin-right: 5px">Hapus</a>' .
-                    '</div>';
+                // return
+                //     '<div class="btn-group">' .
+                //         '<a href="' . route('sewa.edit', $sewa->id) . '" class="btn btn-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit" style="margin-right: 5px" >Edit</a>' .
+                //         '<a href="#" onclick="deleteModel(' . $deleteUrl . ',)" class="btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Hapus" style="margin-right: 5px">Hapus</a>' .
+                //     '</div>';
             })->addIndexColumn()->rawColumns(['action', 'thumbnail', 'status_validasi'])->make(true);
     }
 }

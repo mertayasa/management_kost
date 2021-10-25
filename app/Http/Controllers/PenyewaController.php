@@ -78,6 +78,11 @@ class PenyewaController extends Controller
         return redirect()->route('penyewa.index')->with('success', 'Berhasil menambahkan penyewa');
     }
 
+    public function show(Penyewa $penyewa)
+    {
+        return view('penyewa.show', compact('penyewa'));
+    }
+
     /**
      * @param \App\Http\Requests\PenyewaUpdateRequest $request
      * @param \App\Models\Penyewa $penyewa

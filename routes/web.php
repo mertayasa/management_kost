@@ -113,6 +113,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/', [PenyewaController::class, 'index'])->name('index');
         Route::get('get-nama-kamar/{penyewa}', [PenyewaController::class, 'getNamaKamar'])->name('get_nama_kamar');
         Route::get('create', [PenyewaController::class, 'create'])->name('create');
+        Route::get('show/{penyewa}', [PenyewaController::class, 'show'])->name('show');
         Route::post('store', [PenyewaController::class, 'store'])->name('store');
         Route::get('edit/{penyewa}', [PenyewaController::class, 'edit'])->name('edit');
         Route::patch('update/{penyewa}', [PenyewaController::class, 'update'])->name('update');

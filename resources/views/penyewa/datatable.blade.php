@@ -37,7 +37,7 @@
             {data: 'status', name: 'status'},
         ]
 
-        @if(showFor(['manager', 'pegawai']))
+        @if(showFor(['pegawai', 'manager']))
             columns.push({data: 'action', name: 'action', orderable: false, searchable: false})
         @endif
 

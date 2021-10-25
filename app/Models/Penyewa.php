@@ -48,7 +48,8 @@ class Penyewa extends Model
 
     public function getKamarKostAttribute()
     {
-        $sewa = $this->sewa()->whereNull('tgl_keluar')->get()[0];
+        $sewa = $this->sewa()->latest()->first();
+        // $sewa = $this->sewa()->whereNull('tgl_keluar')->get()[0];
         return $sewa->kamar->kost->nama.', Kamar '.$sewa->kamar->no_kamar;
     }
 

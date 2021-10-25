@@ -24,11 +24,15 @@ class PenyewaSeeder extends Seeder{
             if($id_kamar){
                 $tanggal = $faker->dateTimeBetween(Carbon::now()->subMonth(10), Carbon::now()->subMonth(4));
     
+                $status_validasi = rand(0, 2);
+
                 $sewa = new Sewa;
                 $sewa->id_kamar = $id_kamar;
                 $sewa->id_penyewa = $penyewa->id;
                 $sewa->tgl_masuk = $tanggal;
                 $sewa->tgl_keluar = null;
+                $sewa->status_validasi = $status_validasi;
+                $sewa->alasan_ditolak = $status_validasi == 2 ? $faker->text() : '';
                 $sewa->save();
                 
                 $pemasukan = new Pemasukan;
@@ -37,7 +41,8 @@ class PenyewaSeeder extends Seeder{
                 $pemasukan->id_kamar = $id_kamar;
                 $pemasukan->jumlah = $faker->numberBetween(50000, 850000);
                 $pemasukan->tgl_pemasukan = $tanggal;
-                $pemasukan->status_validasi = 1;
+                $pemasukan->status_validasi = $status_validasi;
+                $pemasukan->alasan_ditolak = $status_validasi == 2 ? $faker->text() : '';
                 $pemasukan->save();
             }
             

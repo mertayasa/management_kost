@@ -90,6 +90,7 @@ class PemasukanController extends Controller
     {
         try{
             $pemasukan->update($request->validated());
+            $pemasukan->update(['status_validasi' => 0]);
         }catch(Exception $e){
             Log::info($e->getMessage());
             return redirect()->back()->withInput()->with('error', 'Gagal mengubah data pemasukan');

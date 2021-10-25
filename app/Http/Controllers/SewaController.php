@@ -48,14 +48,19 @@ class SewaController extends Controller
      */
     public function create(Request $request)
     {
-        $penyewa = $this->pluckPenyewa();
-        $raw_kamar = $this->pluckKamar();
-        $kamar = $raw_kamar['kamar'];
+        // $penyewa = $this->pluckPenyewa();
+        // $raw_kamar = $this->pluckKamar();
+        // $kamar = $raw_kamar['kamar'];
 
-        $kamar_full = $raw_kamar['sum'] < 1 ? 'Tidak ada kamar tersedia' : '';
-        $penyewa_full = count($penyewa) < 1 ? 'Semua penyewa sudah memiliki kamar' : '';
+        // $kamar_full = $raw_kamar['sum'] < 1 ? 'Tidak ada kamar tersedia' : '';
+        // $penyewa_full = count($penyewa) < 1 ? 'Semua penyewa sudah memiliki kamar' : '';
 
-        return view('sewa.create', compact('penyewa', 'kamar', 'penyewa_full', 'kamar_full'));
+        // return view('sewa.create', compact('penyewa', 'kamar', 'penyewa_full', 'kamar_full'));
+
+        $kost = Kost::pluck('nama', 'id');
+        $penyewa = Penyewa::pluck('nama', 'id');
+
+        return view('sewa.create', compact('penyewa', 'kost'));
     }
 
     private function pluckPenyewa()
@@ -115,6 +120,7 @@ class SewaController extends Controller
     {
         try{
             $sewa->update($request->validated());
+            $sewa->update(['status_validasi' => 0]);
         }catch(Exception $e){
             Log::info($e->getMessage());
             return redirect()->back()->withInput()->with('success', 'Gagal mengubah data sewa');

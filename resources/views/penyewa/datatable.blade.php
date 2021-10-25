@@ -1,11 +1,11 @@
 <table class="table table-hover table-striped" width="100%" id="penyewaDatatable">
     <thead>
         <tr>
-        <th>No</th> <th></th>
+        <th>No</th>
+        <th></th>
         <th>Nama</th>
         <th>No Telp</th>
         <th>No Ktp</th>
-        <th>Validasi</th>
         <th>Status Sewa</th>
         @if (showFor(['pegawai', 'manager']))
             <th>Aksi</th>
@@ -34,7 +34,6 @@
             {data: 'nama', name: 'nama'},
             {data: 'telpon', name: 'telpon'},
             {data: 'no_ktp', name: 'no_ktp'},
-            {data: 'status_validasi', name: 'status_validasi'},
             {data: 'status', name: 'status'},
         ]
 

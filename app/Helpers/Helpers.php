@@ -62,9 +62,16 @@ function isActive($param){
 }
 
 function getVerificationBadge($model){
-    $badge_color = $model->status_validasi == 1 ? 'success' : 'danger';
-    $badge_text = $model->status_validasi == 1 ? 'Tervalidasi' : 'Belum Tervalidasi';
-    return '<span class="badge badge-'.$badge_color.'">'. $badge_text .'</span>';
+    $badge_text = $model->status_validasi == 1 ? 'Tervalidasi' : ($model->status_validasi == 0 ? 'Belum Tervalidasi' : 'Ditolak');
+    $badge_color = $model->status_validasi == 1 ? 'success' : ($model->status_validasi == 0 ? 'warning' : 'danger');
+    $badge = '<b> <span class="text-'. $badge_color .'">'. $badge_text .'</span> </b>';
+
+    if($model->status_validasi === 2){
+        $alasan = $model->alasan_ditolak ?? 'Tanpa Alasan';
+        $badge = $badge.'<br><a href="#" onclick="showAlasan(this)" data-toggle="modal" data-alasan="'. $alasan .'" data-target="#modalAlasan">Lihat alasan</a>';
+    }
+
+    return $badge;
 }
 
 function showFor($roles)

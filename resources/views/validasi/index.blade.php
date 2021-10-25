@@ -16,22 +16,28 @@
                             <div class="bs-example">
                                 <ul class="nav nav-tabs">
                                     <li class="nav-item">
-                                        <a href="#sewaTab" class="nav-link {{$active_tab == 'sewaTab' || $active_tab == null ? 'active' : ''}}" data-toggle="tab">Penyewa</a>
+                                        <a href="#sewaTab"
+                                            class="nav-link {{ $active_tab == 'sewaTab' || $active_tab == null ? 'active' : '' }}"
+                                            data-toggle="tab">Data Sewa</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="#pemasukanTab" class="nav-link {{$active_tab == 'pemasukanTab' ? 'active' : ''}}" data-toggle="tab">Pemasukan</a>
+                                        <a href="#pemasukanTab"
+                                            class="nav-link {{ $active_tab == 'pemasukanTab' ? 'active' : '' }}"
+                                            data-toggle="tab">Data Pemasukan</a>
                                     </li>
                                     {{-- <li class="nav-item">
                                         <a href="#announcementTab" class="nav-link" data-toggle="tab">Pengumuman</a>
                                     </li> --}}
                                 </ul>
                                 <div class="tab-content">
-                                    <div class="tab-pane fade {{$active_tab == 'sewaTab' || $active_tab == null ? 'show active' : ''}}" id="sewaTab">
+                                    <div class="tab-pane fade {{ $active_tab == 'sewaTab' || $active_tab == null ? 'show active' : '' }}"
+                                        id="sewaTab">
                                         <div class="card-body px-0">
-                                          @include('sewa.datatable_inactive')
+                                            @include('sewa.datatable_inactive')
                                         </div>
                                     </div>
-                                    <div class="tab-pane fade {{$active_tab == 'pemasukanTab' ? ' show active' : ''}}" id="pemasukanTab">
+                                    <div class="tab-pane fade {{ $active_tab == 'pemasukanTab' ? ' show active' : '' }}"
+                                        id="pemasukanTab">
                                         <div class="card-body px-0">
                                             @include('pemasukan.datatable_inactive')
                                         </div>
@@ -71,6 +77,7 @@
                         url: url,
                         method: 'patch',
                         data: {
+                            "status": "1",
                             "_token": "{{ csrf_token() }}"
                         },
                         dataType: 'json',
@@ -87,6 +94,61 @@
                 }
             })
         }
+
+        function declineData(url, promptText, tableId) {
+            let table = tableId
+            Swal.fire({
+                title: 'Tolak Data',
+                text: promptText,
+                input: 'text',
+                inputAttributes: {
+                    autocapitalize: 'off'
+                },
+                showCancelButton: true,
+                confirmButtonText: 'Simpan',
+                cancelButtonText: 'Batal',
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#169b6b',
+                showLoaderOnConfirm: true,
+                preConfirm: (alasan) => {
+                    // return fetch(`//api.github.com/users/${login}`)
+                    return fetch(url, {
+                        method: 'PATCH',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            "X-CSRF-Token": "{{csrf_token()}}"
+                        },
+                        body: JSON.stringify({
+                            status: 2,
+                            alasan: alasan,
+                        }),
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(response.statusText)
+                        }
+                        return response.json()
+                    })
+                    .catch(error => {
+                        Swal.showValidationMessage(
+                            `Gagal mengubah validasi data`
+                        )
+                    })
+                },
+                allowOutsideClick: () => !Swal.isLoading()
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    if (result.value.code == 1) {
+                        showToast(result.value.code, result.value.message)
+                    } else {
+                        showToast(result.value.code, result.value.message)
+                    }
+
+                    $(`#${table}`).DataTable().ajax.reload()
+                }
+            })
+        }
+        
     </script>
 @endpush
 

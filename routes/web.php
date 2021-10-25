@@ -62,6 +62,7 @@ Route::middleware(['auth'])->group(function () {
             Route::delete('destroy/{kost}', [KostController::class, 'destroy'])->name('destroy');
         });
         
+        Route::get('kamar/{kost}', [KostController::class, 'getKamar'])->name('kamar');
         Route::get('show/{kost}', [KostController::class, 'show'])->name('show');
         Route::get('datatable', [KostController::class, 'datatable'])->name('datatable');
     });
@@ -188,10 +189,10 @@ Route::middleware(['auth'])->group(function () {
 
     Route::group(['prefix' => 'validasi', 'as' => 'validasi.'], function () {
         Route::get('/{active_tab?}', [ValidasiController::class, 'index'])->name('index');
-        Route::patch('update-status-sewa/{sewa}/{status}', [ValidasiController::class, 'validasiSewa'])->name('sewa');
-        Route::patch('update-status-penyewa/{penyewa}/{status}', [ValidasiController::class, 'validasiPenyewa'])->name('penyewa');
-        Route::patch('update-status-pemasukan/{pemasukan}/{status}', [ValidasiController::class, 'validasiPemasukan'])->name('pemasukan');
-        Route::patch('update-status-pengeluaran/{pengeluaran}/{status}', [ValidasiController::class, 'validasiPengeluaran'])->name('pengeluaran');
+        Route::patch('update-status-sewa/{sewa}', [ValidasiController::class, 'validasiSewa'])->name('sewa');
+        // Route::patch('update-status-penyewa/{penyewa}/{status}', [ValidasiController::class, 'validasiPenyewa'])->name('penyewa');
+        Route::patch('update-status-pemasukan/{pemasukan}', [ValidasiController::class, 'validasiPemasukan'])->name('pemasukan');
+        // Route::patch('update-status-pengeluaran/{pengeluaran}/{status}', [ValidasiController::class, 'validasiPengeluaran'])->name('pengeluaran');
     });
 
 });

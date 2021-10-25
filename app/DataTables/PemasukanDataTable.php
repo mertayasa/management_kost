@@ -36,7 +36,7 @@ class PemasukanDataTable
                 }
 
                 $approve_pemasukan_url = "`" . route('validasi.pemasukan', [$pemasukan->id, 1]) . "`, `Apakah anda yakin menerima data pemasukan sejumlah ( ". formatPrice($pemasukan->jumlah) ." )`, `pemasukanDatatable`";
-                $decline_pemasukan_url = "`" . route('validasi.pemasukan', [$pemasukan->id, 2]) . "`, `Apakah anda yakin menolak data pemasukan sejumlah ( ". formatPrice($pemasukan->jumlah) ." )`, `pemasukanDatatable`";
+                $decline_pemasukan_url = "`" . route('validasi.pemasukan', [$pemasukan->id, 2]) . "`, `Tulis alasahn bahwa data pemasukan sebesar ( ". formatPrice($pemasukan->jumlah) ." ) ditolak`, `pemasukanDatatable`";
                 // $decline_pemasukan_url = "`" . route('validasi.pemasukan', [$pemasukan->id, 2]) . "`, `Apakah anda yakin menolak data pemasukan ( ". $pemasukan->nama ." )`, `pemasukanDatatable`";
                 $deleteUrl = "'" . route('pemasukan.destroy', $pemasukan->id) . "', 'pemasukanDatatable', '".$pemasukan->nama."'";
                 

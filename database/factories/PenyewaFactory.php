@@ -17,7 +17,7 @@ class PenyewaFactory extends Factory
             'telpon' => $this->faker->e164PhoneNumber(),
             'alamat' => $this->faker->address,
             'pekerjaan' => $this->faker->jobTitle,
-            'status_validasi' => 1,
+            // 'status_validasi' => 1,
         ];
     }
 }

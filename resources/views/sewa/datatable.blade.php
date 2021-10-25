@@ -26,7 +26,8 @@
     function datatable (url){
 
         let columns = [
-            {data: 'DT_RowIndex', name: 'no',orderable: false, searchable: false},{data:'updated_at', name:'updated_at', visible:false, searchable:false},
+            {data: 'DT_RowIndex', name: 'no',orderable: false, searchable: false},
+            {data:'updated_at', name:'updated_at', visible:false, searchable:false},
             {data: 'nama_kost', name: 'nama_kost'},
             {data: 'no_kamar', name: 'no_kamar'},
             {data: 'penyewa', name: 'penyewa'},

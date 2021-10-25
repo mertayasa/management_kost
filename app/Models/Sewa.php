@@ -20,6 +20,8 @@ class Sewa extends Model
         'id_kamar',
         'id_penyewa',
         'tgl_masuk',
+        'status_validasi',
+        'alasan_ditolak',
         'tgl_keluar',
     ];
 

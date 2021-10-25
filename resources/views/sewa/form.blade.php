@@ -1,33 +1,38 @@
 <div class="row mb-4">
     <div class="col-12 col-md-6 pb-3 pb-md-0">
-        {!! Form::label('penyewa', 'Nomor Kamar', ['class' => 'mb-1']) !!}
+        {!! Form::label('selectKos', 'Kos', ['class' => 'mb-1']) !!}
         @if (isset($sewa))
-            {!! Form::text('id_kamar', $sewa->kamar->no_kamar, ['class' => 'form-control', 'id' => 'nomorKamar', 'readonly' => true]) !!}
+            {!! Form::text('id_kost', $sewa->kamar->kost->id, ['class' => 'form-control', 'id' => 'selectKos', 'readonly' => true]) !!}
         @else
-            {!! Form::select('id_kamar', $kamar, null, ['class' => 'form-control', 'id' => 'nomorKamar']) !!}
-            <span class="text-danger"> {{$kamar_full}} </span>
+            {!! Form::select('id_kost', $kost, null, ['class' => 'form-control', 'id' => 'selectKos']) !!}
         @endif
-        
-
-        <div class="penyewa mt-3">
-            {!! Form::label('penyewa', 'Penyewa', ['class' => 'mb-1']) !!}
-            @if (isset($sewa))
-                {!! Form::text('id_penyewa', $sewa->penyewa->nama, ['class' => 'form-control', 'id' => 'penyewa', 'readonly' => true]) !!}
-            @else
-                {!! Form::select('id_penyewa', $penyewa, null, ['class' => 'form-control', 'id' => 'penyewa']) !!}
-                <span class="text-danger"> {{$penyewa_full}} </span>
-            @endif
-    
-        </div>
     </div>
+    <div class="col-12 col-md-6 pb-3 pb-md-0">
+        {!! Form::label('selectkamar', 'Kamar', ['class' => 'mb-1']) !!}
+        {!! Form::select('id_kamar', [], null, ['class' => 'form-control', 'id' => 'selectkamar']) !!}
+    </div>
+</div>
 
-    <div class="col-12 col-md-6">
+<div class="row">
+    <div class="col-12 col-md-6 pb-3 pb-md-0">
+        {!! Form::label('penyewa', 'Penyewa', ['class' => 'mb-1']) !!}
+        @if (isset($sewa))
+            {!! Form::text('id_penyewa', $sewa->penyewa->nama, ['class' => 'form-control', 'id' => 'penyewa', 'readonly' => true]) !!}
+        @else
+            {!! Form::select('id_penyewa', ['Pilih Penyewa' => $penyewa], 0, ['class' => 'form-control', 'id' => 'penyewa']) !!}
+        @endif
+    </div>
+</div>
+
+<hr>
+
+<div class="row mb-4">
+    <div class="col-12 col-md-6 pb-3 pb-md-0">
         {!! Form::label('tglMasuk', 'Tanggal Masuk', ['class' => 'mb-1']) !!}
         {!! Form::date('tgl_masuk', null, ['class'=>'form-control', 'id' => 'tglMasuk', Request::is('*keluar*') ? 'readonly' : '']) !!}
-
-        {{-- @if (Request::is('*keluar*')) --}}
-        {!! Form::label('tglKeluar', 'Tanggal Keluar', ['class' => 'mb-1 mt-3']) !!}
+    </div>
+    <div class="col-12 col-md-6 pb-3 pb-md-0">
+        {!! Form::label('tglKeluar', 'Tanggal Keluar', ['class' => 'mb-1']) !!}
         {!! Form::date('tgl_keluar', null, ['class'=>'form-control', 'id' => 'tglKeluar']) !!}
-        {{-- @endif --}}
     </div>
 </div>

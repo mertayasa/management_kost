@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\DataTables\KostDataTable;
 use App\Http\Requests\KostStoreRequest;
 use App\Http\Requests\KostUpdateRequest;
+use App\Models\Kamar;
 use App\Models\Kost;
 use Exception;
 use Illuminate\Http\Request;
@@ -108,5 +109,11 @@ class KostController extends Controller
         }
 
         return response(['code' => 1, 'message' => 'Berhasil menghapus data kos']);
+    }
+
+    public function getKamar(Kost $kost)
+    {
+        $kost->load('kamar');
+        return response(['code' => 1, 'kamar' => $kost->kamar]);
     }
 }

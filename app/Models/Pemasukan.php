@@ -22,6 +22,7 @@ class Pemasukan extends Model
         'id_kamar',
         'jumlah',
         'tgl_pemasukan',
+        'alasan_ditolak',
         'status_validasi',
     ];
 

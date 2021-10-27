@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -57,10 +58,19 @@ class Penyewa extends Model
     {
         $status_sewa = 0;
 
-        if($this->sewa()->whereNull('tgl_keluar')->count() > 0){
-            $status_sewa = 1;
+        // if($this->sewa()->whereNull('tgl_keluar')->count() > 0){
+        //     $status_sewa = 1;
+        // }
+
+        $tgl_keluar = Sewa::where('id_penyewa', $this->attributes['id'])->get()->pluck('custom_tgl_keluar');
+
+        foreach($tgl_keluar as $keluar){
+            if($keluar > Carbon::now()->format('Y-m-d')){
+                $status_sewa = 1;
+            }
         }
 
         return $status_sewa;
+        return end($tgl_keluar);
     }
 }

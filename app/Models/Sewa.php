@@ -42,7 +42,7 @@ class Sewa extends Model
 
     protected $appends = [
         'custom_tgl_keluar'
-    ];  
+    ];
 
     public function getCustomTglKeluarAttribute(){
         if($this->attributes['tgl_keluar'] == null){
@@ -50,6 +50,12 @@ class Sewa extends Model
         }
 
         return $this->attributes['tgl_keluar'];
+    }
+
+    public function getNamaSewaAttribute()
+    {
+        $tgl_keluar = $this->attributes['tgl_keluar'] ?? '∞';
+        return $this->penyewa->nama.'|'.$this->kamar->kost->nama.'|'.$this->kamar->no_kamar.'|'.$this->attributes['tgl_masuk'].' - '. $tgl_keluar;
     }
 
     // public function getDateRangeAttribute()

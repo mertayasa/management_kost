@@ -17,6 +17,7 @@ class PenyewaDataTable
             })
 
             ->addColumn('status', function($penyewa){
+                // return $penyewa->status_sewa;
                 return $penyewa->status_sewa == 0 ? 'Tidak Menyewa' : 'Menyewa';
             })
 

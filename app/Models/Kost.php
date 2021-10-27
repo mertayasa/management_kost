@@ -42,8 +42,16 @@ class Kost extends Model
         return $this->hasManyThrough(Sewa::class, Kamar::class, 'id_kost', 'id_kamar');
     }
 
-    public function getJumlahKosongAttribute(){
+    public function getJumlahKosongAttribute()
+    {
         return $this->sewa->whereNotNull('tgl_keluar')->count();
+    }
+
+    public function getJumlahKosong()
+    {
+        // $kamar = Kamar::where('id_kost', $this->attributes['id'])->get();
+        // $raw_tgl_isi = [];
+        // foreach($kamar as $kam)
     }
 
     public function getJumlahKamarAttribute(){

@@ -59,4 +59,15 @@ class Kamar extends Model
 
         return $status_sewa;
     }
+
+    public function getTglIsi()
+    {
+        $raw_sewa = Sewa::where('id_kamar', $this->attributes['id'])->get();
+        $date_range = [];
+        foreach($raw_sewa as $sewa){
+            array_push($date_range, $sewa->getDateRange());   
+        }
+
+        return flatten($date_range);
+    }
 }

@@ -35,7 +35,12 @@ class DashboardController extends Controller{
         $total_profit = $total_pemasukan - $total_pengeluaran;
         $tahun_pemasukan = Pemasukan::selectRaw('DISTINCT year(tgl_pemasukan) year')->orderBy('year', 'DESC')->pluck('year', 'year');
         $kost = Kost::get();
-        $kamar_kosong = $kost->sum('jumlah_kosong');
+        $kamar_kosong = 0;
+
+        foreach($kost as $kos){
+            $kamar_kosong = $kamar_kosong + getKamarKosong($kos);
+        }
+
         $kamar_isi = $kost->sum('jumlah_kamar') - $kost->sum('jumlah_kosong');
  
         return [

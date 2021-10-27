@@ -9,6 +9,8 @@ use App\Models\Kamar;
 use App\Models\Kost;
 use App\Models\Penyewa;
 use App\Models\Sewa;
+use Carbon\Carbon;
+use Carbon\CarbonPeriod;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -101,14 +103,54 @@ class SewaController extends Controller
      */
     public function store(SewaStoreRequest $request)
     {
+        $range_sewa = $this->checkAvailablity($request);
+
+        $new_sewa_range = CarbonPeriod::create($request->tgl_masuk, $request->tgl_keluar ?? Carbon::now()->addYears(3)->format('Y-m-d'))->toArray();
+
+        foreach($new_sewa_range as $range){
+            if(array_search($range->format('Y-m-d'), $range_sewa)){
+                return redirect()->back()->withInput()->with('error', 'Kamar tidak tersedia untuk tanggal yang dipilih');
+            }
+        }
+
         try{
-            Sewa::create($request->validated());
+            Sewa::create($request->all());
         }catch(Exception $e){
             Log::info($e->getMessage());
             return redirect()->back()->withInput()->with('success', 'Gagal menambahkan data sewa');
         }
         
         return redirect()->route('sewa.index')->with('success', 'Berhasil menambahkan data sewa');
+    }
+
+    public function checkAvailablity($request, $ignore_id = null)
+    {
+        $raw_sewa = Sewa::where('id_kamar', $request->id_kamar);
+        if($ignore_id != null){
+            $data_sewa = $raw_sewa->where('id', '!=', $ignore_id)->get();
+        }else{
+            $data_sewa = $raw_sewa->get();
+        }
+
+        $new_range = [];
+        foreach($data_sewa as $sewa){
+            array_push($new_range, $sewa->getDateRange());
+        }
+
+        return $this->flatten($new_range);
+    }
+
+    function flatten($data, $result = [])
+    {
+        foreach ($data as $flat) {
+            if (is_array($flat)) {
+                $result = $this->flatten($flat, $result);
+            } else {
+                $result[] = $flat;
+            }
+        }
+    
+        return $result;
     }
 
     /**
@@ -118,12 +160,23 @@ class SewaController extends Controller
      */
     public function update(SewaUpdateRequest $request, Sewa $sewa)
     {
+        $range_sewa = $this->checkAvailablity($request, $sewa->id);
+
+        $new_sewa_range = CarbonPeriod::create($request->tgl_masuk, $request->tgl_keluar ?? Carbon::now()->addYears(3)->format('Y-m-d'))->toArray();
+
+        foreach($new_sewa_range as $range){
+            if(array_search($range->format('Y-m-d'), $range_sewa)){
+                return redirect()->back()->withInput()->with('error', 'Kamar tidak tersedia untuk tanggal yang dipilih');
+            }
+        }
+        
         try{
-            $sewa->update($request->validated());
+            $sewa->update($request->all());
             $sewa->update(['status_validasi' => 0]);
         }catch(Exception $e){
             Log::info($e->getMessage());
-            return redirect()->back()->withInput()->with('success', 'Gagal mengubah data sewa');
+            dd($e->getMessage());
+            return redirect()->back()->withInput()->with('error', 'Gagal mengubah data sewa');
         }
         
         return redirect()->route('sewa.index')->with('success', 'Berhasil mengubah data sewa');

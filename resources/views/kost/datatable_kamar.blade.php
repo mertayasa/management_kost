@@ -2,9 +2,9 @@
     <thead>
         <tr>
         <th>No</th> <th></th>
-        <th>No Kamar</th>
+        <th>Nama Kos</th>
+        <th>Nomor Kamar</th>
         <th>Harga</th>
-        <th>Status</th>
         @if (userRole() == 'owner')
             <th>Aksi</th>
         @endif

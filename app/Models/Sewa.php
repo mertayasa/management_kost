@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
+use Carbon\CarbonPeriod;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -37,6 +39,35 @@ class Sewa extends Model
         // 'tgl_masuk' => 'date',
         // 'tgl_keluar' => 'date',
     ];
+
+    protected $appends = [
+        'custom_tgl_keluar'
+    ];  
+
+    public function getCustomTglKeluarAttribute(){
+        if($this->attributes['tgl_keluar'] == null){
+            return Carbon::now()->addYears(3)->format('Y-m-d');
+        }
+
+        return $this->attributes['tgl_keluar'];
+    }
+
+    // public function getDateRangeAttribute()
+    public function getDateRange()
+    {
+        // if(!$this->attributes['tgl_akhir_sewa'] <= Carbon::now()->format('Y-m-d')){
+        //     return [];
+        // }
+
+        $period = CarbonPeriod::create($this->attributes['tgl_masuk'], $this->attributes['tgl_keluar'] ?? $this->getCustomTglKeluarAttribute())->toArray();
+        $new_period = [];
+        
+        foreach($period as $per){
+            array_push($new_period, $per->format('Y-m-d'));
+        }
+
+        return $new_period;
+    }
 
 
     public function kamar(){

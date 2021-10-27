@@ -55,7 +55,8 @@ class KamarController extends Controller
     public function edit(Request $request, Kamar $kamar)
     {
         $kost = Kost::pluck('nama', 'id');
-        return view('kamar.edit', compact('kamar', 'kost'));
+        $back_url = route('kost.show', $kamar->kost->id);
+        return view('kamar.edit', compact('kamar', 'kost', 'back_url'));
     }
 
     /**

@@ -14,7 +14,8 @@ class KostDataTable{
                 return $kost->jumlah_kamar;
             })
             ->addColumn('jumlah_kosong', function($kost){
-                return $kost->jumlah_kosong;
+                return getKamarKosong($kost);
+                // return $kost->jumlah_kosong;
             })
             ->addColumn('action', function ($kost) {
                 if(userRole() == 'pegawai' || userRole() == 'manager'){

@@ -84,3 +84,32 @@ function showFor($roles)
 
     return false;
 }
+
+function flatten($data, $result = [])
+{
+    foreach ($data as $flat) {
+        if (is_array($flat)) {
+            $result = flatten($flat, $result);
+        } else {
+            $result[] = $flat;
+        }
+    }
+
+    return $result;
+}
+
+function getKamarKosong($kost)
+{
+    $kosong = $kost->kamar->count();
+    foreach($kost->kamar as $kamar){
+        $tgl_isi = $kamar->getTglIsi();
+        if(isset($tgl_isi[0])){
+            $check = Carbon::now()->between($tgl_isi[0], $tgl_isi[count($tgl_isi)-1]);
+            if($check){
+                $kosong = $kosong - 1;
+            }
+        }
+    }
+
+    return $kosong;
+}

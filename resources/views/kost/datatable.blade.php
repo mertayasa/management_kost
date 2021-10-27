@@ -5,7 +5,7 @@
         <th>Nama</th>
         <th>Alamat</th>
         <th>Jumlah Kamar</th>
-        <th>Kamar Kosong</th>
+        <th>Kamar Kosong <span class="text-danger"> (hari ini) </span> </th>
         <th>Aksi</th>
         </tr>
     </thead>

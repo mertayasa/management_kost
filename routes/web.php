@@ -112,6 +112,7 @@ Route::middleware(['auth'])->group(function () {
     Route::group(['prefix' => 'penyewa', 'as' => 'penyewa.'], function () {
         Route::get('/', [PenyewaController::class, 'index'])->name('index');
         Route::get('get-nama-kamar/{penyewa}', [PenyewaController::class, 'getNamaKamar'])->name('get_nama_kamar');
+        Route::get('get-sewa/{penyewa}', [PenyewaController::class, 'getSewa'])->name('get_sewa');
         Route::get('create', [PenyewaController::class, 'create'])->name('create');
         Route::get('show/{penyewa}', [PenyewaController::class, 'show'])->name('show');
         Route::post('store', [PenyewaController::class, 'store'])->name('store');
@@ -145,7 +146,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/', [SewaController::class, 'index'])->name('index');
 
         // Route::group(['middleware' => 'role:owner'], function () {
-            Route::get('create', [SewaController::class, 'create'])->name('create');
+            Route::get('create/{penyewa?}', [SewaController::class, 'create'])->name('create');
+            Route::get('get-nama-sewa/{penyewa}', [SewaController::class, 'getSewaByPenyewa'])->name('get_nama_penyewa');
             Route::post('store', [SewaController::class, 'store'])->name('store');
             Route::get('edit/{sewa}', [SewaController::class, 'edit'])->name('edit');
             Route::get('keluar/{sewa}', [SewaController::class, 'edit'])->name('keluar');

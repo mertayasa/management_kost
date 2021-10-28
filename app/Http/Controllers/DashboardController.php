@@ -41,7 +41,7 @@ class DashboardController extends Controller{
             $kamar_kosong = $kamar_kosong + getKamarKosong($kos);
         }
 
-        $kamar_isi = $kost->sum('jumlah_kamar') - $kost->sum('jumlah_kosong');
+        $kamar_isi = $kost->sum('jumlah_kamar') - $kamar_kosong;
  
         return [
             'total_pemasukan' => $total_pemasukan,

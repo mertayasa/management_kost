@@ -48,7 +48,7 @@ class SewaController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create(Request $request, Penyewa $penyewa = null)
     {
         // $penyewa = $this->pluckPenyewa();
         // $raw_kamar = $this->pluckKamar();
@@ -59,8 +59,14 @@ class SewaController extends Controller
 
         // return view('sewa.create', compact('penyewa', 'kamar', 'penyewa_full', 'kamar_full'));
 
+        // dd($penyewa);
+
         $kost = Kost::pluck('nama', 'id');
-        $penyewa = Penyewa::pluck('nama', 'id');
+        if($penyewa != null){
+            $penyewa = [$penyewa->id => $penyewa->nama];
+        }else{
+            $penyewa = Penyewa::pluck('nama', 'id');
+        }
 
         return view('sewa.create', compact('penyewa', 'kost'));
     }

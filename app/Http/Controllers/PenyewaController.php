@@ -36,6 +36,11 @@ class PenyewaController extends Controller
         return PenyewaDataTable::set($penyewas, $status);
     }
 
+    public function getSewa(Penyewa $penyewa)
+    {
+        return response(['code' => 1, 'sewa' => $penyewa->sewa]);
+    }
+
     /**
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
@@ -69,13 +74,13 @@ class PenyewaController extends Controller
     public function store(PenyewaStoreRequest $request)
     {
         try{
-            Penyewa::create($request->validated());
+            $penyewa = Penyewa::create($request->validated());
         }catch(Exception $e){
             Log::info($e->getMessage());
             return redirect()->back()->withInput()->with('success', 'Gagal menambahkan penyewa');
         }
         
-        return redirect()->route('penyewa.index')->with('success', 'Berhasil menambahkan penyewa');
+        return redirect()->route('sewa.create', $penyewa->id)->with('success', 'Berhasil menambahkan penyewa');
     }
 
     public function show(Penyewa $penyewa)

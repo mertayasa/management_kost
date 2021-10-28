@@ -19,6 +19,7 @@ class Pemasukan extends Model
     protected $fillable = [
         'id_jenis_pemasukan',
         'id_penyewa',
+        'id_sewa',
         'id_kamar',
         'jumlah',
         'tgl_pemasukan',
@@ -49,6 +50,11 @@ class Pemasukan extends Model
     public function penyewa()
     {
         return $this->belongsTo(\App\Models\Penyewa::class, 'id_penyewa');
+    }
+
+    public function sewa()
+    {
+        return $this->belongsTo(\App\Models\Sewa::class, 'id_sewa');
     }
 
     public function kamar()

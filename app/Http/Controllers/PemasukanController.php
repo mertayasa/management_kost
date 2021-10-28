@@ -8,6 +8,7 @@ use App\Http\Requests\PemasukanUpdateRequest;
 use App\Models\JenisPemasukan;
 use App\Models\Pemasukan;
 use App\Models\Penyewa;
+use App\Models\Sewa;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -20,6 +21,8 @@ class PemasukanController extends Controller
      */
     public function index(Request $request)
     {
+        // $penyewa = Penyewa::find(1);
+        // dd($penyewa->sewa);
         return view('pemasukan.index');
     }
 
@@ -44,9 +47,17 @@ class PemasukanController extends Controller
      */
     public function create(Request $request)
     {
+        // $nama_sewa = $this->getSewaByPenyewa(Penyewa::find(1));
         $penyewa = Penyewa::get()->where('status_sewa', 1)->pluck('nama', 'id');
         $jenis_pemasukan = JenisPemasukan::pluck('jenis_pemasukan', 'id');
+
         return view('pemasukan.create', compact('penyewa', 'jenis_pemasukan'));
+    }
+
+    public function getSewaByPenyewa(Penyewa $penyewa)
+    {
+        $data_sewa = Sewa::where('id_penyewa', $penyewa->id)->get()->pluck('nama_sewa', 'id');
+        return response(['code' => 1, 'data_sewa' => $data_sewa]);
     }
 
     /**
@@ -70,7 +81,7 @@ class PemasukanController extends Controller
     public function store(PemasukanStoreRequest $request)
     {
         $data = $request->validated();
-        $data['id_kamar'] = Penyewa::find($data['id_penyewa'])->sewa()->whereNull('tgl_keluar')->get()[0]->id_kamar;
+        $data['id_kamar'] = Sewa::find($data['id_sewa'])->id_kamar;
         try{
             Pemasukan::create($data);
         }catch(Exception $e){

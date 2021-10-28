@@ -39,7 +39,7 @@ class Penyewa extends Model
 
     public function sewa()
     {
-        return $this->hasOne(\App\Models\Sewa::class, 'id_penyewa');
+        return $this->hasMany(\App\Models\Sewa::class, 'id_penyewa');
     }
 
     public function pemasukan()
@@ -53,6 +53,12 @@ class Penyewa extends Model
         // $sewa = $this->sewa()->whereNull('tgl_keluar')->get()[0];
         return $sewa->kamar->kost->nama.', Kamar '.$sewa->kamar->no_kamar;
     }
+
+    // public function getDataSewaAttribute()
+    // {
+    //     $tgl_keluar = $this->attributes['tgl_keluar'] ?? '∞';
+    //     return $this->sewa->nama.'|'.$this->kamar->kost->nama.'|'.$this->kamar->no_kamar.'|'.$this->attributes['tgl_masuk'].' - '. $tgl_keluar;
+    // }
 
     public function getStatusSewaAttribute()
     {

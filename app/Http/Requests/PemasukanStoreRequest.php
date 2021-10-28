@@ -26,6 +26,7 @@ class PemasukanStoreRequest extends FormRequest
         return [
             'id_jenis_pemasukan' => ['required', 'integer', 'gt:0'],
             'id_penyewa' => ['required', 'integer', 'gt:0'],
+            'id_sewa' => ['required', 'integer', 'gt:0'],
             'jumlah' => ['required', 'integer'],
             'tgl_pemasukan' => ['required', 'date'],
         ];

@@ -24,6 +24,7 @@ class PemasukanUpdateRequest extends FormRequest
     public function rules()
     {
         return [
+            'id_jenis_pemasukan' => ['required', 'integer'],
             'jumlah' => ['required', 'integer'],
             'tgl_pemasukan' => ['required', 'date'],
         ];

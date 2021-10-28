@@ -1,15 +1,21 @@
 <div class="row">
     <div class="col-12 col-md-6 pb-3 pb-md-0">
-        {!! Form::label('namaPenyewa', 'Nama Penyewa', ['class' => 'mb-1']) !!}
+        {!! Form::label('selectPenyewa', 'Nama Penyewa', ['class' => 'mb-1']) !!}
         @if (isset($pemasukan))
             {!! Form::text('id_penyewa', $pemasukan->penyewa->nama, ['class' => 'form-control', 'id' => 'kamarNumber', 'readonly' => true]) !!}
         @else
-            {!! Form::select('id_penyewa', $penyewa, null, ['class' => 'form-control', 'id' => 'namaPenyewa', 'onchange' => 'getNamaKost(this.value)']) !!}
+            {!! Form::select('id_penyewa', $penyewa, null, ['class' => 'form-control', 'id' => 'selectPenyewa', 'onchange' => 'getNamaSewa(this.value)']) !!}
         @endif
     </div>
     <div class="col-12 col-md-6">
-        {!! Form::label('namaKamarKost', 'Kost, Kamar', ['class' => 'mb-1']) !!}
-        {!! Form::text('kamar_kost', isset($pemasukan) ? $pemasukan->nama_kost : null, ['class' => 'form-control', 'id' => 'namaKamarKost', 'readonly']) !!}
+        {!! Form::label('selectSewa', 'Data Sewa', ['class' => 'mb-1']) !!}
+        @if (isset($pemasukan))
+            {!! Form::hidden('id_sewa', $pemasukan->sewa->id, ['class' => 'form-control', 'id' => 'selectKos']) !!}
+            {!! Form::text('id_sewa_nama', $pemasukan->sewa->nama_sewa, ['class' => 'form-control', 'id' => 'selectKosNama', 'readonly' => true, 'disabled' => true]) !!}
+        @else
+            {!! Form::select('id_sewa', [], null, ['class' => 'form-control', 'id' => 'selectSewa']) !!}
+        @endif
+
     </div>
 </div>
 
@@ -34,26 +40,52 @@
 @push('scripts')
     @if (Request::is('*create*'))
         <script>
-            const namaPenyewa = document.getElementById('namaPenyewa')
-            getNamaKost(namaPenyewa.value)
+            // const selectPenyewa = document.getElementById('selectPenyewa')
+            // getNamaSewa(selectPenyewa.value)
 
 
-            function getNamaKost(id_penyewa){
-                const namaKamarKost = document.getElementById('namaKamarKost')
+            // function getNamaSewa(id_penyewa){
+            //     const namaKamarKost = document.getElementById('namaKamarKost')
 
-                const headers = new Headers({
-                    'Content-Type': 'x-www-form-urlencoded',
-                    'X-CSRF-TOKEN': "{{csrf_token()}}"
-                });
+            //     const headers = new Headers({
+            //         'Content-Type': 'x-www-form-urlencoded',
+            //         'X-CSRF-TOKEN': "{{csrf_token()}}"
+            //     });
 
-                fetch("{{url('penyewa/get-nama-kamar')}}" + '/' + id_penyewa, {
-                    headers
+            //     fetch("{{url('penyewa/get-nama-kamar')}}" + '/' + id_penyewa, {
+            //         headers
+            //     })
+            //     .then(response => response.json())
+            //     .then(data => {
+            //         namaKamarKost.value = data.data
+            //     });
+
+            // }
+
+            // const lastSelectedSewa = "{{$sewa->id_kamar ?? null}}"
+            const selectPenyewa = document.getElementById('selectPenyewa')
+            const selectSewa = document.getElementById('selectSewa')
+            const lastSelectedSewa = "{{$pemasukan->id_sewa ?? null}}"
+
+            getNamaSewa(selectPenyewa.value)
+
+            function getNamaSewa(idPenyewa){
+                selectSewa.length = 0
+                $.ajax({
+                    url : "{{url('penyewa/get-sewa')}}" + '/' + idPenyewa,
+                    dataType : "Json",
+                    data : {"_token": "{{ csrf_token() }}"},
+                    method : "get",
+                    success:function(data){
+                        // console.log(data.sewa)
+                        for (let index = 0; index < data.sewa.length; index++) {
+                            selectSewa.insertAdjacentHTML('beforeend', `
+                                <option value="${data.sewa[index].id}"} ${lastSelectedSewa == data.sewa[index].id ? 'selected' : ''}>${data.sewa[index].nama_sewa}</option>
+                            `)
+                                // <option value="${data.kamar[index].id}" ${lastSelectedSewa == data.kamar[index].id ? 'selected' : ''}>${data.kamar[index].no_kamar}</option>
+                        }
+                    }
                 })
-                .then(response => response.json())
-                .then(data => {
-                    namaKamarKost.value = data.data
-                });
-
             }
         </script>
     @endif

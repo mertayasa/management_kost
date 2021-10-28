@@ -101,10 +101,17 @@ function flatten($data, $result = [])
 function getKamarKosong($kost)
 {
     $kosong = $kost->kamar->count();
-    foreach($kost->kamar as $kamar){
+
+    $asd = $kost->kamar;
+
+    $anjay = [];
+
+    foreach($asd as $kamar){
         $tgl_isi = $kamar->getTglIsi();
+        array_push($anjay, $tgl_isi);
         if(isset($tgl_isi[0])){
             $check = Carbon::now()->between($tgl_isi[0], end($tgl_isi));
+            // array_push($anjay, [$tgl_isi[0] => end($tgl_isi)]);
             // $check = Carbon::now()->between($tgl_isi[0], $tgl_isi[count($tgl_isi)-1]);
             if($check){
                 $kosong = $kosong - 1;

@@ -62,7 +62,7 @@ class Kamar extends Model
 
     public function getTglIsi()
     {
-        $raw_sewa = Sewa::where('id_kamar', $this->attributes['id'])->get();
+        $raw_sewa = Sewa::where('id_kamar', $this->attributes['id'])->orderBy('tgl_masuk', 'ASC')->get();
         $date_range = [];
         foreach($raw_sewa as $sewa){
             array_push($date_range, $sewa->getDateRange());   

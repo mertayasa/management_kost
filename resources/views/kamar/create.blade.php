@@ -11,7 +11,7 @@
           <div class="card-body">
             @include('layouts.flash')
             @include('layouts.error_message')
-            {!! Form::open(['route' => 'kamar.store']) !!}
+            {!! Form::open(['route' => ['kamar.store', $kost->id]]) !!}
             @include('kamar.form')
             <div class="row mt-3">
                 <div class="col-12">

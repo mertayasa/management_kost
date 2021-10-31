@@ -4,7 +4,7 @@
         @if (isset($kamar))
             {!! Form::text('id_kost', $kamar->kost->nama, ['class' => 'form-control', 'id' => 'kamarNumber', 'readonly' => true]) !!}
         @else
-            {!! Form::select('id_kost', $kost, null, ['class' => 'form-control', 'id' => 'kostName']) !!}
+            {!! Form::select('id_kost', [$kost->id => $kost->nama], null, ['class' => 'form-control', 'id' => 'kostName']) !!}
         @endif
     </div>
 </div>

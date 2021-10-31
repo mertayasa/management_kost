@@ -71,8 +71,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/', [KamarController::class, 'index'])->name('index');
 
         Route::group(['middleware' => 'role:owner,manager'], function () {
-            Route::get('create', [KamarController::class, 'create'])->name('create');
-            Route::post('store', [KamarController::class, 'store'])->name('store');
+            Route::get('create/{kost}', [KamarController::class, 'create'])->name('create');
+            Route::post('store/{kost}', [KamarController::class, 'store'])->name('store');
             Route::get('edit/{kamar}', [KamarController::class, 'edit'])->name('edit');
             Route::patch('update/{kamar}', [KamarController::class, 'update'])->name('update');
             Route::delete('destroy/{kamar}', [KamarController::class, 'destroy'])->name('destroy');

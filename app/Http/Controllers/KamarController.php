@@ -41,9 +41,9 @@ class KamarController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create(Request $request, Kost $kost)
     {
-        $kost = Kost::pluck('nama', 'id');
+        // $kost = Kost::pluck('nama', 'id');
         return view('kamar.create', compact('kost'));
     }
 
@@ -63,7 +63,7 @@ class KamarController extends Controller
      * @param \App\Http\Requests\KamarStoreRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(KamarStoreRequest $request)
+    public function store(KamarStoreRequest $request, Kost $kost)
     {   
         try{
             Kamar::create($request->validated());
@@ -72,7 +72,7 @@ class KamarController extends Controller
             return redirect()->back()->withInput()->with('success', 'Gagal menambahkan kamar baru');
         }
 
-        return redirect()->route('kamar.index')->with('success', 'Berhasil menambahkan kamar baru');
+        return redirect()->route('kost.show', $kost->id)->with('success', 'Berhasil menambahkan kamar baru');
     }
 
     /**
@@ -89,7 +89,7 @@ class KamarController extends Controller
             return redirect()->back()->withInput()->with('success', 'Gagal menambahkan kamar baru');
         }
 
-        return redirect()->route('kamar.index')->with('success', 'Berhasil menambahkan kamar baru');
+        return redirect()->route('kost.show', $kamar->kost->id)->with('success', 'Berhasil menambahkan kamar baru');
     }
 
     /**

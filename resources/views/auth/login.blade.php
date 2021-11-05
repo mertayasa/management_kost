@@ -4,11 +4,10 @@
 <div class="row">
     <div class="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-6 offset-lg-3 col-xl-6">
       <div class="login-brand">
-        <h1 style="color: #6777ef">SI Management Kos</h1>
+        <img class="img-fluid" src="{{asset('images/logo.jpeg')}}" alt="Responsive image" width="150" height="150">
       </div>
 
       <div class="card card-primary">
-        <div class="card-header"><h4>Login</h4></div>
         <div class="card-body">
           <form method="POST" action="{{ route('login') }}" >
           @csrf

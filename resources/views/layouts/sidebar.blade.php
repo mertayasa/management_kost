@@ -1,13 +1,14 @@
 <div class="main-sidebar">
     <aside id="sidebar-wrapper">
       <div class="sidebar-brand">
-        <a href="index.html">Management Kos</a>
-        <p class="text-center mb-0">Hi, {{Auth::user()->nama}}</p>
-        <p class="text-center mb-0">Login sebagai <b> {{userRole()}} </b></p>
+        {{-- <a href="index.html">Management Kos</a> --}}
+        {{-- <p class="text-center mb-0">Hi, {{Auth::user()->nama}}</p>
+        <p class="text-center mb-0">Login sebagai <b> {{userRole()}} </b></p> --}}
+ <img class="img-fluid" src="{{asset('images/logo.jpeg')}}" alt="Responsive image" width="150" height="150">
       </div>
-      <hr>
+      {{-- <hr> --}}
       <div class="sidebar-brand sidebar-brand-sm">
-        <a href="index.html">KOST</a>
+        {{-- <a href="index.html">KOST</a> --}}
       </div>
       <ul class="sidebar-menu">
           <li class="menu-header">Main Menu</li>

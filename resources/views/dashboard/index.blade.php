@@ -58,7 +58,7 @@
                 <div class="col-lg-4 col-md-4 col-sm-12">
                     <div class="card card-statistic-2">
                         <div class="card-icon shadow-primary bg-primary">
-                            <i class="fas fa-piggy-bank"></i>
+                            <i class="fas fa-chart-bar"></i>
                         </div>
                         <div class="card-wrap">
                             <div class="card-header">

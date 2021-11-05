@@ -23,8 +23,9 @@ class KostStoreRequest extends FormRequest
      */
     public function rules()
     {
+        // dd($this->alamat);
         return [
-            'nama' => ['required', 'string', 'max:50'],
+            'nama' => ['required', 'string', 'max:50', 'unique:kost'],
             'alamat' => ['required', 'string', 'max:100'],
             // 'jumlah_kamar' => ['required', 'integer', 'min:1'],
         ];

@@ -49,6 +49,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/', [DashboardController::class, 'index'])->name('index');
         Route::post('generate-in-out-chart/{req_profit?}', [DashboardController::class, 'getInOutChart'])->name('chart_in_out');
         Route::post('chart_yearly', [DashboardController::class, 'getChartYearly'])->name('chart_yearly');
+        Route::get('get-kamar-kosong-chart', [DashboardController::class, 'getKamarChart'])->name('empty_room');
     });
 
     Route::group(['prefix' => 'kost', 'as' => 'kost.'], function () {
@@ -118,10 +119,10 @@ Route::middleware(['auth'])->group(function () {
         Route::post('store', [PenyewaController::class, 'store'])->name('store');
         Route::get('edit/{penyewa}', [PenyewaController::class, 'edit'])->name('edit');
         Route::patch('update/{penyewa}', [PenyewaController::class, 'update'])->name('update');
+        Route::delete('destroy/{penyewa}', [PenyewaController::class, 'destroy'])->name('destroy');
 
-        Route::group(['middleware' => 'role:owner,manager'], function () {
-            Route::delete('destroy/{penyewa}', [PenyewaController::class, 'destroy'])->name('destroy');
-        });
+        // Route::group(['middleware' => 'role:owner,manager'], function () {
+        // });
 
         Route::get('datatable/{status?}', [PenyewaController::class, 'datatable'])->name('datatable');
     });

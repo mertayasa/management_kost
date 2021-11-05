@@ -10,6 +10,7 @@ use App\Models\Kost;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 
 class KostController extends Controller
 {
@@ -67,6 +68,12 @@ class KostController extends Controller
     public function store(KostStoreRequest $request)
     {
         try{
+            $kost = Kost::all();
+            foreach($kost as $ko){
+                if(Str::slug($ko->alamat) === Str::slug($request->alamat)){
+                    return redirect()->back()->withInput()->with('error', 'Alamat sudah dipakai');
+                }
+            }
             Kost::create($request->validated());
         }catch(Exception $e){
             Log::info($e->getMessage());
@@ -85,6 +92,12 @@ class KostController extends Controller
     {
         
         try{
+            $kost_else = Kost::whereNotIn('id', [$kost->id])->get();
+            foreach($kost_else as $ko){
+                if(Str::slug($ko->alamat) === Str::slug($request->alamat)){
+                    return redirect()->back()->withInput()->with('error', 'Alamat sudah dipakai');
+                }
+            }
             $kost->update($request->validated());
         }catch(Exception $e){
             Log::info($e->getMessage());

@@ -29,7 +29,7 @@ class PengeluaranFactory extends Factory
             'jumlah' => $this->faker->numberBetween(100000, 535000),
             'tgl_pengeluaran' => $this->faker->dateTimeBetween(Carbon::now()->subMonth(2), Carbon::now()),
             'keterangan' => $this->faker->text,
-            'status_validasi' => 1,
+            // 'status_validasi' => 1,
         ];
     }
 }

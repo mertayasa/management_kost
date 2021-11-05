@@ -23,8 +23,9 @@ class KostUpdateRequest extends FormRequest
      */
     public function rules()
     {
+        $kost = $this->route('kost');
         return [
-            'nama' => ['required', 'string', 'max:50'],
+            'nama' => ['required', 'string', 'max:50', 'unique:kost,nama,'.$kost->id],
             'alamat' => ['required', 'string', 'max:100'],
             // 'jumlah_kamar' => ['required', 'integer', 'min:1'],
         ];

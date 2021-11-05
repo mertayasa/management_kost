@@ -47,7 +47,7 @@
                         </div>
                         <div class="card-wrap">
                             <div class="card-header">
-                                <h4>Total Pengeluaran {{userRole() == 'manager' ? 'Bulan ini' : (userRole() == 'pegawai' ? 'Hari ini' : '')}} <small class="text-danger"> (Tervalidasi) </small></h4>
+                                <h4>Total Pengeluaran {{userRole() == 'manager' ? 'Bulan ini' : (userRole() == 'pegawai' ? 'Hari ini' : '')}}</h4>
                             </div>
                             <div class="card-body">
                                 {{ formatPrice($dashboard_data['total_pengeluaran']) }}
@@ -104,9 +104,9 @@
             </div>
         </div>
 
-        @if (userRole() == 'owner')
+        {{-- @if (userRole() == 'owner') --}}
             @include('dashboard.chart')
-        @endif
+        {{-- @endif --}}
 
     </section>
 @endsection

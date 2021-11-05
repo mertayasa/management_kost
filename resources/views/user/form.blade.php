@@ -56,9 +56,23 @@
     <div class="col-12 col-md-6 pb-3 pb-md-0">
         {!! Form::label('userPassword', 'Password', ['class' => 'mb-1']) !!}
         {!! Form::password('password', ['class' => 'form-control', 'id' => 'userPassword']) !!}
+        {!! Form::checkbox('', null, null, ['class' => 'mt-2', 'onclick' => 'showPassword("userPassword")']) !!} Lihat Password
     </div>
     <div class="col-12 col-md-6 pb-3 pb-md-0">
         {!! Form::label('userConfirmPassword', 'Konfirmasi Password', ['class' => 'mb-1']) !!}
         {!! Form::password('password_confirmation', ['class' => 'form-control', 'id' => 'userConfirmPassword']) !!}
+        {!! Form::checkbox('', null, null, ['class' => 'mt-2', 'onclick' => 'showPassword("userConfirmPassword")']) !!} Lihat Password
     </div>
 </div>
+@push('scripts')
+    <script>
+        function showPassword(id) {
+            var passWordEl = document.getElementById(id);
+            if (passWordEl.type === "password") {
+                passWordEl.type = "text";
+            } else {
+                passWordEl.type = "password";
+            }
+        }
+    </script>
+@endpush

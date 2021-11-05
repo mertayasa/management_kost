@@ -7,9 +7,9 @@
         <div class="card">
           <div class="card-header d-flex justify-content-between">
             <h4>Penyewaan</h4>
-            @if (showFor(['pegawai']))
+            {{-- @if (showFor(['pegawai']))
               <a href="{{route('sewa.create')}}" class="btn btn-primary">Tambah Data</a>
-            @endif
+            @endif --}}
           </div>
           <div class="col-12">
               @include('layouts.flash')

@@ -21,7 +21,7 @@ class Pengeluaran extends Model
         'jumlah',
         'tgl_pengeluaran',
         'keterangan',
-        'status_validasi',
+        // 'status_validasi',
     ];
 
     /**

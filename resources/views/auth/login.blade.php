@@ -49,9 +49,9 @@
               </button>
             </div>
           </form>
-          <div class="text-center mt-4 mb-3">
+          {{-- <div class="text-center mt-4 mb-3">
               Belum punya akun? <a href="{{route('register')}}">Register Sekarang!</a>
-          </div>
+          </div> --}}
         </div>
       </div>
     </div>

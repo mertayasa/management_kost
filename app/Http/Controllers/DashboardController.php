@@ -12,14 +12,29 @@ use Illuminate\Http\Request;
 
 class DashboardController extends Controller{
     public function index(Request $request){
-        // dd($this->getInOutChart($request, true));
+        // dd($this->getKamarChart());
         $dashboard_data = $this->getDashboardData();
         return view('dashboard.index', compact('dashboard_data'));
     }
 
+    public function getKamarChart()
+    {
+        $kost = Kost::get();
+        $kamar_kosong = [];
+        $kamar_isi = [];
+        foreach($kost as $kos){
+            $kos->kamar_kosong = getKamarKosong($kos);
+            $kos->kamar_isi = $kos->jumlah_kamar - $kos->kamar_kosong;
+            array_push($kamar_kosong, $kos->kamar_kosong);
+            array_push($kamar_isi, $kos->kamar_isi);
+        }
+
+        return response(['code' => 1, 'kosong' => $kamar_kosong, 'isi' => $kamar_isi, 'label' => $kost->pluck('nama')->toArray()]);
+    }
+
     private function getDashboardData(){
         $pemasukan = Pemasukan::where('status_validasi', 1);
-        $pengeluaran = Pengeluaran::where('status_validasi', 1);
+        $pengeluaran = Pengeluaran::query();
         
         if(userRole() == 'owner'){
             $total_pemasukan = $pemasukan->sum('jumlah');
@@ -40,8 +55,6 @@ class DashboardController extends Controller{
         foreach($kost as $kos){
             $kamar_kosong = $kamar_kosong + getKamarKosong($kos);
         }
-
-        // dd($kamar_kosong);
 
         $kamar_isi = $kost->sum('jumlah_kamar') - $kamar_kosong;
  

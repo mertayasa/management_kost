@@ -117,7 +117,7 @@ class DashboardController extends Controller{
         $year = $request->year != 'now' ? $request->year : Carbon::now()->year;
 
         $total_pemasukan = Pemasukan::whereYear('tgl_pemasukan', $year)->where('status_validasi', 1)->sum('jumlah');
-        $total_pengeluaran = Pengeluaran::whereYear('tgl_pengeluaran', $year)->where('status_validasi', 1)->sum('jumlah');
+        $total_pengeluaran = Pengeluaran::whereYear('tgl_pengeluaran', $year)->sum('jumlah');
 
         return response(['code' => 1, 'pemasukan' => $total_pemasukan, 'pengeluaran' => $total_pengeluaran]);
     }

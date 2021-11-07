@@ -68,7 +68,7 @@ class Penyewa extends Model
         //     $status_sewa = 1;
         // }
 
-        $tgl_keluar = Sewa::where('id_penyewa', $this->attributes['id'])->get()->pluck('custom_tgl_keluar');
+        $tgl_keluar = Sewa::where('status_validasi', 1)->where('id_penyewa', $this->attributes['id'])->get()->pluck('custom_tgl_keluar');
 
         foreach($tgl_keluar as $keluar){
             if($keluar > Carbon::now()->format('Y-m-d')){

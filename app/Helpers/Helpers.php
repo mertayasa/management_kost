@@ -63,7 +63,7 @@ function isActive($param){
 
 function getVerificationBadge($model){
     $badge_text = $model->status_validasi == 1 ? 'Tervalidasi' : ($model->status_validasi == 0 ? 'Belum Tervalidasi' : 'Ditolak');
-    $badge_color = $model->status_validasi == 1 ? 'success' : ($model->status_validasi == 0 ? 'warning' : 'danger');
+    $badge_color = $model->status_validasi == 1 ? 'success' : ($model->status_validasi == 0 ? 'secondary' : 'danger');
     $badge = '<b> <span class="text-'. $badge_color .'">'. $badge_text .'</span> </b>';
 
     if($model->status_validasi === 2){

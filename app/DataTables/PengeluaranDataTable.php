@@ -19,6 +19,9 @@ class PengeluaranDataTable
             ->editColumn('jumlah', function($pengeluaran){
                 return formatPrice($pengeluaran->jumlah);
             })
+            ->editColumn('id_kost', function($pengeluaran){
+                return $pengeluaran->id_kost == null ? 'Tanpa Kos' : $pengeluaran->kost->nama;
+            })
             ->editColumn('tgl_pengeluaran', function($pengeluaran){
                 return indonesianDate($pengeluaran->tgl_pengeluaran);
             })
@@ -36,7 +39,7 @@ class PengeluaranDataTable
                 $deleteUrl = "'" . route('pengeluaran.destroy', $pengeluaran->id) . "', 'pengeluaranDatatable', 'pengeluaran sejumlah ". formatPrice($pengeluaran->jumlah)."'";
                 return
                     '<div class="btn-group">' .
-                    '<a href="' . route('pengeluaran.edit', $pengeluaran->id) . '" class="btn btn-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit" style="margin-right: 5px" >Edit</a>' .
+                    '<a href="' . route('pengeluaran.edit', $pengeluaran->id) . '" class="btn btn-secondary" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit" style="margin-right: 5px" >Edit</a>' .
                     '<a href="#" onclick="deleteModel(' . $deleteUrl . ',)" class="btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Hapus" style="margin-right: 5px">Hapus</a>' .
                     '</div>';
                     

@@ -25,7 +25,7 @@ class PenyewaDataTable
 
                 // if(userRole() == 'pegawai'){
                 //     return '<div class="btn-group">' .
-                //     '<a href="' . route('penyewa.edit', $penyewa->id) . '" class="btn btn-warning" data-bs-toggle="tooltip" title="Rangkuman" data-bs-placement="bottom" title="Detail" >Edit</a>' .
+                //     '<a href="' . route('penyewa.edit', $penyewa->id) . '" class="btn btn-secondary" data-bs-toggle="tooltip" title="Rangkuman" data-bs-placement="bottom" title="Detail" >Edit</a>' .
                 // '</div>';
                 // }
 
@@ -39,7 +39,7 @@ class PenyewaDataTable
 
                 return
                     '<div class="btn-group">' .
-                    '<a href="' . route('penyewa.edit', $penyewa->id) . '" class="btn btn-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit" style="margin-right: 5px" >Edit</a>' .
+                    '<a href="' . route('penyewa.edit', $penyewa->id) . '" class="btn btn-secondary" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit" style="margin-right: 5px" >Edit</a>' .
                     '<a href="#" onclick="deleteModel(' . $deleteUrl . ',)" class="btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Hapus" style="margin-right: 5px">Hapus</a>' .
                     '<a href="' . route('penyewa.show', $penyewa->id) . '" class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit" style="margin-right: 5px" >View</a>' .
                     '</div>';

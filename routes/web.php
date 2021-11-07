@@ -50,6 +50,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('generate-in-out-chart/{req_profit?}', [DashboardController::class, 'getInOutChart'])->name('chart_in_out');
         Route::post('chart_yearly', [DashboardController::class, 'getChartYearly'])->name('chart_yearly');
         Route::get('get-kamar-kosong-chart', [DashboardController::class, 'getKamarChart'])->name('empty_room');
+        Route::post('get-income-kost', [DashboardController::class, 'getKamarIncome'])->name('income_kost');
     });
 
     Route::group(['prefix' => 'kost', 'as' => 'kost.'], function () {

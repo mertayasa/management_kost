@@ -3,6 +3,7 @@
         <tr>
         <th>No</th> <th></th>
         <th>Jenis</th>
+        <th>Kos</th>
         <th>Jumlah</th>
         <th>Tanggal</th>
         <th>Keterangan</th>
@@ -32,6 +33,7 @@
             {data: 'DT_RowIndex', name: 'no',orderable: false, searchable: false},
             {data:'updated_at', name:'updated_at', visible:false, searchable:false},
             {data: 'id_jenis_pengeluaran', name: 'id_jenis_pengeluaran'},
+            {data: 'id_kost', name: 'id_kost'},
             {data: 'jumlah', name: 'jumlah'},
             {data: 'tgl_pengeluaran', name: 'tgl_pengeluaran'},
             {data: 'keterangan', name: 'keterangan'},

@@ -54,7 +54,17 @@ class Kost extends Model
         // foreach($kamar as $kam)
     }
 
+    public function pemasukan()
+    {
+        return $this->hasManyThrough(Pemasukan::class, Kamar::class, 'id_kost', 'id_kamar');
+    }
+
     public function getJumlahKamarAttribute(){
         return $this->kamar->count();
+    }
+
+    public function pengeluaran()
+    {
+        return $this->hasMany('App\Models\Pengeluaran', 'id_kost');
     }
 }

@@ -17,7 +17,7 @@ class UserDataTable{
                 $delete_button = userRole($user->level) != 'owner' ? '<a href="#" onclick="deleteModel('.$deleteUrl.')" class="btn btn-danger" >Hapus</a>' : '';
 
                 return  '<div class="btn-group">'.
-                    '<a href="'. route('user.edit', $user) .'" class="btn btn-warning" >Edit</a>'. $delete_button .
+                    '<a href="'. route('user.edit', $user) .'" class="btn btn-secondary" >Edit</a>'. $delete_button .
                 '</div>';
             })->addIndexColumn()->rawColumns(['action'])->make(true);
     }

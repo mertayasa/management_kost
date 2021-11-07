@@ -12,9 +12,27 @@ use Illuminate\Http\Request;
 
 class DashboardController extends Controller{
     public function index(Request $request){
-        // dd($this->getKamarChart());
+        // dd($this->getKamarIncome());
         $dashboard_data = $this->getDashboardData();
         return view('dashboard.index', compact('dashboard_data'));
+    }
+
+    public function getKamarIncome(Request $request)
+    {
+        $year = $request->year != 'now' ? $request->year : Carbon::now()->year;
+        $raw_kost = Kost::with(['pemasukan', 'pengeluaran'])->get();
+        $kost_income = [];
+        $kost_expense = [];
+
+        foreach($raw_kost as $kost){
+            array_push($kost_income, $kost->pemasukan()->whereYear('tgl_pemasukan', $year)->where('status_validasi', 1)->sum('jumlah'));
+        }
+
+        foreach($raw_kost as $kost){
+            array_push($kost_expense, $kost->pengeluaran()->whereYear('tgl_pengeluaran', $year)->sum('jumlah'));
+        }
+
+        return response(['code' => 1, 'pemasukan' => $kost_income, 'pengeluaran' => $kost_expense, 'label' => Kost::pluck('nama')->toArray()]);
     }
 
     public function getKamarChart()

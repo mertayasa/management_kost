@@ -19,12 +19,13 @@
 
 
 <div class="row">
-    {{-- @if (userRole() == 'manager' || userRole() == 'owner')
-        <div class="col-12 col-md-6 d-flex">
-            @include('dashboard.chart_parts.finance_per_room')
-        </div>
-    @endif --}}
     <div class="col-12 col-md-6 d-flex">
         @include('dashboard.chart_parts.empty_room')
     </div>
+    
+    @if (userRole() == 'manager' || userRole() == 'owner')
+        <div class="col-12 col-md-6 d-flex">
+            @include('dashboard.chart_parts.finance_per_room')
+        </div>
+    @endif
 </div>

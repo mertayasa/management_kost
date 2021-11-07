@@ -22,7 +22,7 @@ class JenisPemasukanDataTable
                     $deleteUrl = "'" . route('jenis_pemasukan.destroy', $jenis_pemasukan->id) . "', 'jenisPemasukanDatatable'";
                     return
                         '<div class="btn-group">' .
-                        '<a href="' . route('jenis_pemasukan.edit', $jenis_pemasukan->id) . '" class="btn btn-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit" style="margin-right: 5px" >Edit</a>' .
+                        '<a href="' . route('jenis_pemasukan.edit', $jenis_pemasukan->id) . '" class="btn btn-secondary" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit" style="margin-right: 5px" >Edit</a>' .
                         '<a href="#" onclick="deleteModel(' . $deleteUrl . ',)" class="btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Hapus" style="margin-right: 5px">Hapus</a>' .
                         '</div>';
                 }

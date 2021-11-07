@@ -28,6 +28,7 @@ class PengeluaranStoreRequest extends FormRequest
             'tgl_pengeluaran' => ['required', 'date'],
             'keterangan' => ['required', 'string'],
             'jumlah' => ['required', 'integer', 'min:1', 'max:1000000000'],
+            'id_kost' => ['exists:kost,id', 'gt:0'],
         ];
     }
 }

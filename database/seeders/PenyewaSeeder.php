@@ -35,15 +35,16 @@ class PenyewaSeeder extends Seeder{
                 $sewa->alasan_ditolak = $status_validasi == 2 ? $faker->text() : '';
                 $sewa->save();
                 
-                // $pemasukan = new Pemasukan;
-                // $pemasukan->id_jenis_pemasukan = JenisPemasukan::inRandomOrder()->first()->id;
-                // $pemasukan->id_penyewa = $penyewa->id;
-                // $pemasukan->id_kamar = $id_kamar;
-                // $pemasukan->jumlah = $faker->numberBetween(50000, 850000);
-                // $pemasukan->tgl_pemasukan = $tanggal;
-                // $pemasukan->status_validasi = $status_validasi;
-                // $pemasukan->alasan_ditolak = $status_validasi == 2 ? $faker->text() : '';
-                // $pemasukan->save();
+                $pemasukan = new Pemasukan;
+                $pemasukan->id_jenis_pemasukan = JenisPemasukan::inRandomOrder()->first()->id;
+                $pemasukan->id_sewa = $sewa->id;
+                $pemasukan->id_penyewa = $penyewa->id;
+                $pemasukan->id_kamar = $id_kamar;
+                $pemasukan->jumlah = $faker->numberBetween(50000, 850000);
+                $pemasukan->tgl_pemasukan = $tanggal;
+                $pemasukan->status_validasi = $status_validasi;
+                $pemasukan->alasan_ditolak = $status_validasi == 2 ? $faker->text() : '';
+                $pemasukan->save();
             }
             
         });

@@ -6,6 +6,7 @@ use App\DataTables\PengeluaranDataTable;
 use App\Http\Requests\PengeluaranStoreRequest;
 use App\Http\Requests\PengeluaranUpdateRequest;
 use App\Models\JenisPengeluaran;
+use App\Models\Kost;
 use App\Models\Pengeluaran;
 use Exception;
 use Illuminate\Http\Request;
@@ -43,8 +44,9 @@ class PengeluaranController extends Controller
      */
     public function create(Request $request)
     {
+        $kost = Kost::pluck('nama', 'id');
         $jenis_pengeluaran = JenisPengeluaran::pluck('jenis_pengeluaran', 'id');
-        return view('pengeluaran.create', compact('jenis_pengeluaran'));
+        return view('pengeluaran.create', compact('jenis_pengeluaran', 'kost'));
     }
 
     /**
@@ -54,10 +56,11 @@ class PengeluaranController extends Controller
      */
     public function edit(Request $request, Pengeluaran $pengeluaran)
     {
+        $kost = Kost::pluck('nama', 'id');
         $referer = request()->headers->get('referer');
         $back_url = strpos($referer, 'validasi') ? route('validasi.index', 'pengeluaranTab') : route('pengeluaran.index');
 
-        return view('pengeluaran.edit', compact('pengeluaran', 'back_url'));
+        return view('pengeluaran.edit', compact('pengeluaran', 'back_url', 'kost'));
     }
 
     /**

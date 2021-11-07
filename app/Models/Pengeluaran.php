@@ -21,6 +21,7 @@ class Pengeluaran extends Model
         'jumlah',
         'tgl_pengeluaran',
         'keterangan',
+        'id_kost',
         // 'status_validasi',
     ];
 
@@ -40,5 +41,10 @@ class Pengeluaran extends Model
     public function jenis_pengeluaran()
     {
         return $this->belongsTo(\App\Models\JenisPengeluaran::class, 'id_jenis_pengeluaran');
+    }
+
+    public function kost()
+    {
+        return $this->belongsTo('App\Models\Kost', 'id_kost');
     }
 }

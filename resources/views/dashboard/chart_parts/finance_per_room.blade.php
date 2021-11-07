@@ -1,6 +1,6 @@
 <div class="card flex-fill">
     <div class="card-header">
-        <h4>Grafik Pemasukan Kost</h4>
+        <h4>Grafik Pemasukan & Pengeluaran Kost</h4>
         <div class="card-header-action">
             <div class="card-stats-title">
                 <div class="dropdown d-inline">

@@ -37,10 +37,10 @@
                 year: year
             }
 
-            const profitSelectedYear = document.getElementById('profitSelectedYear')
-            if(year != null){
-                profitSelectedYear.innerHTML = year
-            }
+            // const profitSelectedYear = document.getElementById('profitSelectedYear')
+            // if(year != null){
+            //     profitSelectedYear.innerHTML = year
+            // }
 
             $.ajax({
                 url: url,

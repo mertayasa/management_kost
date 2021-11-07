@@ -66,7 +66,9 @@ class DashboardController extends Controller{
         }
 
         $total_profit = $total_pemasukan - $total_pengeluaran;
-        $tahun_pemasukan = Pemasukan::selectRaw('DISTINCT year(tgl_pemasukan) year')->orderBy('year', 'DESC')->pluck('year', 'year');
+        $tahun_pemasukan = Pemasukan::selectRaw('DISTINCT year(tgl_pemasukan) year')->orderBy('year', 'DESC')->pluck('year', 'year')->toArray();
+        $tahun_pengeluaran = Pengeluaran::selectRaw('DISTINCT year(tgl_pengeluaran) year')->orderBy('year', 'DESC')->pluck('year', 'year')->toArray();
+
         $kost = Kost::get();
         $kamar_kosong = 0;
 
@@ -80,7 +82,7 @@ class DashboardController extends Controller{
             'total_pemasukan' => $total_pemasukan,
             'total_pengeluaran' => $total_pengeluaran,
             'total_profit' => $total_profit,
-            'tahun_pemasukan' => $tahun_pemasukan,
+            'tahun_pemasukan' => $tahun_pemasukan += $tahun_pengeluaran,
             'kamar_kosong' => $kamar_kosong,
             'kamar_isi' => $kamar_isi,
         ];

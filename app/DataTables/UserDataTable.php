@@ -5,21 +5,22 @@ namespace App\DataTables;
 use Carbon\Carbon;
 use Yajra\DataTables\DataTables;
 
-class UserDataTable{
+class UserDataTable
+{
 
-    static public function set($user){
+    static public function set($user)
+    {
         return DataTables::of($user)
-            ->editColumn('level', function($user){
+            ->editColumn('level', function ($user) {
                 return ucfirst(userRole($user->level));
             })
-            ->addColumn('action', function($user){
-                $deleteUrl = "'".route('user.destroy', $user->id)."', 'userDatatable', 'user ".$user->nama." '";
-                $delete_button = userRole($user->level) != 'owner' ? '<a href="#" onclick="deleteModel('.$deleteUrl.')" class="btn btn-danger" >Hapus</a>' : '';
+            ->addColumn('action', function ($user) {
+                $deleteUrl = "'" . route('user.destroy', $user->id) . "', 'userDatatable', 'user " . $user->nama . " '";
+                $delete_button = userRole($user->level) != 'owner' ? '<a href="#" onclick="deleteModel(' . $deleteUrl . ')" class="btn btn-danger" >Hapus</a>' : '';
 
-                return  '<div class="btn-group">'.
-                    '<a href="'. route('user.edit', $user) .'" class="btn btn-secondary" >Edit</a>'. $delete_button .
-                '</div>';
+                return  '<div class="btn-group">' .
+                    '<a href="' . route('user.edit', $user) . '" class="btn btn-warning" >Edit</a>' . $delete_button .
+                    '</div>';
             })->addIndexColumn()->rawColumns(['action'])->make(true);
     }
-
 }

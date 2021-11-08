@@ -19,7 +19,7 @@
 
 
 <div class="row">
-    <div class="col-12 col-md-6 d-flex">
+    <div class="col-12 {{ userRole() == 'pegawai' ? 'col-md-12' : 'col-md-6' }} d-flex">
         @include('dashboard.chart_parts.empty_room')
     </div>
     

@@ -47,7 +47,8 @@ class PemasukanController extends Controller
      */
     public function create(Request $request)
     {
-        $penyewa = Penyewa::get()->where('status_sewa', 1)->pluck('nama', 'id');
+        $penyewa = Penyewa::get()->pluck('nama', 'id');
+        // $penyewa = Penyewa::get()->where('status_sewa', 1)->pluck('nama', 'id');
         $jenis_pemasukan = JenisPemasukan::pluck('jenis_pemasukan', 'id');
 
         return view('pemasukan.create', compact('penyewa', 'jenis_pemasukan'));

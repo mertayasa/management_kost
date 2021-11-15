@@ -13,7 +13,7 @@
             {!! Form::hidden('id_sewa', $pemasukan->sewa->id, ['class' => 'form-control', 'id' => 'selectKos']) !!}
             {!! Form::text('id_sewa_nama', $pemasukan->sewa->nama_sewa, ['class' => 'form-control', 'id' => 'selectKosNama', 'readonly' => true, 'disabled' => true]) !!}
         @else
-            {!! Form::select('id_sewa', [], null, ['class' => 'form-control', 'id' => 'selectSewa']) !!}
+            {!! Form::select('id_sewa', [], null, ['class' => 'form-control', 'id' => 'selectSewa', 'onchange' => 'checkJenis()']) !!}
         @endif
 
     </div>
@@ -22,7 +22,7 @@
 <div class="row mt-3">
     <div class="col-12 col-md-6">
         {!! Form::label('jenisPemasukan', 'Jenis Pemasukan', ['class' => 'mb-1']) !!}
-        {!! Form::select('id_jenis_pemasukan', $jenis_pemasukan, null, ['class' => 'form-control', 'id' => 'jenisPemasukan']) !!}
+        {!! Form::select('id_jenis_pemasukan', $jenis_pemasukan, null, ['class' => 'form-control', 'id' => 'jenisPemasukan', 'onchange' => Request::is('*create*') ? 'checkJenis()' : '']) !!}
     </div>
     <div class="col-12 col-md-6">
         {!! Form::label('jumlahPemasukan', 'Jumlah Pemasukan (Rp)', ['class' => 'mb-1']) !!}
@@ -40,32 +40,11 @@
 @push('scripts')
     @if (Request::is('*create*'))
         <script>
-            // const selectPenyewa = document.getElementById('selectPenyewa')
-            // getNamaSewa(selectPenyewa.value)
-
-
-            // function getNamaSewa(id_penyewa){
-            //     const namaKamarKost = document.getElementById('namaKamarKost')
-
-            //     const headers = new Headers({
-            //         'Content-Type': 'x-www-form-urlencoded',
-            //         'X-CSRF-TOKEN': "{{csrf_token()}}"
-            //     });
-
-            //     fetch("{{url('penyewa/get-nama-kamar')}}" + '/' + id_penyewa, {
-            //         headers
-            //     })
-            //     .then(response => response.json())
-            //     .then(data => {
-            //         namaKamarKost.value = data.data
-            //     });
-
-            // }
-
-            // const lastSelectedSewa = "{{$sewa->id_kamar ?? null}}"
             const selectPenyewa = document.getElementById('selectPenyewa')
             const selectSewa = document.getElementById('selectSewa')
             const lastSelectedSewa = "{{$pemasukan->id_sewa ?? null}}"
+            const jumlahPemasukan = document.getElementById('jumlahPemasukan')
+            const jenisPemasukan = document.getElementById('jenisPemasukan')
 
             getNamaSewa(selectPenyewa.value)
 
@@ -77,16 +56,48 @@
                     data : {"_token": "{{ csrf_token() }}"},
                     method : "get",
                     success:function(data){
-                        // console.log(data.sewa)
                         for (let index = 0; index < data.sewa.length; index++) {
                             selectSewa.insertAdjacentHTML('beforeend', `
-                                <option value="${data.sewa[index].id}"} ${lastSelectedSewa == data.sewa[index].id ? 'selected' : ''}>${data.sewa[index].nama_sewa}</option>
+                                <option value="${data.sewa[index].id}" ${lastSelectedSewa == data.sewa[index].id ? 'selected' : ''}>${data.sewa[index].nama_sewa}</option>
                             `)
-                                // <option value="${data.kamar[index].id}" ${lastSelectedSewa == data.kamar[index].id ? 'selected' : ''}>${data.kamar[index].no_kamar}</option>
                         }
+
+                        // if(data.sewa[0] == undefined){
+                        //     return getSelectedSewa()
+                        // }
+
+                        return checkJenis()
+
+                        // return getSelectedSewa(data.sewa[0].id)
+
                     }
                 })
             }
+
+            function checkJenis(){
+                const jenis = jenisPemasukan.options[jenisPemasukan.selectedIndex].text
+                if(jenis.toLowerCase() == 'kamar'){
+                    return getSelectedSewa()
+                }
+
+                return jumlahPemasukan.value = ''
+            }
+
+            function getSelectedSewa(){
+                const idSewa = selectSewa.options[selectSewa.selectedIndex].value
+
+                $.ajax({
+                    url : "{{url('sewa/get-sewa-price')}}" + '/' + idSewa,
+                    dataType : "Json",
+                    data : {"_token": "{{ csrf_token() }}"},
+                    method : "get",
+                    success:function(data){
+                        return jumlahPemasukan.value = data.price
+                    }
+                })
+            }
+
+            
         </script>
     @endif
 @endpush

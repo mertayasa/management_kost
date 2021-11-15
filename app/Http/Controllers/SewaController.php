@@ -159,6 +159,11 @@ class SewaController extends Controller
         return $result;
     }
 
+    public function getSewaPrice(Sewa $sewa)
+    {
+        return response(['code' => 1, 'price' => $sewa->kamar->harga]);
+    }
+
     /**
      * @param \App\Http\Requests\SewaUpdateRequest $request
      * @param \App\Models\Sewa $sewa

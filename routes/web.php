@@ -156,6 +156,7 @@ Route::middleware(['auth'])->group(function () {
             Route::patch('update/{sewa}', [SewaController::class, 'update'])->name('update');
             Route::patch('keluar/update/{sewa}', [SewaController::class, 'update'])->name('keluar.update');
             Route::delete('destroy/{sewa}', [SewaController::class, 'destroy'])->name('destroy');
+            Route::get('get-sewa-price/{sewa}', [SewaController::class, 'getSewaPrice'])->name('get_sewa_price');
         // });
 
         Route::get('datatable/{status?}', [SewaController::class, 'datatable'])->name('datatable');

@@ -27,7 +27,7 @@
             @if (userRole() != 'pegawai')
                 <div class="col-lg-4 col-md-4 col-sm-12">
                     <div class="card card-statistic-2">
-                        <div class="card-icon shadow-primary bg-primary">
+                        <div class="card-icon shadow-info bg-info">
                             <i class="fas fa-wallet"></i>
                         </div>
                         <div class="card-wrap">
@@ -42,7 +42,7 @@
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-12">
                     <div class="card card-statistic-2">
-                        <div class="card-icon shadow-primary bg-primary">
+                        <div class="card-icon shadow-danger bg-danger">
                             <i class="fas fa-file-invoice-dollar"></i>
                         </div>
                         <div class="card-wrap">
@@ -57,7 +57,7 @@
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-12">
                     <div class="card card-statistic-2">
-                        <div class="card-icon shadow-primary bg-primary">
+                        <div class="card-icon shadow-success bg-success">
                             <i class="fas fa-chart-bar"></i>
                         </div>
                         <div class="card-wrap">
@@ -89,7 +89,7 @@
             </div>
             <div class="col-lg-4 col-md-4 col-sm-12">
                 <div class="card card-statistic-2">
-                    <div class="card-icon shadow-primary bg-primary">
+                    <div class="card-icon shadow-secondary bg-secondary">
                         <i class="fas fa-times"></i>
                     </div>
                     <div class="card-wrap">

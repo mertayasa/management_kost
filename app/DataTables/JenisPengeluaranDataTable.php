@@ -22,7 +22,7 @@ class JenisPengeluaranDataTable
                 return
                     '<div class="btn-group">' .
                     '<a href="' . route('jenis_pengeluaran.edit', $jenis_pengeluaran->id) . '" class="btn btn-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit" style="margin-right: 5px" >Edit</a>' .
-                    '<a href="#" onclick="deleteModel(' . $deleteUrl . ',)" class="btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Hapus" style="margin-right: 5px">Hapus</a>' .
+                    // '<a href="#" onclick="deleteModel(' . $deleteUrl . ',)" class="btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Hapus" style="margin-right: 5px">Hapus</a>' .
                     '</div>';
             })->addIndexColumn()->rawColumns(['action'])->make(true);
     }

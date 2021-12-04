@@ -26,7 +26,7 @@ class ValidasiController extends Controller
         try {
             $sewa->update([
                 'status_validasi' => $request->status,
-                'pernah_acc' => $request->status == 1 ? 1 : 0,
+                'pernah_acc' => $request->status == 1 ? 1 : $sewa->pernah_acc,
                 'alasan_ditolak' => $request->alasan
             ]);
         } catch (Exception $e) {

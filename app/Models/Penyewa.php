@@ -77,6 +77,5 @@ class Penyewa extends Model
         }
 
         return $status_sewa;
-        return end($tgl_keluar);
     }
 }

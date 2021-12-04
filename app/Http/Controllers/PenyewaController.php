@@ -113,7 +113,7 @@ class PenyewaController extends Controller
     public function destroy(Request $request, Penyewa $penyewa)
     {
         try {
-            if($penyewa->status_sewa > 0){
+            if($penyewa->sewa->count() > 0){
                 return response(['code' => 0, 'message' => 'Penyewa masih memiliki data sewa']);
             }
 

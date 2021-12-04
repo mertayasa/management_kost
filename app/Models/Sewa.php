@@ -25,6 +25,7 @@ class Sewa extends Model
         'status_validasi',
         'alasan_ditolak',
         'tgl_keluar',
+        'pernah_acc'
     ];
 
     /**

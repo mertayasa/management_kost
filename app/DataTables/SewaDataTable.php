@@ -33,14 +33,42 @@ class SewaDataTable
                 $deleteUrl = "'" . route('sewa.destroy', $sewa->id) . "', 'sewaDatatable', 'sewa'";
 
                 if (showFor(['pegawai'])) {
-                    if ($sewa->status_validasi == 1) {
-                        return '-';
+
+                    if ($sewa->pernah_acc == 1) {
+                        if($sewa->tgl_keluar == '' || $sewa->status_validasi != 1){
+                            return '<div class="btn-group">' .
+                                    '<a href="' . route('sewa.edit', $sewa->id) . '" class="btn btn-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit" style="margin-right: 5px" >Edit</a>' .
+                                    '</div>';
+                        }
+
+                        if($sewa->status_validasi == 1 && $sewa->tgl_keluar != ''){
+                            return '-';
+                        }
+
                     }
 
                     return '<div class="btn-group">' .
                         '<a href="' . route('sewa.edit', $sewa->id) . '" class="btn btn-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit" style="margin-right: 5px" >Edit</a>' .
                         '<a href="#" onclick="deleteModel(' . $deleteUrl . ',)" class="btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Hapus" style="margin-right: 5px">Hapus</a>' .
                         '</div>';
+
+
+                    // if ($sewa->status_validasi == 1 && $sewa->pernah_acc == 1 && $sewa->tgl_keluar != '') {
+                    //     return '-';
+                    // }
+
+                    // if ($sewa->pernah_acc == 0) {
+                    //     return '<div class="btn-group">' .
+                    //         '<a href="' . route('sewa.edit', $sewa->id) . '" class="btn btn-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit" style="margin-right: 5px" >Edit</a>' .
+                    //         '<a href="#" onclick="deleteModel(' . $deleteUrl . ',)" class="btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Hapus" style="margin-right: 5px">Hapus</a>' .
+                    //         '</div>';
+                    // }
+
+                    // if (($sewa->status_validasi != 1 && $sewa->pernah_acc == 1) || ($sewa->tgl_keluar == '' && $sewa->pernah_acc == 1)) {
+                    //     return '<div class="btn-group">' .
+                    //         '<a href="' . route('sewa.edit', $sewa->id) . '" class="btn btn-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit" style="margin-right: 5px" >Edit</a>' .
+                    //         '</div>';
+                    // }
                 }
 
                 if (showFor(['owner'])) {

@@ -25,13 +25,15 @@ class PenyewaSeeder extends Seeder{
                 $tanggal = $faker->dateTimeBetween(Carbon::now()->subMonth(10), Carbon::now()->subMonth(4));
     
                 $status_validasi = rand(0, 2);
+                $isi_tgl_keluar = rand(0, 1);
 
                 $sewa = new Sewa;
                 $sewa->id_kamar = $id_kamar;
                 $sewa->id_penyewa = $penyewa->id;
                 $sewa->tgl_masuk = $tanggal;
-                $sewa->tgl_keluar = null;
+                $sewa->tgl_keluar = $isi_tgl_keluar == 1 ? $faker->dateTimeBetween($tanggal, Carbon::now()->addMonth(2)) : null;
                 $sewa->status_validasi = $status_validasi;
+                $sewa->pernah_acc = $status_validasi == 1 ? 1 : rand(0,1);
                 $sewa->alasan_ditolak = $status_validasi == 2 ? $faker->text() : '';
                 $sewa->save();
                 

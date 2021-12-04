@@ -25,6 +25,10 @@ class SewaDataTable
                 return $sewa->tgl_keluar != null ? indonesianDate($sewa->tgl_keluar) : '-';
             })
 
+            ->editColumn('pernah_acc', function ($sewa) {
+                return $sewa->pernah_acc == 1 ? 'Pernah' : 'Belum';
+            })
+
             ->editColumn('status_validasi', function ($pemasukan) {
                 return getVerificationBadge($pemasukan);
             })

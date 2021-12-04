@@ -7,6 +7,7 @@
         <th>Penyewa</th>
         <th>Tanggal Masuk</th>
         <th>Tanggal Keluar</th>
+        <th>Pernah Diterima</th>
         <th>Status Validasi</th>
         @if (showFor(['pegawai']))
             <th>Aksi</th>
@@ -33,6 +34,7 @@
             {data: 'penyewa', name: 'penyewa'},
             {data: 'tgl_masuk', name: 'tgl_masuk'},
             {data: 'tgl_keluar', name: 'tgl_keluar'},
+            {data: 'pernah_acc', name: 'pernah_acc'},
             {data: 'status_validasi', name: 'status_validasi'},
         ];
 

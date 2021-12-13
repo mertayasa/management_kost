@@ -87,7 +87,7 @@
             }
 
             const optionsInOut = {
-                indexAxis: 'y',
+                indexAxis: 'x',
                 legend: {
                     display: false
                 },

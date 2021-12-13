@@ -59,7 +59,7 @@
             }
 
             const optionsInOut = {
-                indexAxis: 'y',
+                indexAxis: 'x',
                 legend: {
                     display: false
                 },
@@ -87,7 +87,8 @@
                         gridLines: {
                             display: false,
                             tickMarkLength: 15,
-                        }
+                        },
+                        display: true
                     }]
                 }
             }

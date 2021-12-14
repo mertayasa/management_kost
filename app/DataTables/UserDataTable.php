@@ -12,6 +12,10 @@ class UserDataTable
     {
         return DataTables::of($user)
             ->editColumn('level', function ($user) {
+                if(userRole($user->level) == 'owner'){
+                    return 'Eksekutif';
+                }
+                
                 return ucfirst(userRole($user->level));
             })
             ->addColumn('action', function ($user) {

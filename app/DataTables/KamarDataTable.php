@@ -2,6 +2,7 @@
 
 namespace App\DataTables;
 
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Request;
@@ -17,7 +18,10 @@ class KamarDataTable
                 return $kamar->kost->nama;
             })
             ->addColumn('status', function ($kamar) {
-                return $kamar->jumlah_sewa == 0 ? 'Kosong' : 'Isi';
+                if(array_search(Carbon::now()->format('Y-m-d'), $kamar->getTglIsi())){
+                    return 'Isi';
+                }
+                return 'Kosong';
             })
             ->editColumn('harga', function ($kamar) {
                 return formatPrice($kamar->harga);

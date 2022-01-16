@@ -5,6 +5,7 @@
         <th>Nama Kos</th>
         <th>Nomor Kamar</th>
         <th>Harga</th>
+        <th>Ketersediaan Hari Ini</th>
         @if (userRole() == 'owner')
             <th>Aksi</th>
         @endif
@@ -25,6 +26,7 @@
         {data: 'nama_kost', name: 'nama_kost'},
         {data: 'no_kamar', name: 'no_kamar'},
         {data: 'harga', name: 'harga'},
+        {data: 'status', name: 'status'},
     ]
 
     if(userRole == 'owner'){

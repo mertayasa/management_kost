@@ -5,14 +5,14 @@
     </div>
     <div class="col-12 col-md-6 pb-3 pb-md-0">
         {!! Form::label('telponUser', 'Telpon', ['class' => 'mb-1']) !!}
-        {!! Form::text('telpon', null, ['class' => 'form-control', 'id' => 'telponUser']) !!}
+        {!! Form::text('telpon', null, ['class' => 'form-control number-only', 'id' => 'telponUser']) !!}
     </div>
 </div>
 
 <div class="row mt-3">
     <div class="col-12 col-md-6">
         {!! Form::label('noKtpUser', 'No KTP', ['class' => 'mb-1']) !!}
-        {!! Form::number('no_ktp', null, ['class' => 'form-control', 'id' => 'noKtpUser']) !!}
+        {!! Form::text('no_ktp', null, ['class' => 'form-control number-only', 'id' => 'noKtpUser']) !!}
     </div>
     <div class="col-12 col-md-6 pb-3 pb-md-0">
         {!! Form::label('kelaminUser', 'Pekerjaan', ['class' => 'mb-1']) !!}
@@ -74,5 +74,14 @@
                 passWordEl.type = "password";
             }
         }
+        
+        const numberOnlyInput = document.getElementsByClassName('number-only')
+        for (let index = 0; index < numberOnlyInput.length; index++) {
+            const numberOnly = numberOnlyInput[index];
+            numberOnly.addEventListener('input', function(element){
+                element.target.value = element.target.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1')
+            })
+        }
+
     </script>
 @endpush

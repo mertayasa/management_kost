@@ -28,7 +28,7 @@ class PenyewaUpdateRequest extends FormRequest
             'alamat' => ['required', 'string'],
             'nama' => ['required', 'string', 'max:50'],
             'no_ktp' => ['required', 'string', 'max:16'],
-            'telpon' => ['required', 'string', 'max:15'],
+            'telpon' => ['required', 'string', 'max:13'],
             'alamat' => ['required', 'string'],
             'pekerjaan' => ['required', 'string'],
         ];

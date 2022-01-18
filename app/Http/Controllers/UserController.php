@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\DataTables\UserDataTable;
 use App\Http\Requests\UserStoreRequest;
+use App\Http\Requests\UserUpdateRequest;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
@@ -31,7 +32,6 @@ class UserController extends Controller{
         try{
             $data = $request->all();
             $data['password'] = bcrypt($data['password']);
-
             // $base_64_foto = json_decode($request['foto'], true);
             // $upload_image = uploadFile($base_64_foto);
 
@@ -76,7 +76,7 @@ class UserController extends Controller{
         return view('user.edit', compact('user', 'level', 'hide_level'));
     }
 
-    public function update(Request $request, User $user){
+    public function update(UserUpdateRequest $request, User $user){
         $http_referer = request()->headers->get('referer');
         try{
             $data = $request->all();
@@ -87,7 +87,7 @@ class UserController extends Controller{
                 unset($data['password']);
             }
 
-            if(str_contains($http_referer, 'profile')){
+            if(str_contains($http_referer, 'profile') || $user->level == 0){
                 unset($data['level']);
             }
 

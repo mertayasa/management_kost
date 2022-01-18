@@ -27,9 +27,10 @@ class UserStoreRequest extends FormRequest
             'nama' => ['required', 'string', 'max:50'],
             'tempat_lahir' => ['required', 'string', 'max:50'],
             'tanggal_lahir' => ['required', 'date', 'before:today'],
+            'email' => ['required', 'email', 'unique:users,email'],
             'alamat' => ['required', 'string'],
             'no_ktp' => ['required', 'string', 'max:16'],
-            'telpon' => ['required', 'string', 'max:15'],
+            'telpon' => ['required', 'string', 'max:13'],
             'level' => ['required', 'numeric', 'min:1', 'max:2'],
             'password' => ['required', 'min:6', 'confirmed']
         ];

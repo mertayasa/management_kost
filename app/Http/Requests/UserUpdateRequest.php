@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PenyewaStoreRequest extends FormRequest
+class UserUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,14 +23,21 @@ class PenyewaStoreRequest extends FormRequest
      */
     public function rules()
     {
-        return [
+        $user = $this->route('user');
+        $rules = [
             'nama' => ['required', 'string', 'max:50'],
+            'tempat_lahir' => ['required', 'string', 'max:50'],
+            'tanggal_lahir' => ['required', 'date', 'before:today'],
+            'email' => ['required', 'email', 'unique:users,email,'.$user->id],
             'alamat' => ['required', 'string'],
-            'nama' => ['required', 'string', 'max:50'],
             'no_ktp' => ['required', 'string', 'max:16'],
             'telpon' => ['required', 'string', 'max:13'],
-            'alamat' => ['required', 'string'],
-            'pekerjaan' => ['required', 'string']
         ];
+        
+        if($this->request->all()['password'] != null){
+            $rules += ['password' => ['required', 'min:6', 'confirmed']];
+        };
+
+        return $rules;
     }
 }

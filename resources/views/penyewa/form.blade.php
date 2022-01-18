@@ -5,14 +5,14 @@
     </div>
     <div class="col-12 col-md-6 pb-3 pb-md-0">
         {!! Form::label('telponPenyewa', 'Telpon', ['class' => 'mb-1']) !!}
-        {!! Form::text('telpon', null, ['class' => 'form-control', 'id' => 'telponPenyewa']) !!}
+        {!! Form::text('telpon', null, ['class' => 'form-control number-only', 'id' => 'telponPenyewa']) !!}
     </div>
 </div>
 
 <div class="row mt-3">
     <div class="col-12 col-md-6">
         {!! Form::label('noKtpPenyewa', 'No KTP', ['class' => 'mb-1']) !!}
-        {!! Form::number('no_ktp', null, ['class' => 'form-control', 'id' => 'noKtpPenyewa']) !!}
+        {!! Form::text('no_ktp', null, ['class' => 'form-control number-only', 'id' => 'noKtpPenyewa']) !!}
     </div>
     <div class="col-12 col-md-6 pb-3 pb-md-0">
         {!! Form::label('pekerjaanPenyewa', 'Pekerjaan', ['class' => 'mb-1']) !!}

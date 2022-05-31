@@ -1,11 +1,10 @@
 <div class="main-sidebar">
     <aside id="sidebar-wrapper">
-      <div class="sidebar-brand">
+      <!-- <div class="sidebar-brand">
         {{-- <a href="index.html">Management Kos</a> --}}
         {{-- <p class="text-center mb-0">Hi, {{Auth::user()->nama}}</p>
         <p class="text-center mb-0">Login sebagai <b> {{userRole()}} </b></p> --}}
- <!-- <img class="img-fluid" src="{{asset('images/logo.jpeg')}}" alt="Responsive image" width="150" height="150"> -->
-      </div>
+      </div> -->
       {{-- <hr> --}}
       <div class="sidebar-brand sidebar-brand-sm">
         {{-- <a href="index.html">KOST</a> --}}
